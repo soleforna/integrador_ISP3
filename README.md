@@ -1,3 +1,7 @@
 # integrador_ISP3
 
-Repositorio anterior: https://github.com/soleforna/integrador_ISP2.git
+
+
+[Documentación IEEE](https://docs.google.com/document/d/1Hdg9tdO2m82CPUb4yeacKEysj6ENit2bgg0CCKOWZOE/edit?usp=sharing)
+
+
