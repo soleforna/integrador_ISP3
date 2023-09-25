@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PassKeeper</string>
+    <string name="log_in">Iniciar Sesión</string>
+    <string name="button">Iniciar Sesión</string>
+    <string name="register">Registrarse</string>
+        <string name="correo">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="password2">Repetir Contraseña</string>
+
+
+
+</resources>
