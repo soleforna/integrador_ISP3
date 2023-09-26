@@ -5,10 +5,9 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
         <item name="cardViewStyle">@style/CardViewNoBorder</item>
+
     </style>
  <style name="CardViewNoBorder" parent="CardView">
-
-        <item name="cardBackgroundColor">@color/white</item>
     </style>
     <style name="Theme.PassKeeper" parent="Base.Theme.PassKeeper" />
 </resources>

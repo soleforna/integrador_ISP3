@@ -29,18 +29,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="35dp"
         android:layout_marginBottom="16dp" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="327dp"
-        android:layout_height="399dp"
+        android:layout_height="430dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/white"
         app:cardCornerRadius="30dp"
-        app:cardElevation="9dp"
+        app:cardElevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,8 +77,8 @@
         </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
-            android:layout_width="304dp"
-            android:layout_height="190dp"
+            android:layout_width="300dp"
+            android:layout_height="173dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="150dp"
             android:layout_marginEnd="16dp"
@@ -97,16 +97,17 @@
                 app:boxCornerRadiusTopEnd="25dp"
                 app:boxCornerRadiusTopStart="25dp"
                 app:boxStrokeColor="@color/greyLigth"
+                app:hintTextColor="@color/greyLigth"
                 app:startIconContentDescription="Correo icon"
                 app:startIconDrawable="@drawable/correo"
-                app:startIconTint="@color/greyLigth"
-              >
+                app:startIconTint="@color/greyLigth">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:textColor="@color/greyLigth"
                     app:hintTextColor="@color/greyLigth" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,8 +126,10 @@
                 app:boxStrokeColor="@color/greyLigth"
                 app:counterEnabled="true"
                 app:counterMaxLength="20"
-                app:errorEnabled="true"
                 app:endIconMode="password_toggle"
+                app:endIconTint="@color/grey"
+                app:errorEnabled="true"
+                app:hintTextColor="@color/greyLigth"
                 app:startIconContentDescription="Lock icon"
                 app:startIconDrawable="@drawable/lock_solid"
                 app:startIconTint="@color/greyLigth">
@@ -135,7 +138,8 @@
                     android:id="@+id/editPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:textColor="@color/greyLigth" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -143,8 +147,8 @@
             android:id="@+id/linkRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="350dp"
             android:layout_marginLeft="160dp"
+            android:layout_marginTop="350dp"
             android:text="No estas registrado?"
             android:textColor="@color/blue"
             app:layout_constraintBottom_toTopOf="@+id/materialButton"
@@ -155,24 +159,23 @@
     </com.google.android.material.card.MaterialCardView>
 
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/materialButton"
         style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="222dp"
-        android:layout_height="60dp"
+        android:layout_width="231dp"
+        android:layout_height="61dp"
         android:layout_marginTop="373dp"
         android:backgroundTint="@color/blue"
-        app:cardElevation="15dp"
         android:text="@string/log_in"
         android:textColor="@color/white"
+        app:cardElevation="15dp"
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.21"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
