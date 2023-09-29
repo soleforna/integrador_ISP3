@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-<<<<<<< HEAD
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -247,8 +246,5 @@
 
 
 
-=======
-    android:layout_height="match_parent">
->>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 
 </androidx.constraintlayout.widget.ConstraintLayout>

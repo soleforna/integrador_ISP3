@@ -1,0 +1,3 @@
+com.rocketteam.passkeeper.test
+style WhiteBackgroundDialogTheme
+style WhiteBackgroundTheme

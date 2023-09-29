@@ -4,11 +4,7 @@
             "outputFile": "com.rocketteam.passkeeper.app-mergeDebugResources-26:/values-v25/values-v25.xml",
             "map": [
                 {
-<<<<<<< HEAD
                     "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-3\\af575453595166fed38ef613cf3573b3\\transformed\\appcompat-1.6.1\\res\\values-v25\\values-v25.xml",
-=======
-                    "source": "C:\\Users\\Vale\\.gradle\\caches\\transforms-3\\af575453595166fed38ef613cf3573b3\\transformed\\appcompat-1.6.1\\res\\values-v25\\values-v25.xml",
->>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
                     "from": {
                         "startLines": "2,3,4,6",
                         "startColumns": "4,4,4,4",

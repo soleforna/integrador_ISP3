@@ -4,28 +4,7 @@
             "outputFile": "com.rocketteam.passkeeper.app-mergeDebugResources-26:/values-az/values-az.xml",
             "map": [
                 {
-<<<<<<< HEAD
                     "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-3\\e5f321a248aa217236dda4759916dcd9\\transformed\\material-1.9.0\\res\\values-az\\values-az.xml",
-=======
-                    "source": "C:\\Users\\Vale\\.gradle\\caches\\transforms-3\\28a7af075d5af218c19b63a2f54b1523\\transformed\\core-1.9.0\\res\\values-az\\values-az.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "100",
-                        "endOffsets": "151"
-                    },
-                    "to": {
-                        "startLines": "96",
-                        "startColumns": "4",
-                        "startOffsets": "7960",
-                        "endColumns": "100",
-                        "endOffsets": "8056"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Vale\\.gradle\\caches\\transforms-3\\e5f321a248aa217236dda4759916dcd9\\transformed\\material-1.9.0\\res\\values-az\\values-az.xml",
->>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
                     "from": {
                         "startLines": "2,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -44,11 +23,7 @@
                     }
                 },
                 {
-<<<<<<< HEAD
                     "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-3\\af575453595166fed38ef613cf3573b3\\transformed\\appcompat-1.6.1\\res\\values-az\\values-az.xml",
-=======
-                    "source": "C:\\Users\\Vale\\.gradle\\caches\\transforms-3\\af575453595166fed38ef613cf3573b3\\transformed\\appcompat-1.6.1\\res\\values-az\\values-az.xml",
->>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -63,7 +38,6 @@
                         "endColumns": "109,100,109,87,106,113,81,77,90,92,93,98,99,92,94,93,90,91,84,104,105,99,108,104,101,157,105,83",
                         "endOffsets": "420,521,631,719,826,940,1022,1100,1191,1284,1378,1477,1577,1670,1765,1859,1950,2042,2127,2232,2338,2438,2547,2652,2754,2912,3018,7955"
                     }
-<<<<<<< HEAD
                 },
                 {
                     "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-3\\28a7af075d5af218c19b63a2f54b1523\\transformed\\core-1.9.0\\res\\values-az\\values-az.xml",
@@ -81,8 +55,6 @@
                         "endColumns": "100",
                         "endOffsets": "8056"
                     }
-=======
->>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
                 }
             ]
         }
