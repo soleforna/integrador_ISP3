@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="blue">#096CB5</color>
+    <color name="grey">#515050</color>
+    <color name="greyLigth">#8C8787</color>
+    <color name="transparentColor">#00FFFFFF</color>
+    <color name="white">#FFFFFFFF</color>
+    <item name="cardViewReg" type="id"/>
+    <string name="app_name">PassKeeper</string>
+    <string name="btn_back"/>
+    <string name="btn_register">Registrarse</string>
+    <string name="button">Iniciar Sesión</string>
+    <string name="correo">Correo</string>
+    <string name="log_in">Iniciar Sesión</string>
+    <string name="password">Contraseña</string>
+    <string name="password2">Repetir Contraseña</string>
+    <string name="register">Registrarse</string>
+    <style name="Base.Theme.PassKeeper" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+
+        <item name="cardViewStyle">@style/CardViewNoBorder</item>
+
+    </style>
+    <style name="CardViewNoBorder" parent="CardView">
+    </style>
+    <style name="Theme.PassKeeper" parent="Base.Theme.PassKeeper"/>
+</resources>

@@ -24,6 +24,8 @@
         <activity android:name=".RegisterActivity">
 
 </activity>
+
+
     </application>
 
 </manifest>
