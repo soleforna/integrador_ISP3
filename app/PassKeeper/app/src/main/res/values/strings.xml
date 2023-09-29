@@ -5,14 +5,17 @@
     <string name="register">Registrarse</string>
         <string name="correo">Correo</string>
     <string name="password">Contraseña</string>
-
-
-    <!-- Usados exclusivamente en el registro-->
-    <string name="btn_register">Registrarse</string>
-    <string name="btn_back"></string>
     <string name="password2">Repetir Contraseña</string>
 
 
 
+
+
+
+
+
+    <!-- Usados exclusivamente en el registro -->
+    <string name="btn_register">Registrarse</string>
+    <string name="btn_back"></string>
 
 </resources>
