@@ -9,87 +9,88 @@
 9        android:targetSdkVersion="33" />
 10
 11    <permission
-11-->[androidx.core:core:1.9.0] C:\Users\Vale\.gradle\caches\transforms-3\28a7af075d5af218c19b63a2f54b1523\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+11-->[androidx.core:core:1.9.0] C:\Users\Usuario\.gradle\caches\transforms-3\28a7af075d5af218c19b63a2f54b1523\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
 12        android:name="com.rocketteam.passkeeper.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-12-->[androidx.core:core:1.9.0] C:\Users\Vale\.gradle\caches\transforms-3\28a7af075d5af218c19b63a2f54b1523\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+12-->[androidx.core:core:1.9.0] C:\Users\Usuario\.gradle\caches\transforms-3\28a7af075d5af218c19b63a2f54b1523\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
 13        android:protectionLevel="signature" />
-13-->[androidx.core:core:1.9.0] C:\Users\Vale\.gradle\caches\transforms-3\28a7af075d5af218c19b63a2f54b1523\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+13-->[androidx.core:core:1.9.0] C:\Users\Usuario\.gradle\caches\transforms-3\28a7af075d5af218c19b63a2f54b1523\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
 14
 15    <uses-permission android:name="com.rocketteam.passkeeper.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-15-->[androidx.core:core:1.9.0] C:\Users\Vale\.gradle\caches\transforms-3\28a7af075d5af218c19b63a2f54b1523\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
-15-->[androidx.core:core:1.9.0] C:\Users\Vale\.gradle\caches\transforms-3\28a7af075d5af218c19b63a2f54b1523\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+15-->[androidx.core:core:1.9.0] C:\Users\Usuario\.gradle\caches\transforms-3\28a7af075d5af218c19b63a2f54b1523\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+15-->[androidx.core:core:1.9.0] C:\Users\Usuario\.gradle\caches\transforms-3\28a7af075d5af218c19b63a2f54b1523\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 16
 17    <application
-17-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:5:5-28:19
+17-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:5:5-32:19
 18        android:allowBackup="true"
-18-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:6:9-35
+18-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:6:9-35
 19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-19-->[androidx.core:core:1.9.0] C:\Users\Vale\.gradle\caches\transforms-3\28a7af075d5af218c19b63a2f54b1523\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+19-->[androidx.core:core:1.9.0] C:\Users\Usuario\.gradle\caches\transforms-3\28a7af075d5af218c19b63a2f54b1523\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 20        android:dataExtractionRules="@xml/data_extraction_rules"
-20-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:7:9-65
+20-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:7:9-65
 21        android:debuggable="true"
 22        android:extractNativeLibs="false"
 23        android:fullBackupContent="@xml/backup_rules"
-23-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:8:9-54
+23-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:8:9-54
 24        android:icon="@mipmap/ic_passkeeper_launcher"
-24-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:9:9-54
+24-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:9:9-54
 25        android:label="@string/app_name"
-25-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:10:9-41
+25-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:10:9-41
 26        android:roundIcon="@mipmap/ic_passkeeper_launcher_round"
-26-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:11:9-65
+26-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:11:9-65
 27        android:supportsRtl="true"
-27-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:12:9-35
+27-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:12:9-35
 28        android:testOnly="true"
 29        android:theme="@style/Theme.PassKeeper" >
-29-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:13:9-48
+29-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:13:9-48
 30        <activity
-30-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:15:9-17:40
+30-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:15:9-17:40
 31            android:name="com.rocketteam.passkeeper.GuardarPassword.Agregar_Password"
-31-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:16:13-61
+31-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:16:13-61
 32            android:exported="false" />
-32-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:17:13-37
+32-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:17:13-37
 33        <activity
-33-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:18:9-26:20
+33-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:18:9-26:20
 34            android:name="com.rocketteam.passkeeper.MainActivity"
-34-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:19:13-41
+34-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:19:13-41
 35            android:exported="true" >
-35-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:20:13-36
+35-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:20:13-36
 36            <intent-filter>
-36-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:21:13-25:29
+36-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:21:13-25:29
 37                <action android:name="android.intent.action.MAIN" />
-37-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:22:17-69
-37-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:22:25-66
+37-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:22:17-69
+37-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:22:25-66
 38
 39                <category android:name="android.intent.category.LAUNCHER" />
-39-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:24:17-77
-39-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:24:27-74
+39-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:24:17-77
+39-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:24:27-74
 40            </intent-filter>
 41        </activity>
-42        <activity android:name="com.rocketteam.passkeeper.RegisterActivity" />
-42-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:27:9-63
-42-->C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:27:19-51
-43
-44        <provider
-44-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vale\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-45            android:name="androidx.startup.InitializationProvider"
-45-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vale\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
-46            android:authorities="com.rocketteam.passkeeper.androidx-startup"
-46-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vale\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
-47            android:exported="false" >
-47-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vale\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
-48            <meta-data
-48-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vale\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-49                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-49-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vale\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
-50                android:value="androidx.startup" />
-50-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Vale\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
-51            <meta-data
-51-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Vale\.gradle\caches\transforms-3\4eb4b953398cff91e70e367f7f0f5a04\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
-52                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-52-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Vale\.gradle\caches\transforms-3\4eb4b953398cff91e70e367f7f0f5a04\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
-53                android:value="androidx.startup" />
-53-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Vale\.gradle\caches\transforms-3\4eb4b953398cff91e70e367f7f0f5a04\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
-54        </provider>
-55    </application>
-56
-57</manifest>
+42        <activity android:name="com.rocketteam.passkeeper.RegisterActivity" >
+42-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:28:9-30:12
+42-->F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\AndroidManifest.xml:28:19-51
+43        </activity>
+44
+45        <provider
+45-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Usuario\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+46            android:name="androidx.startup.InitializationProvider"
+46-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Usuario\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+47            android:authorities="com.rocketteam.passkeeper.androidx-startup"
+47-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Usuario\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+48            android:exported="false" >
+48-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Usuario\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+49            <meta-data
+49-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Usuario\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+50                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+50-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Usuario\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+51                android:value="androidx.startup" />
+51-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Usuario\.gradle\caches\transforms-3\9ec162b5cb5dad7a953e18733a42dbca\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+52            <meta-data
+52-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Usuario\.gradle\caches\transforms-3\4eb4b953398cff91e70e367f7f0f5a04\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+53                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+53-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Usuario\.gradle\caches\transforms-3\4eb4b953398cff91e70e367f7f0f5a04\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+54                android:value="androidx.startup" />
+54-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Usuario\.gradle\caches\transforms-3\4eb4b953398cff91e70e367f7f0f5a04\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+55        </provider>
+56    </application>
+57
+58</manifest>

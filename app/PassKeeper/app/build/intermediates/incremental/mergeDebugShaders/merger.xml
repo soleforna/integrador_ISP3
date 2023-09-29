@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
+<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\main\shaders"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="F:\Proyectos\ISPC proyecto\integrador_ISP3\app\PassKeeper\app\src\debug\shaders"/></dataSet></merger>
+=======
 <merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\main\shaders"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="C:\Users\Vale\Desktop\integrador_ISP3\app\PassKeeper\app\src\debug\shaders"/></dataSet></merger>
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc

@@ -39,7 +39,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.rocketteam.passkeeper.RegisterActivity" />
+        <activity android:name="com.rocketteam.passkeeper.RegisterActivity" >
+        </activity>
 
         <provider
             android:name="androidx.startup.InitializationProvider"
