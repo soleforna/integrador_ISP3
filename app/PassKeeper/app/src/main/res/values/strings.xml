@@ -3,10 +3,17 @@
     <string name="log_in">Iniciar Sesión</string>
     <string name="button">Iniciar Sesión</string>
     <string name="register">Registrarse</string>
-        <string name="correo">Correo</string>
+    <string name="correo">Correo</string>
     <string name="password">Contraseña</string>
     <string name="password2">Repetir Contraseña</string>
 
+    <!--Guardar Contraseña-->
+    <string name="guardar_password">Guardar Contraseña</string>
+    <string name="nombre">Nombre</string>
+    <string name="usuario">Usuario</string>
+    <string name="url">Url</string>
+    <string name="descripcion">Descripción</string>
+    <string name="boton_guardar">Guardar</string>
 
 
 </resources>
