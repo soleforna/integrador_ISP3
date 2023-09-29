@@ -1335,7 +1335,10 @@ int color background_floating_material_dark 0x7f05001d
 int color background_floating_material_light 0x7f05001e
 int color background_material_dark 0x7f05001f
 int color background_material_light 0x7f050020
+<<<<<<< HEAD
 int color black 0x7f0502e9
+=======
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int color blue 0x7f050021
 int color bright_foreground_disabled_material_dark 0x7f050022
 int color bright_foreground_disabled_material_light 0x7f050023
@@ -1399,6 +1402,10 @@ int color grey 0x7f05005c
 int color greyLigth 0x7f05005d
 int color highlighted_text_material_dark 0x7f05005e
 int color highlighted_text_material_light 0x7f05005f
+<<<<<<< HEAD
+=======
+int color ic_passkeeper_launcher_background 0x7f0502e9
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int color m3_appbar_overlay_color 0x7f050060
 int color m3_assist_chip_icon_tint_color 0x7f050061
 int color m3_assist_chip_stroke_color 0x7f050062
@@ -2915,11 +2922,19 @@ int drawable btn_radio_off_to_on_mtrl_animation 0x7f070081
 int drawable btn_radio_on_mtrl 0x7f070082
 int drawable btn_radio_on_to_off_mtrl_animation 0x7f070083
 int drawable correo 0x7f070084
+<<<<<<< HEAD
+=======
+int drawable descripcion 0x7f0700e4
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int drawable design_fab_background 0x7f070085
 int drawable design_ic_visibility 0x7f070086
 int drawable design_ic_visibility_off 0x7f070087
 int drawable design_password_eye 0x7f070088
 int drawable design_snackbar_background 0x7f070089
+<<<<<<< HEAD
+=======
+int drawable globe 0x7f0700e5
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int drawable ic_arrow_back_black_24 0x7f07008a
 int drawable ic_clear_black_24 0x7f07008b
 int drawable ic_clock_black_24dp 0x7f07008c
@@ -3010,6 +3025,10 @@ int drawable notify_panel_notification_icon_bg 0x7f0700e0
 int drawable test_level_drawable 0x7f0700e1
 int drawable tooltip_frame_dark 0x7f0700e2
 int drawable tooltip_frame_light 0x7f0700e3
+<<<<<<< HEAD
+=======
+int drawable url 0x7f0700e6
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int id ALT 0x7f080000
 int id BOTTOM_END 0x7f080001
 int id BOTTOM_START 0x7f080002
@@ -3103,20 +3122,31 @@ int id beginOnFirstDraw 0x7f080059
 int id beginning 0x7f08005a
 int id bestChoice 0x7f08005b
 int id blocking 0x7f08005c
+<<<<<<< HEAD
+=======
+int id botonLogInGuardar 0x7f0801f8
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int id bottom 0x7f08005d
 int id bounce 0x7f08005e
 int id bounceBoth 0x7f08005f
 int id bounceEnd 0x7f080060
 int id bounceStart 0x7f080061
+<<<<<<< HEAD
 int id btn_home 0x7f080205
+=======
+int id btnGuardarPassword 0x7f0801f9
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int id buttonPanel 0x7f080062
 int id cache_measures 0x7f080063
 int id callMeasure 0x7f080064
 int id cancel_button 0x7f080065
 int id cardView 0x7f080066
 int id cardView2 0x7f080067
+<<<<<<< HEAD
 int id cardViewReg 0x7f0801f8
 int id cardViewReg2 0x7f0801f9
+=======
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int id carryVelocity 0x7f080068
 int id center 0x7f080069
 int id centerCrop 0x7f08006a
@@ -3187,10 +3217,19 @@ int id easeOut 0x7f0800aa
 int id east 0x7f0800ab
 int id edge 0x7f0800ac
 int id editPassword 0x7f0800ad
+<<<<<<< HEAD
 int id editPasswordReg 0x7f0801fb
 int id editPasswordReg2 0x7f080200
 int id editTextUsername 0x7f0800ae
 int id editTextUsernameReg 0x7f0801fc
+=======
+int id editTextDescripcion 0x7f0801fa
+int id editTextName 0x7f0801fb
+int id editTextPassword 0x7f0801fc
+int id editTextUrl 0x7f0801fd
+int id editTextUsername 0x7f0800ae
+int id editTextUsuario 0x7f0801fe
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int id edit_query 0x7f0800af
 int id elastic 0x7f0800b0
 int id embed 0x7f0800b1
@@ -3256,7 +3295,10 @@ int id legacy 0x7f0800ec
 int id line1 0x7f0800ed
 int id line3 0x7f0800ee
 int id linear 0x7f0800ef
+<<<<<<< HEAD
 int id linkLogin 0x7f080202
+=======
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int id linkRegister 0x7f0800f0
 int id listMode 0x7f0800f1
 int id list_item 0x7f0800f2
@@ -3266,8 +3308,11 @@ int id masked 0x7f0800f5
 int id match_constraint 0x7f0800f6
 int id match_parent 0x7f0800f7
 int id materialButton 0x7f0800f8
+<<<<<<< HEAD
 int id materialButtonLogin 0x7f080203
 int id materialButtonRegistrar 0x7f080204
+=======
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int id material_clock_display 0x7f0800f9
 int id material_clock_display_and_toggle 0x7f0800fa
 int id material_clock_face 0x7f0800fb
@@ -3468,15 +3513,24 @@ int id text2 0x7f0801bd
 int id textEnd 0x7f0801be
 int id textInputLayout 0x7f0801bf
 int id textInputLayout2 0x7f0801c0
+<<<<<<< HEAD
 int id textInputLayout2Reg 0x7f0801fd
 int id textInputLayout2Reg2 0x7f080201
 int id textInputLayoutReg 0x7f0801fe
+=======
+int id textInputLayout3 0x7f0801ff
+int id textInputLayout4 0x7f080200
+int id textInputLayout5 0x7f080201
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int id textSpacerNoButtons 0x7f0801c1
 int id textSpacerNoTitle 0x7f0801c2
 int id textStart 0x7f0801c3
 int id textTitle 0x7f0801c4
 int id textTitle2 0x7f0801c5
+<<<<<<< HEAD
 int id textTitleReg 0x7f0801ff
+=======
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int id textTop 0x7f0801c6
 int id text_input_end_icon 0x7f0801c7
 int id text_input_error_icon 0x7f0801c8
@@ -3640,6 +3694,10 @@ int layout abc_search_dropdown_item_icons_2line 0x7f0b0018
 int layout abc_search_view 0x7f0b0019
 int layout abc_select_dialog_material 0x7f0b001a
 int layout abc_tooltip 0x7f0b001b
+<<<<<<< HEAD
+=======
+int layout activity_agregar_password 0x7f0b006b
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int layout activity_main 0x7f0b001c
 int layout activity_register 0x7f0b001d
 int layout custom_dialog 0x7f0b001e
@@ -3721,6 +3779,12 @@ int layout select_dialog_singlechoice_material 0x7f0b0069
 int layout support_simple_spinner_dropdown_item 0x7f0b006a
 int mipmap ic_launcher 0x7f0d0000
 int mipmap ic_launcher_round 0x7f0d0001
+<<<<<<< HEAD
+=======
+int mipmap ic_passkeeper_launcher 0x7f0d0002
+int mipmap ic_passkeeper_launcher_foreground 0x7f0d0003
+int mipmap ic_passkeeper_launcher_round 0x7f0d0004
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int plurals mtrl_badge_content_description 0x7f0e0000
 int string abc_action_bar_home_description 0x7f0f0000
 int string abc_action_bar_up_description 0x7f0f0001
@@ -3752,25 +3816,40 @@ int string abc_toolbar_collapse_description 0x7f0f001a
 int string androidx_startup 0x7f0f001b
 int string app_name 0x7f0f001c
 int string appbar_scrolling_view_behavior 0x7f0f001d
+<<<<<<< HEAD
+=======
+int string boton_guardar 0x7f0f00a5
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int string bottom_sheet_behavior 0x7f0f001e
 int string bottomsheet_action_collapse 0x7f0f001f
 int string bottomsheet_action_expand 0x7f0f0020
 int string bottomsheet_action_expand_halfway 0x7f0f0021
 int string bottomsheet_drag_handle_clicked 0x7f0f0022
 int string bottomsheet_drag_handle_content_description 0x7f0f0023
+<<<<<<< HEAD
 int string btn_back 0x7f0f00aa
 int string btn_register 0x7f0f00a9
+=======
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int string button 0x7f0f0024
 int string character_counter_content_description 0x7f0f0025
 int string character_counter_overflowed_content_description 0x7f0f0026
 int string character_counter_pattern 0x7f0f0027
 int string clear_text_end_icon_content_description 0x7f0f0028
 int string correo 0x7f0f0029
+<<<<<<< HEAD
+=======
+int string descripcion 0x7f0f00a6
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int string error_a11y_label 0x7f0f002a
 int string error_icon_content_description 0x7f0f002b
 int string exposed_dropdown_menu_content_description 0x7f0f002c
 int string fab_transformation_scrim_behavior 0x7f0f002d
 int string fab_transformation_sheet_behavior 0x7f0f002e
+<<<<<<< HEAD
+=======
+int string guardar_password 0x7f0f00a7
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int string hide_bottom_view_on_scroll_behavior 0x7f0f002f
 int string icon_content_description 0x7f0f0030
 int string item_view_role_description 0x7f0f0031
@@ -3874,6 +3953,10 @@ int string mtrl_switch_track_decoration_path 0x7f0f0092
 int string mtrl_switch_track_path 0x7f0f0093
 int string mtrl_timepicker_cancel 0x7f0f0094
 int string mtrl_timepicker_confirm 0x7f0f0095
+<<<<<<< HEAD
+=======
+int string nombre 0x7f0f00a8
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int string password 0x7f0f0096
 int string password2 0x7f0f0097
 int string password_toggle_content_description 0x7f0f0098
@@ -3889,6 +3972,11 @@ int string searchview_navigation_content_description 0x7f0f00a1
 int string side_sheet_accessibility_pane_title 0x7f0f00a2
 int string side_sheet_behavior 0x7f0f00a3
 int string status_bar_notification_info_overflow 0x7f0f00a4
+<<<<<<< HEAD
+=======
+int string url 0x7f0f00a9
+int string usuario 0x7f0f00aa
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 int style AlertDialog_AppCompat 0x7f100000
 int style AlertDialog_AppCompat_Light 0x7f100001
 int style Animation_AppCompat_Dialog 0x7f100002

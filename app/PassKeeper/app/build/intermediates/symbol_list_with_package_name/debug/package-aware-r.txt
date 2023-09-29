@@ -1336,7 +1336,10 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
+<<<<<<< HEAD
 color black
+=======
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 color blue
 color bright_foreground_disabled_material_dark
 color bright_foreground_disabled_material_light
@@ -1400,6 +1403,10 @@ color grey
 color greyLigth
 color highlighted_text_material_dark
 color highlighted_text_material_light
+<<<<<<< HEAD
+=======
+color ic_passkeeper_launcher_background
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 color m3_appbar_overlay_color
 color m3_assist_chip_icon_tint_color
 color m3_assist_chip_stroke_color
@@ -2916,11 +2923,19 @@ drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
 drawable correo
+<<<<<<< HEAD
+=======
+drawable descripcion
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 drawable design_fab_background
 drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+<<<<<<< HEAD
+=======
+drawable globe
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 drawable ic_arrow_back_black_24
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
@@ -3011,6 +3026,10 @@ drawable notify_panel_notification_icon_bg
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+<<<<<<< HEAD
+=======
+drawable url
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -3104,20 +3123,31 @@ id beginOnFirstDraw
 id beginning
 id bestChoice
 id blocking
+<<<<<<< HEAD
+=======
+id botonLogInGuardar
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 id bottom
 id bounce
 id bounceBoth
 id bounceEnd
 id bounceStart
+<<<<<<< HEAD
 id btn_home
+=======
+id btnGuardarPassword
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 id buttonPanel
 id cache_measures
 id callMeasure
 id cancel_button
 id cardView
 id cardView2
+<<<<<<< HEAD
 id cardViewReg
 id cardViewReg2
+=======
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 id carryVelocity
 id center
 id centerCrop
@@ -3188,10 +3218,19 @@ id easeOut
 id east
 id edge
 id editPassword
+<<<<<<< HEAD
 id editPasswordReg
 id editPasswordReg2
 id editTextUsername
 id editTextUsernameReg
+=======
+id editTextDescripcion
+id editTextName
+id editTextPassword
+id editTextUrl
+id editTextUsername
+id editTextUsuario
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 id edit_query
 id elastic
 id embed
@@ -3257,7 +3296,10 @@ id legacy
 id line1
 id line3
 id linear
+<<<<<<< HEAD
 id linkLogin
+=======
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 id linkRegister
 id listMode
 id list_item
@@ -3267,8 +3309,11 @@ id masked
 id match_constraint
 id match_parent
 id materialButton
+<<<<<<< HEAD
 id materialButtonLogin
 id materialButtonRegistrar
+=======
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 id material_clock_display
 id material_clock_display_and_toggle
 id material_clock_face
@@ -3469,15 +3514,24 @@ id text2
 id textEnd
 id textInputLayout
 id textInputLayout2
+<<<<<<< HEAD
 id textInputLayout2Reg
 id textInputLayout2Reg2
 id textInputLayoutReg
+=======
+id textInputLayout3
+id textInputLayout4
+id textInputLayout5
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
 id textTitle
 id textTitle2
+<<<<<<< HEAD
 id textTitleReg
+=======
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 id textTop
 id text_input_end_icon
 id text_input_error_icon
@@ -3641,6 +3695,10 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+<<<<<<< HEAD
+=======
+layout activity_agregar_password
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 layout activity_main
 layout activity_register
 layout custom_dialog
@@ -3722,6 +3780,12 @@ layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 mipmap ic_launcher
 mipmap ic_launcher_round
+<<<<<<< HEAD
+=======
+mipmap ic_passkeeper_launcher
+mipmap ic_passkeeper_launcher_foreground
+mipmap ic_passkeeper_launcher_round
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 plurals mtrl_badge_content_description
 string abc_action_bar_home_description
 string abc_action_bar_up_description
@@ -3753,25 +3817,40 @@ string abc_toolbar_collapse_description
 string androidx_startup
 string app_name
 string appbar_scrolling_view_behavior
+<<<<<<< HEAD
+=======
+string boton_guardar
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 string bottom_sheet_behavior
 string bottomsheet_action_collapse
 string bottomsheet_action_expand
 string bottomsheet_action_expand_halfway
 string bottomsheet_drag_handle_clicked
 string bottomsheet_drag_handle_content_description
+<<<<<<< HEAD
 string btn_back
 string btn_register
+=======
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 string button
 string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
 string clear_text_end_icon_content_description
 string correo
+<<<<<<< HEAD
+=======
+string descripcion
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 string error_a11y_label
 string error_icon_content_description
 string exposed_dropdown_menu_content_description
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
+<<<<<<< HEAD
+=======
+string guardar_password
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
 string item_view_role_description
@@ -3875,6 +3954,10 @@ string mtrl_switch_track_decoration_path
 string mtrl_switch_track_path
 string mtrl_timepicker_cancel
 string mtrl_timepicker_confirm
+<<<<<<< HEAD
+=======
+string nombre
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 string password
 string password2
 string password_toggle_content_description
@@ -3890,6 +3973,11 @@ string searchview_navigation_content_description
 string side_sheet_accessibility_pane_title
 string side_sheet_behavior
 string status_bar_notification_info_overflow
+<<<<<<< HEAD
+=======
+string url
+string usuario
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog

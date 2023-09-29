@@ -4,7 +4,11 @@
             "outputFile": "com.rocketteam.passkeeper.app-mergeDebugResources-26:/values-h550dp-port-v13/values-h550dp-port-v13.xml",
             "map": [
                 {
+<<<<<<< HEAD
                     "source": "C:\\Users\\Usuario\\.gradle\\caches\\transforms-3\\e5f321a248aa217236dda4759916dcd9\\transformed\\material-1.9.0\\res\\values-h550dp-port-v13\\values-h550dp-port-v13.xml",
+=======
+                    "source": "C:\\Users\\Vale\\.gradle\\caches\\transforms-3\\e5f321a248aa217236dda4759916dcd9\\transformed\\material-1.9.0\\res\\values-h550dp-port-v13\\values-h550dp-port-v13.xml",
+>>>>>>> cb43f1603a4026d939fe751d295e7ab87e6c15fc
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
