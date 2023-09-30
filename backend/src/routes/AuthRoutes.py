@@ -1,3 +1,4 @@
+# Importamos las clases y funciones necesarias
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from util.JwtUtil import JwtUtil
@@ -7,17 +8,20 @@ from entities.User import User
 # Modelos
 from services.UserService import UserService
 
+# Creamos el blueprint para las rutas de autenticación
 auth_routes = Blueprint('auth_blueprint', __name__)
 
 @auth_routes.route('/register', methods=['POST'])
 def create_user():
+    # Obtenemos los datos del usuario desde la solicitud
     data = request.json
-    #Si no se envia request
+    # Verificamos si se proporcionaron datos válidos en la solicitud
     if not data:
         return jsonify({'error': 'No se proporcionaron datos válidos en la solicitud'}), 400
     else:
-        # Crea una instancia de la clase User con los datos proporcionados
+        # Creamos una instancia de la clase User con los datos proporcionados
         user = User(data['email'], data['password'])
+    # Intentamos registrar al usuario
     try:
         user_add = UserService.sing_up(user)
         return jsonify({'token': JwtUtil.generate_jwt_token(user_add)}), 201
