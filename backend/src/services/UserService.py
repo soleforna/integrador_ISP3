@@ -65,10 +65,12 @@ class UserService():
     def update_user_password(cls, id, pwd):
         try:
             conn = get_connection()
+            # Encriptar la contraseña antes de insertar en la base de datos
+            password = EncryptionService.encrypt_field(pwd)
             with conn.cursor() as cursor:
                 cursor.execute(
                 "UPDATE users SET pwd = %s WHERE id = %s",
-                (pwd, id)
+                (password, id)
                 )
                 if cursor.rowcount > 0:
                     conn.commit()# Guardar los cambios si hubo actualización
