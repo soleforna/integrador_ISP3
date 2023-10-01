@@ -8,22 +8,23 @@ import android.view.View;
 import android.widget.Button;
 
 import com.rocketteam.passkeeper.MainActivity;
+import com.rocketteam.passkeeper.Passwords;
 import com.rocketteam.passkeeper.R;
 
 public class Agregar_Password extends AppCompatActivity {
 
-    Button btnLogIn;
+    Button btnAtrasGuardar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_password);
 
-        btnLogIn = findViewById(R.id.botonLogInGuardar);
-        btnLogIn.setOnClickListener(new View.OnClickListener() {
+        btnAtrasGuardar = findViewById(R.id.boton_atras_guardar);
+        btnAtrasGuardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Agregar_Password.this, MainActivity.class);
+                Intent intent = new Intent(Agregar_Password.this, Passwords.class);
                 startActivity(intent);
             }
         });
