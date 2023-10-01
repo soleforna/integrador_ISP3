@@ -3114,7 +3114,9 @@ int id bounceBoth 0x7f080060
 int id bounceEnd 0x7f080061
 int id bounceStart 0x7f080062
 int id btnGuardarPassword 0x7f080063
+int id btn_agregar 0x7f08020f
 int id btn_home 0x7f080064
+int id btn_login_m 0x7f08021a
 int id buttonPanel 0x7f080065
 int id cache_measures 0x7f080066
 int id callMeasure 0x7f080067
@@ -3197,6 +3199,11 @@ int id editPasswordReg 0x7f0800b3
 int id editPasswordReg2 0x7f0800b4
 int id editTextDescripcion 0x7f0800b5
 int id editTextName 0x7f0800b6
+int id editTextName12 0x7f080210
+int id editTextName14 0x7f080211
+int id editTextName16 0x7f080212
+int id editTextName18 0x7f080213
+int id editTextName20 0x7f080214
 int id editTextPassword 0x7f0800b7
 int id editTextUrl 0x7f0800b8
 int id editTextUsername 0x7f0800b9
@@ -3478,6 +3485,11 @@ int id text 0x7f0801cc
 int id text2 0x7f0801cd
 int id textEnd 0x7f0801ce
 int id textInputLayout 0x7f0801cf
+int id textInputLayout11 0x7f080215
+int id textInputLayout13 0x7f080216
+int id textInputLayout15 0x7f080217
+int id textInputLayout17 0x7f080218
+int id textInputLayout19 0x7f080219
 int id textInputLayout2 0x7f0801d0
 int id textInputLayout2Reg 0x7f0801d1
 int id textInputLayout2Reg2 0x7f0801d2
@@ -3656,6 +3668,7 @@ int layout abc_select_dialog_material 0x7f0b001a
 int layout abc_tooltip 0x7f0b001b
 int layout activity_agregar_password 0x7f0b001c
 int layout activity_main 0x7f0b001d
+int layout activity_passwords 0x7f0b006c
 int layout activity_register 0x7f0b001e
 int layout custom_dialog 0x7f0b001f
 int layout design_bottom_navigation_item 0x7f0b0020
@@ -3777,7 +3790,7 @@ int string bottomsheet_action_expand 0x7f0f0021
 int string bottomsheet_action_expand_halfway 0x7f0f0022
 int string bottomsheet_drag_handle_clicked 0x7f0f0023
 int string bottomsheet_drag_handle_content_description 0x7f0f0024
-int string btn_back 0x7f0f0025
+int string btn_agregar 0x7f0f00ad
 int string btn_register 0x7f0f0026
 int string button 0x7f0f0027
 int string character_counter_content_description 0x7f0f0028
@@ -3899,6 +3912,7 @@ int string nombre 0x7f0f009b
 int string password 0x7f0f009c
 int string password2 0x7f0f009d
 int string password_toggle_content_description 0x7f0f009e
+int string passwords 0x7f0f00ae
 int string path_password_eye 0x7f0f009f
 int string path_password_eye_mask_strike_through 0x7f0f00a0
 int string path_password_eye_mask_visible 0x7f0f00a1

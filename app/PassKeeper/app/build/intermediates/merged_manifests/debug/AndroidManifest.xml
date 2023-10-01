@@ -28,6 +28,9 @@
         android:testOnly="true"
         android:theme="@style/Theme.PassKeeper" >
         <activity
+            android:name="com.rocketteam.passkeeper.Passwords"
+            android:exported="false" />
+        <activity
             android:name="com.rocketteam.passkeeper.GuardarPassword.Agregar_Password"
             android:exported="false" />
         <activity
@@ -39,8 +42,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.rocketteam.passkeeper.RegisterActivity" >
-        </activity>
+        <activity android:name="com.rocketteam.passkeeper.RegisterActivity" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
