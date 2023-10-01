@@ -3115,7 +3115,9 @@ id bounceBoth
 id bounceEnd
 id bounceStart
 id btnGuardarPassword
+id btn_agregar
 id btn_home
+id btn_login_m
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3198,6 +3200,11 @@ id editPasswordReg
 id editPasswordReg2
 id editTextDescripcion
 id editTextName
+id editTextName12
+id editTextName14
+id editTextName16
+id editTextName18
+id editTextName20
 id editTextPassword
 id editTextUrl
 id editTextUsername
@@ -3479,6 +3486,11 @@ id text
 id text2
 id textEnd
 id textInputLayout
+id textInputLayout11
+id textInputLayout13
+id textInputLayout15
+id textInputLayout17
+id textInputLayout19
 id textInputLayout2
 id textInputLayout2Reg
 id textInputLayout2Reg2
@@ -3657,6 +3669,7 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_agregar_password
 layout activity_main
+layout activity_passwords
 layout activity_register
 layout custom_dialog
 layout design_bottom_navigation_item
@@ -3778,7 +3791,7 @@ string bottomsheet_action_expand
 string bottomsheet_action_expand_halfway
 string bottomsheet_drag_handle_clicked
 string bottomsheet_drag_handle_content_description
-string btn_back
+string btn_agregar
 string btn_register
 string button
 string character_counter_content_description
@@ -3900,6 +3913,7 @@ string nombre
 string password
 string password2
 string password_toggle_content_description
+string passwords
 string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible

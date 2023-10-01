@@ -19,7 +19,9 @@ drawable mail
 drawable url
 id botonLogInGuardar
 id btnGuardarPassword
+id btn_agregar
 id btn_home
+id btn_login_m
 id cardView
 id cardView2
 id cardViewReg
@@ -29,6 +31,11 @@ id editPasswordReg
 id editPasswordReg2
 id editTextDescripcion
 id editTextName
+id editTextName12
+id editTextName14
+id editTextName16
+id editTextName18
+id editTextName20
 id editTextPassword
 id editTextUrl
 id editTextUsername
@@ -40,6 +47,11 @@ id materialButton
 id materialButtonLogin
 id materialButtonRegistrar
 id textInputLayout
+id textInputLayout11
+id textInputLayout13
+id textInputLayout15
+id textInputLayout17
+id textInputLayout19
 id textInputLayout2
 id textInputLayout2Reg
 id textInputLayout2Reg2
@@ -53,6 +65,7 @@ id textTitleReg
 id viewBlue
 layout activity_agregar_password
 layout activity_main
+layout activity_passwords
 layout activity_register
 mipmap ic_launcher
 mipmap ic_launcher_round
@@ -61,7 +74,7 @@ mipmap ic_passkeeper_launcher_foreground
 mipmap ic_passkeeper_launcher_round
 string app_name
 string boton_guardar
-string btn_back
+string btn_agregar
 string btn_register
 string button
 string correo
@@ -71,6 +84,7 @@ string log_in
 string nombre
 string password
 string password2
+string passwords
 string register
 string url
 string usuario

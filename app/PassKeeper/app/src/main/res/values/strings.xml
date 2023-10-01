@@ -16,13 +16,12 @@
     <string name="boton_guardar">Guardar</string>
 
 
-
-
-
-
-
     <!-- Usados exclusivamente en el registro -->
     <string name="btn_register">Registrarse</string>
-    <string name="btn_back"></string>
+
+    <!--Tus Contraseñas-->
+    <string name="passwords">Tus Contraseñas</string>
+    <string name="btn_agregar">+</string>
+
 
 </resources>
