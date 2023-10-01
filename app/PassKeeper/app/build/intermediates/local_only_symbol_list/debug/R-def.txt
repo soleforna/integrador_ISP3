@@ -17,7 +17,7 @@ drawable ic_launcher_foreground
 drawable lock_solid
 drawable mail
 drawable url
-id botonLogInGuardar
+id boton_atras_guardar
 id btnGuardarPassword
 id btn_agregar
 id btn_home
@@ -64,6 +64,7 @@ id textTitle2
 id textTitleReg
 id viewBlue
 layout activity_agregar_password
+layout activity_editar_password
 layout activity_main
 layout activity_passwords
 layout activity_register

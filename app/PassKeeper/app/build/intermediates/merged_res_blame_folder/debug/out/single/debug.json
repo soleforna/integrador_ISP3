@@ -28,8 +28,16 @@
         "source": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-main-30:\\mipmap-hdpi\\ic_passkeeper_launcher.webp"
     },
     {
+        "merged": "com.rocketteam.passkeeper.app-merged_res-28:/layout_activity_agregar_password.xml.flat",
+        "source": "com.rocketteam.passkeeper.app-main-30:/layout/activity_agregar_password.xml"
+    },
+    {
         "merged": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-merged_res-28:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-main-30:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-merged_res-28:\\layout_activity_editar_password.xml.flat",
+        "source": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-main-30:\\layout\\activity_editar_password.xml"
     },
     {
         "merged": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-merged_res-28:\\mipmap-hdpi_ic_launcher_round.webp.flat",
@@ -44,12 +52,12 @@
         "source": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-main-30:\\layout\\activity_main.xml"
     },
     {
-        "merged": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-merged_res-28:\\mipmap-mdpi_ic_passkeeper_launcher_round.webp.flat",
-        "source": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-main-30:\\mipmap-mdpi\\ic_passkeeper_launcher_round.webp"
-    },
-    {
         "merged": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-merged_res-28:\\layout_activity_agregar_password.xml.flat",
         "source": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-main-30:\\layout\\activity_agregar_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-merged_res-28:\\mipmap-mdpi_ic_passkeeper_launcher_round.webp.flat",
+        "source": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-main-30:\\mipmap-mdpi\\ic_passkeeper_launcher_round.webp"
     },
     {
         "merged": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-merged_res-28:\\drawable_correo.xml.flat",
@@ -82,10 +90,6 @@
     {
         "merged": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-merged_res-28:\\mipmap-xxhdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-main-30:\\mipmap-xxhdpi\\ic_launcher.webp"
-    },
-    {
-        "merged": "com.rocketteam.passkeeper.app-merged_res-28:/layout_activity_passwords.xml.flat",
-        "source": "com.rocketteam.passkeeper.app-main-30:/layout/activity_passwords.xml"
     },
     {
         "merged": "C:\\Users\\Vale\\.gradle\\daemon\\8.0\\com.rocketteam.passkeeper.app-merged_res-28:\\mipmap-xhdpi_ic_passkeeper_launcher_foreground.webp.flat",

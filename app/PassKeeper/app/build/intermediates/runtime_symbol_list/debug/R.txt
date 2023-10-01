@@ -3107,7 +3107,7 @@ int id beginOnFirstDraw 0x7f080059
 int id beginning 0x7f08005a
 int id bestChoice 0x7f08005b
 int id blocking 0x7f08005c
-int id botonLogInGuardar 0x7f08005d
+int id boton_atras_guardar 0x7f08021b
 int id bottom 0x7f08005e
 int id bounce 0x7f08005f
 int id bounceBoth 0x7f080060
@@ -3667,6 +3667,7 @@ int layout abc_search_view 0x7f0b0019
 int layout abc_select_dialog_material 0x7f0b001a
 int layout abc_tooltip 0x7f0b001b
 int layout activity_agregar_password 0x7f0b001c
+int layout activity_editar_password 0x7f0b006d
 int layout activity_main 0x7f0b001d
 int layout activity_passwords 0x7f0b006c
 int layout activity_register 0x7f0b001e
