@@ -10,7 +10,7 @@
     <item name="cardViewReg" type="id"/>
     <string name="app_name">PassKeeper</string>
     <string name="boton_guardar">Guardar</string>
-    <string name="btn_back"/>
+    <string name="btn_agregar">+</string>
     <string name="btn_register">Registrarse</string>
     <string name="button">Iniciar Sesión</string>
     <string name="correo">Correo</string>
@@ -20,6 +20,7 @@
     <string name="nombre">Nombre</string>
     <string name="password">Contraseña</string>
     <string name="password2">Repetir Contraseña</string>
+    <string name="passwords">Tus Contraseñas</string>
     <string name="register">Registrarse</string>
     <string name="url">Url</string>
     <string name="usuario">Usuario</string>
