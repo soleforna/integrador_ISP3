@@ -3108,7 +3108,7 @@ id beginOnFirstDraw
 id beginning
 id bestChoice
 id blocking
-id botonLogInGuardar
+id boton_atras_guardar
 id bottom
 id bounce
 id bounceBoth
@@ -3668,6 +3668,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_agregar_password
+layout activity_editar_password
 layout activity_main
 layout activity_passwords
 layout activity_register

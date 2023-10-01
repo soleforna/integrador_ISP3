@@ -23,5 +23,13 @@
     <string name="passwords">Tus Contraseñas</string>
     <string name="btn_agregar">+</string>
 
+    <!--Editar Contraseña-->
+    <string name="edit_password">Editar Contraseña </string>
+    <string name="password_e">**********</string>
+    <string name="url_e">www.facebook.com</string>
+    <string name="description_e">Nombre de mi primer perro</string>
+
+
+
 
 </resources>
