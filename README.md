@@ -1,7 +1,7 @@
 <h1 align="center">PassKeeper</h1>
 
 <p align="center">
- <a href="https://www.ispc.edu.ar/"><img src="https://user-images.githubusercontent.com/85143329/233746625-17802d1b-3bec-4d9a-9f11-644e342da582.png" style="width: 150"></a>
+ <a href="https://www.ispc.edu.ar/"><img src="[https://user-images.githubusercontent.com/85143329/233746625-17802d1b-3bec-4d9a-9f11-644e342da582.png](https://elementos.entornos.net/clientes/ISPC/ispc.png)" style="width: 150"></a>
 </p>
 <h3 align="center">Instituto Superior Politécnico Córdoba</h3>
 <h3 align="center">Tecnicatura Superior en Desarrollo Web y Aplicaciones Digitales</h3>
