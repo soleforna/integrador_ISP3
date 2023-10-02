@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">PassKeeper</string>
+    <string name="log_in">Iniciar Sesión</string>
+    <string name="button">Iniciar Sesión</string>
+    <string name="register">Registrarse</string>
+    <string name="correo">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="password2">Repetir Contraseña</string>
+
+    <!--Guardar Contraseña-->
+    <string name="guardar_password">Guardar Contraseña</string>
+    <string name="nombre">Nombre</string>
+    <string name="usuario">Usuario</string>
+    <string name="url">Url</string>
+    <string name="descripcion">Descripción</string>
+    <string name="boton_guardar">Guardar</string>
+
+
+    <!-- Usados exclusivamente en el registro -->
+    <string name="btn_register">Registrarse</string>
+
+    <!--Tus Contraseñas-->
+    <string name="passwords">Tus Contraseñas</string>
+    <string name="btn_agregar">+</string>
+
+    <!--Editar Contraseña-->
+    <string name="edit_password">Editar Contraseña </string>
+    <string name="password_e">**********</string>
+    <string name="url_e">www.facebook.com</string>
+    <string name="description_e">Nombre de mi primer perro</string>
+
+    <!--Ver Contraseña-->
+    <string name="ver_password">Ver Contraseña</string>
+    <string name="nombre_sitio">Facebook</string>
+    <string name="usuario_nombre">Joana</string>
+    <string name="password_sitio">terryterry</string>
+    <string name="url_sitio">www.facebook.com/Joana</string>
+    <string name="descripcion_pass">Nombre de mi primer perro</string>
+    <string name="last_date"> 28/09/2023</string>
+
+
+</resources>
