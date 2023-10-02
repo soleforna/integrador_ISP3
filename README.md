@@ -31,7 +31,7 @@ La aplicación proporcionará una interfaz intuitiva y amigable que le permitir�
 
 #
 ### Tecnologias Utilizadas 
-*Java como lenguaje principal de soporte. 
+* Java como lenguaje principal de soporte. 
 * Flask.
 * Python 3.
 * Postgre SQL
