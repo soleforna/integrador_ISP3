@@ -20,7 +20,7 @@
 * [Leonel Ezequiel Casi](https://github.com/leocas1)
 * [Valeriya Lysikova](https://github.com/vlysi)
 * [Adrian Edgardo Camus](https://github.com/acamus79)
-* Salinas Juan
+* Salinas Juan Jose
 
 
 #
@@ -40,6 +40,6 @@ La aplicación proporcionará una interfaz intuitiva y amigable que le permitir�
 
 ### Documentación
 *[DocumentaciónIEEE](https://docs.google.com/document/d/1Hdg9tdO2m82CPUb4yeacKEysj6ENit2bgg0CCKOWZOE/edit?usp=sharing)
-[Diseño en Figma] (https://www.figma.com/file/KFlMMbKKyLtDKM6YJ2lYhA/PassKeeper?type=design&node-id=0%3A1&mode=design&t=g2lD7D1YgjGEaVMF-1)
+*[Diseño en Figma](https://www.figma.com/file/KFlMMbKKyLtDKM6YJ2lYhA/PassKeeper?type=design&node-id=0%3A1&mode=design&t=g2lD7D1YgjGEaVMF-1)
 
 
