@@ -13,6 +13,9 @@
         android:theme="@style/Theme.PassKeeper"
         tools:targetApi="31">
         <activity
+            android:name=".ViewPassActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditarPassword"
             android:exported="false" />
         <activity
