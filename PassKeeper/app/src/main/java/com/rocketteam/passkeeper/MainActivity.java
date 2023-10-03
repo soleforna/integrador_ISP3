@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-
 public class MainActivity extends AppCompatActivity {
 
     Button btnLogin;
@@ -21,21 +20,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+//-------------------------------- LLeva a la activity RegisterActivity--------------------------------------
          TextView linkRegister = findViewById(R.id.linkRegister);
         linkRegister.setOnClickListener(view -> {
             // Navegar a otra activity
             Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
             startActivity(intent);
         });
-
+//-------------------------------- LLeva a la activity PasswordActivity--------------------------------------
         btnLogin = findViewById(R.id.btn_login_m);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Passwords.class);
+                Intent intent = new Intent(MainActivity.this, PasswordsActivity.class);
                 startActivity(intent);
             }
         });
