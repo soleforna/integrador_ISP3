@@ -15,7 +15,7 @@ public class Repo {
     private ApiInterface apiInterface;
 
     public Repo() {
-        apiInterface = ApiClient.getClient().create(ApiInterface.class);
+//        apiInterface = ApiClient.getClient().create(ApiInterface.class);
     }
 
     public LiveData<TokenResponse> autenticarUsuario(UserCredentials credenciales) {

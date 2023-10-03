@@ -38,5 +38,11 @@
     <string name="descripcion_pass">Nombre de mi primer perro</string>
     <string name="last_date"> 28/09/2023</string>
 
+     <!--Menu Popup-->
+    <string name="op1">About</string>
+    <string name="op2">Cerrar Sesión</string>
+
+
+
 
 </resources>

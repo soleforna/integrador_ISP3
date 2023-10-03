@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/option_1"
+          android:title="@string/op1"
+          android:icon="@drawable/address_card"
+
+          android:actionMenuTextAppearance="@style/MyMenuItemTextAppearance"/>
+    <item android:id="@+id/option_2"
+          android:title="@string/op2"
+          android:icon="@drawable/right_from_bracket"
+          android:actionMenuTextAppearance="@style/MyMenuItemTextAppearance"/>
+</menu>

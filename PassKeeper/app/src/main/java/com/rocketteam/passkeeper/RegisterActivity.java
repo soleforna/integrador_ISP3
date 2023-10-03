@@ -16,10 +16,9 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-         // Encontrar el TextView por su ID
+     //-------------------------------- LLeva a la activity MainActivity--------------------------------------
          TextView linkLogin = findViewById(R.id.linkLogin);
 
-         // Configurar un OnClickListener para el TextView
          linkLogin.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
@@ -29,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
              }
          });
 
-
+//-------------------------------- Regresa a la activity MainActivity--------------------------------------
          // Configuración del boton que vuelve a home.
          MaterialButton btnHome = findViewById(R.id.btn_home);
 
