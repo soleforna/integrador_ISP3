@@ -15,7 +15,7 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activuty_about);
-
+//-------------------------------- Regresa la activity PasswordActivity--------------------------------------
         // Configuración del boton que vuelve a home.
         MaterialButton btn_about = findViewById(R.id.btn_about);
 
@@ -24,7 +24,7 @@ public class AboutActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // Navegar de vuelta al Passwords
-                Intent intent = new Intent(AboutActivity.this, Passwords.class);
+                Intent intent = new Intent(AboutActivity.this, PasswordsActivity.class);
                 startActivity(intent);
             }
         });
