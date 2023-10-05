@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 
 public interface ApiInterface {
 
-    @POST("http://localhost:5000/api/v1/auth/login")
+    @POST("api/v1/auth/login")
     Call<TokenResponse> login(@Body UserCredentials credentials);
 
 

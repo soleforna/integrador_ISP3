@@ -44,5 +44,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0") // Para convertir JSON a objetos Java
 
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.6.2")
+
 
 }

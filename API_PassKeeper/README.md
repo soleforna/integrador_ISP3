@@ -20,10 +20,10 @@ Antes de ejecutar la API, asegúrate de tener instalado Python en tu sistema. Pu
 
 ```sh
 cd backend
+
 ```
 
 2. **Configura las Variables de Entorno**:
-
 
 Crea un archivo .env en el directorio del proyecto y establece las variables de entorno necesarias, como la clave secreta del JWT y las credenciales de la base de datos.
 
@@ -37,25 +37,29 @@ DB_NAME='nombre_de_la_base_de_datos'
 ENCRYPTION_KEY= 'clave_de_encriptacion'
 JWT_KEY= 'clave_para_los_token'
 PORT=5000
+
 ```
 
 3. **Crea un entorno virtual, y luego activalo***:
 
 ```sh
- python -m venv venv 
+ python -m venv venv
  .\venv\Scripts\activate
+
 ```
 
 4. **Instala las librerias requeridas**
 
 ```sh
 pip install --no-cache-dir --upgrade -r requirements.txt
+
 ```
 
 5. **Inicia la aplicacion**
 
 ```sh
 python .\src\app.py
+
 ```
 
 La API estará disponible en http://localhost:5000.
@@ -69,6 +73,7 @@ La API estará disponible en http://localhost:5000.
 	"email": "test@mail.com",
 	"password": "test"
 }
+
 ```
 
 - **POST /api/v1/auth/login: Autentica un usuario registrado y obtiene un token JWT.**
@@ -78,6 +83,7 @@ La API estará disponible en http://localhost:5000.
 	"email": "test@mail.com",
 	"password": "test"
 }
+
 ```
 
 - **POST /api/v1/auth/update: Actualiza la contraseña de de ingreso a la aplicacion del usuario autenticado**
@@ -86,12 +92,11 @@ La API estará disponible en http://localhost:5000.
 {
 	"password": "test"
 }
+
 ```
 
-- **GET /api/v1/gen/{valor_entero}:	Obtiene una contraseña aleatoria con la catidad de caracteres del valor entero, valor por defecto 12.**
-
+- __GET /api/v1/gen/{valor_entero}:	Obtiene una contraseña aleatoria con la catidad de caracteres del valor entero, valor por defecto 12.__
 - **GET /api/v1/: Obtiene la lista de contraseñas almacenadas del usuario autenticado.**
-
 - **POST /api/v1/add: Crea una nueva contraseña.**
 
 ```json
@@ -102,6 +107,7 @@ La API estará disponible en http://localhost:5000.
 	"description": "descripcion de prueba",
 	"category": "testing"
 }
+
 ```
 
 - **PATCH /api/v1/{id}:	Actualiza una contraseña existente.**
@@ -114,6 +120,7 @@ La API estará disponible en http://localhost:5000.
     "description": "descripcion de prueba de actualizacion",
     "category": "testing"
 }
+
 ```
 
 - **DELETE /api/v1/{id}: Elimina una contraseña.**
