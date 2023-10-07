@@ -225,7 +225,7 @@
 
 
 <com.google.android.material.button.MaterialButton
-    android:id="@+id/materialButtonRegistrar"
+    android:id="@+id/btnRegistrar"
     style="@style/Widget.MaterialComponents.Button"
     android:layout_width="231dp"
     android:layout_height="61dp"
