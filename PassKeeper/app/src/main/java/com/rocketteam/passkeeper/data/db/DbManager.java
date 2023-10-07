@@ -1,9 +1,12 @@
 package com.rocketteam.passkeeper.data.db;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
+
+import com.rocketteam.passkeeper.data.model.request.UserCredentials;
 
 import java.time.LocalDateTime;
 
@@ -23,8 +26,10 @@ public class DbManager {
             "keyword TEXT NOT NULL, "+
             "description TEXT, "+
             "category TEXT, "+
+            "user_id INTEGER, "+
             "created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), "+
-            "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')))";
+            "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
+            "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE)";
 
     //------------------------------------------End Table Password------------------------------------------------------------------------------------
 
@@ -49,7 +54,7 @@ public static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS user 
     private SQLiteDatabase db;
 
     public DbManager(Context context) {
-        this.connection = new DbConnection((View.OnClickListener) context);
+        this.connection = new DbConnection(context);
     }
 
     public DbManager open() throws SQLException{
@@ -60,6 +65,19 @@ public static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS user 
     public void close(){
         connection.close();
     }
+
+    public boolean userRegister(UserCredentials user){
+        ContentValues content = new ContentValues();
+        //content.put(id, user.id); TODO solucionar ID
+        content.put("email", user.getEmail());
+        content.put("password", user.getPassword());
+        long newRowId = db.insert(TB_USER, null,content);
+        if (newRowId != -1){
+            return true;
+        }
+        return false;
+    }
+
 
 
 }
