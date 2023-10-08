@@ -63,43 +63,42 @@
 
 
     <!-- Inicia configuración del Título del registro-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical">
 
-    <!-- Boton para ir a la pagina principal -->
+                <!-- Boton para ir a la pagina principal -->
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_home"
-                style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="60dp"
-                android:layout_height="70dp"
-                android:layout_marginStart="8dp"
-                android:backgroundTint="@color/blue"
-                android:elevation="12dp"
-                app:cornerRadius="30dp"
-                app:icon="@drawable/arrow"
-                app:iconGravity="start"
-                app:iconSize="35dp"
-                app:iconTint="@color/white"
-                tools:ignore="MissingConstraints"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_home"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="60dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="@color/blue"
+                    android:contentDescription="@string/boton_guardar"
+                    android:elevation="12dp"
+                    app:cornerRadius="30dp"
+                    app:icon="@drawable/arrow"
+                    app:iconGravity="start"
+                    app:iconSize="35dp"
+                    app:iconTint="@color/white"
 
 
-                />
+                    tools:ignore="MissingConstraints" />
 
-            <!-- Texto del Título del registro-->
-            <TextView
-                android:id="@+id/textTitleReg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="70dp"
-                android:text="@string/register"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="30sp"
-                android:textStyle="italic" />
-        </LinearLayout>
+                <!-- Texto del Título del registro-->
+                <TextView
+                    android:id="@+id/textTitleReg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:text="@string/register"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="30sp"
+                    android:textStyle="italic" />
+            </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
@@ -141,11 +140,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Segundo campo de entrada -->
+
+        <!-- Tercer campo de entrada -->
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2Reg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:hint="@string/password"
             android:textColor="@color/greyLigth"
             app:boxCornerRadiusBottomEnd="25dp"
@@ -171,12 +173,11 @@
                 android:textColor="@color/greyLigth" />
         </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Tercer campo de entrada -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout2Reg2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:hint="@string/password2"
             android:textColor="@color/greyLigth"
             app:boxCornerRadiusBottomEnd="25dp"
