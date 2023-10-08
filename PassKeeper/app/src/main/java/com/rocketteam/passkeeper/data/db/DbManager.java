@@ -4,14 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.view.View;
+import android.util.Log;
 
 import com.rocketteam.passkeeper.data.model.request.UserCredentials;
-
-import java.time.LocalDateTime;
+import com.rocketteam.passkeeper.util.HashUtility;
 
 public class DbManager {
-//------------------------------------------Table Password---------------------------------------------------------------------------------------------
     public static final String TB_PASSWORD = "password";
     public static final String PASSWORD_ID = "id";
     public static final String PASSWORD_USERNAME = "username";
@@ -31,24 +29,19 @@ public class DbManager {
             "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
             "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE)";
 
-    //------------------------------------------End Table Password------------------------------------------------------------------------------------
-
-
-    //----------------------------------------- Table User--------------------------------------------------------------------------------------------
-    public static final String TB_USER="user";
-    public static final String ID_USER="id";
-    public static final String EMAIL="email";
-    public static final String PASSWORD="password";
-    // Creamos la tabla user tabla que este definida en DbConnection.java
-public static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS user ( " +
-        "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-        "email TEXT, " +
-        "password TEXT, " +
-        "created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
-        "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) " +
-        ")";
-
-//---------------------------------------------End Table User-----------------------------------------------------------------------------------------
+    public static final String TB_USER = "user";
+    public static final String ID_USER = "id";
+    public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
+    public static final String SALT = "salt"; // Nueva columna para almacenar el salt
+    public static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS user ( " +
+            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "email TEXT UNIQUE, " +
+            "password TEXT, " +
+            "salt TEXT, " +
+            "created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
+            "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) " +
+            ")";
 
     private DbConnection connection;
     private SQLiteDatabase db;
@@ -57,25 +50,50 @@ public static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS user 
         this.connection = new DbConnection(context);
     }
 
-    public DbManager open() throws SQLException{
+    public DbManager open() throws SQLException {
         db = connection.getWritableDatabase();
         return this;
     }
 
-    public void close(){
+    public void close() {
         connection.close();
     }
 
-    public boolean userRegister(UserCredentials user){
-        ContentValues content = new ContentValues();
-        //content.put(id, user.id); TODO solucionar ID
-        content.put("email", user.getEmail());
-        content.put("password", user.getPassword());
-        long newRowId = db.insert(TB_USER, null,content);
-        if (newRowId != -1){
-            return true;
+    /**
+     * Registra un nuevo usuario en la base de datos.
+     *
+     * @param user Objeto UserCredentials que contiene la información del usuario.
+     * @return true si el registro es exitoso, false si hay un error.
+     * @throws HashUtility.HashingException Si ocurre un error durante el hashing de la contraseña.
+     * @throws HashUtility.SaltException    Si ocurre un error durante la generación del salt.
+     */
+    public boolean userRegister(UserCredentials user) throws HashUtility.HashingException, HashUtility.SaltException {
+        try {
+            // Generar un salt aleatorio
+            String salt = HashUtility.generateSalt();
+
+            // Hashear la contraseña con el salt generado
+            String hashedPassword = HashUtility.hashPassword(user.getPassword(), salt);
+
+            ContentValues content = new ContentValues();
+            content.put(EMAIL, user.getEmail());
+            content.put(PASSWORD, hashedPassword); // Guardar el hash en la base de datos
+            content.put(SALT, salt); // Guardar el salt en la base de datos
+
+            // Evitar el conflicto de email duplicado y no realizar el registro, pero devolver -1
+            long newRowId = db.insertWithOnConflict(TB_USER, null, content, SQLiteDatabase.CONFLICT_IGNORE);
+            // Si newRowId es -1, indica que hubo un conflicto y no se pudo insertar el nuevo usuario
+            Log.i("DbManager", "newRowId: "+newRowId);
+            return newRowId != -1;
+        } catch (HashUtility.SaltException e) {
+            // Manejar la excepción de generación de salt
+            Log.e("Error", "Salt generation error: " + e.getMessage());
+            throw e; // Re-lanzar la excepción para que sea manejada en un nivel superior si es necesario
+        } catch (HashUtility.HashingException e) {
+            // Manejar la excepción de hashing de contraseña
+            Log.e("Error", "Hashing password error: " + e.getMessage());
+            throw e; // Re-lanzar la excepción para que sea manejada en un nivel superior si es necesario
         }
-        return false;
     }
 
 
