@@ -5,9 +5,26 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
 
         <item name="cardViewStyle">@style/CardViewNoBorder</item>
+        <item name="android:itemTextAppearance">@style/MyMenuItemTextAppearance</item>
+           <item name="actionOverflowMenuStyle">@style/MyOverflowMenuStyle</item>
 
     </style>
  <style name="CardViewNoBorder" parent="CardView">
+       <item name="cardCornerRadius">0dp</item>
     </style>
     <style name="Theme.PassKeeper" parent="Base.Theme.PassKeeper" />
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+
+
+</style>
+
+<style name="MyMenuItemTextAppearance">
+    <item name="android:textColor">@color/greyLigth</item>
+
+</style>
+
+<style name="MyOverflowMenuStyle">
+    <item name="android:popupBackground">@color/white</item>
+</style>
 </resources>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".AgregarPassword">
+    tools:context=".ViewPassActivity">
 
     <View
         android:id="@+id/viewBlue"
@@ -35,8 +35,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
-        android:layout_width="331dp"
-        android:layout_height="550dp"
+        android:layout_width="326dp"
+        android:layout_height="569dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/white"
@@ -49,7 +49,7 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView2"
-            android:layout_width="332dp"
+            android:layout_width="328dp"
             android:layout_height="70dp"
             android:backgroundTint="@color/white"
             app:cardCornerRadius="30dp"
@@ -62,19 +62,19 @@
                 android:orientation="horizontal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/boton_atras_guardar"
+                    android:id="@+id/botonYouPassViewPass"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="60dp"
                     android:layout_height="70dp"
                     android:layout_marginStart="8dp"
                     android:backgroundTint="@color/blue"
+                    android:contentDescription="Volver a Tus Contraseñas"
                     android:elevation="12dp"
                     app:cornerRadius="30dp"
                     app:icon="@drawable/arrow"
                     app:iconGravity="start"
                     app:iconSize="30dp"
                     app:iconTint="@color/white"
-                    android:contentDescription="Regresar a la pantalla anterior"
                     tools:ignore="MissingConstraints" />
 
                 <TextView
@@ -83,7 +83,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:gravity="center_horizontal"
-                    android:text="@string/guardar_password"
+                    android:text="@string/ver_password"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="24sp"
                     android:textStyle="italic" />
@@ -94,20 +94,20 @@
 
         <LinearLayout
             android:layout_width="300dp"
-            android:layout_height="390dp"
+            android:layout_height="442dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="120dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:orientation="vertical">
 
-            <!-- Primer campo de entrada -->
+            <!-- nombre del sitio -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="@string/nombre"
+                android:hint="@string/nombre_sitio"
                 android:textColor="@color/greyLigth"
                 app:boxCornerRadiusBottomEnd="25dp"
                 app:boxCornerRadiusBottomStart="25dp"
@@ -128,12 +128,14 @@
                     app:hintTextColor="@color/greyLigth" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- nombre de usuario -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="@string/usuario"
+                android:hint="@string/usuario_nombre"
                 android:textColor="@color/greyLigth"
                 app:boxCornerRadiusBottomEnd="25dp"
                 app:boxCornerRadiusBottomStart="25dp"
@@ -154,12 +156,13 @@
                     app:hintTextColor="@color/greyLigth" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- ver contraseña -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="@string/password"
+                android:hint="@string/password_sitio"
                 android:textColor="@color/greyLigth"
                 app:boxCornerRadiusBottomEnd="25dp"
                 app:boxCornerRadiusBottomStart="25dp"
@@ -167,6 +170,7 @@
                 app:boxCornerRadiusTopStart="25dp"
                 app:boxStrokeColor="@color/greyLigth"
                 app:hintTextColor="@color/greyLigth"
+                app:passwordToggleEnabled="true"
                 app:startIconContentDescription="Lock icon"
                 app:startIconDrawable="@drawable/lock_solid"
                 app:startIconTint="@color/greyLigth">
@@ -175,17 +179,18 @@
                     android:id="@+id/editTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
+                    android:inputType="textPassword"
                     android:textColor="@color/greyLigth"
                     app:hintTextColor="@color/greyLigth" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- url del sitio -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:hint="@string/url"
+                android:hint="@string/url_sitio"
                 android:textColor="@color/greyLigth"
                 app:boxCornerRadiusBottomEnd="25dp"
                 app:boxCornerRadiusBottomStart="25dp"
@@ -206,11 +211,13 @@
                     app:hintTextColor="@color/greyLigth" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- descripcion -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/descripcion"
+                android:hint="@string/descripcion_pass"
                 android:textColor="@color/greyLigth"
                 app:boxCornerRadiusBottomEnd="25dp"
                 app:boxCornerRadiusBottomStart="25dp"
@@ -229,31 +236,38 @@
                     android:inputType="text"
                     android:textColor="@color/greyLigth"
                     app:hintTextColor="@color/greyLigth" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayoutFechaModificacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/last_date"
+                    android:textColor="@color/greyLigth"
+                    app:boxCornerRadiusBottomEnd="25dp"
+                    app:boxCornerRadiusBottomStart="25dp"
+                    app:boxCornerRadiusTopEnd="25dp"
+                    app:boxCornerRadiusTopStart="25dp"
+                    app:boxStrokeColor="@color/greyLigth"
+                    app:hintTextColor="@color/greyLigth"
+                    app:startIconContentDescription="IconCalendar"
+                    app:startIconDrawable="@drawable/calendar_days_solid"
+                    app:startIconTint="@color/greyLigth">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/editTextFechaModificacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:inputType="text"
+                        android:textColor="@color/greyLigth"
+                        app:hintTextColor="@color/greyLigth" />
+                </com.google.android.material.textfield.TextInputLayout>
+
             </com.google.android.material.textfield.TextInputLayout>
 
 
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_guardar"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="231dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="500dp"
-        android:backgroundTint="@color/blue"
-        android:text="@string/boton_guardar"
-        android:textColor="@color/white"
-        app:cardElevation="15dp"
-        app:cornerRadius="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.21"
-        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

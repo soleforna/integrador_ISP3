@@ -29,6 +29,19 @@
     <string name="url_e">www.facebook.com</string>
     <string name="description_e">Nombre de mi primer perro</string>
 
+    <!--Ver Contraseña-->
+    <string name="ver_password">Ver Contraseña</string>
+    <string name="nombre_sitio">Facebook</string>
+    <string name="usuario_nombre">Joana</string>
+    <string name="password_sitio">terryterry</string>
+    <string name="url_sitio">www.facebook.com/Joana</string>
+    <string name="descripcion_pass">Nombre de mi primer perro</string>
+    <string name="last_date"> 28/09/2023</string>
+
+     <!--Menu Popup-->
+    <string name="op1">About</string>
+    <string name="op2">Cerrar Sesión</string>
+
 
 
 

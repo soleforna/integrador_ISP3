@@ -13,13 +13,19 @@
         android:theme="@style/Theme.PassKeeper"
         tools:targetApi="31">
         <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewPassActivity"
+            android:exported="false" />
+        <activity
             android:name=".EditarPassword"
             android:exported="false" />
         <activity
-            android:name=".Passwords"
+            android:name=".PasswordsActivity"
             android:exported="false" />
         <activity
-            android:name=".GuardarPassword.Agregar_Password"
+            android:name=".AgregarPassword"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -30,10 +36,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterActivity" />
         <activity
             android:name=".AboutActivity"
             android:exported="false" />
     </application>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest>
