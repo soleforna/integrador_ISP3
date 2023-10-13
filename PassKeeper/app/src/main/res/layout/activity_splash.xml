@@ -6,19 +6,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white">
 
+    <!-- Título PassKeeper-->
+
+    <TextView
+        android:id="@+id/textTitle5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:text="@string/autenticación"
+        android:textColor="@color/grey"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
     <View
         android:id="@+id/viewBlue"
         android:layout_width="412dp"
         android:layout_height="364dp"
         android:background="@color/blue"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/textTitle5"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
-
-    <!-- Título PassKeeper-->
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textTitle"
@@ -45,5 +59,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_passkeeper_launcher_foreground" />
+
+
+    <ImageView
+        android:id="@+id/imageViewFinger"
+        android:layout_width="242dp"
+        android:layout_height="104dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle5"
+        app:layout_constraintVertical_bias="0.67"
+        app:srcCompat="@drawable/fingerprint_solid"
+        app:tint="@color/grey" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
