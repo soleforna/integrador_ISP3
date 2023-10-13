@@ -20,15 +20,11 @@ public class AboutActivity extends AppCompatActivity {
         MaterialButton btn_about = findViewById(R.id.btn_about);
 
         // Configurar un OnClickListener para el botón
-        btn_about.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Navegar de vuelta al Passwords
-                Intent intent = new Intent(AboutActivity.this, PasswordsActivity.class);
-                startActivity(intent);
-            }
+        btn_about.setOnClickListener(view -> {
+            // Navegar de vuelta al Passwords
+            Intent intent = new Intent(AboutActivity.this, PasswordsActivity.class);
+            startActivity(intent);
         });
-
 
     }
 
