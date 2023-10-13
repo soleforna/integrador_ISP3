@@ -6,6 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.rocketteam.passkeeper.data.model.request.PasswordCredentials;
 import com.rocketteam.passkeeper.data.model.request.UserCredentials;
 import com.rocketteam.passkeeper.util.HashUtility;
 
@@ -96,6 +97,8 @@ public class DbManager {
         }
     }
 
-
+    public boolean passwordRegister(PasswordCredentials psw){
+        return false;
+    }
 
 }
