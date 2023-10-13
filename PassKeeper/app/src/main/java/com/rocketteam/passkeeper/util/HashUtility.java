@@ -1,6 +1,7 @@
 package com.rocketteam.passkeeper.util;
 
 import org.mindrot.jbcrypt.BCrypt;
+
 import java.security.SecureRandom;
 
 public class HashUtility {
@@ -69,5 +70,24 @@ public class HashUtility {
     public static boolean checkPassword(String password, String hashedPasswordFromDatabase) {
         // Verifica si la contraseña coincide con el hash usando BCrypt
         return BCrypt.checkpw(password, hashedPasswordFromDatabase);
+    }
+
+    /**
+     * Genera una contraseña aleatoria segura con letras mayúsculas, minúsculas, números y caracteres especiales.
+     *
+     * @param length La longitud de la contraseña.
+     * @return La contraseña generada.
+     */
+    public static String generateRandomPassword(int length) {
+        final String charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_-+=<>?";
+        SecureRandom random = new SecureRandom();
+        StringBuilder password = new StringBuilder();
+
+        for (int i = 0; i < length; i++) {
+            int randomIndex = random.nextInt(charset.length());
+            password.append(charset.charAt(randomIndex));
+        }
+
+        return password.toString();
     }
 }
