@@ -2,6 +2,7 @@ package com.rocketteam.passkeeper.data.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -17,14 +18,14 @@ public class DbManager {
     public static final String PASSWORD_URL = "url";
     public static final String PASSWORD_KEYWORD = "keyword";
     public static final String PASSWORD_DESCRIPTION = "description";
-    public static final String PASSWORD_CATEGORY = "category";
+    public static final String PASSWORD_NAME = "name";
     public static final String CREATE_PASSWORD_TABLE = "CREATE TABLE password( " +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "username TEXT, "+
             "url TEXT, "+
             "keyword TEXT NOT NULL, "+
             "description TEXT, "+
-            "category TEXT, "+
+            "name TEXT, "+
             "user_id INTEGER, "+
             "created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), "+
             "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
@@ -97,8 +98,62 @@ public class DbManager {
         }
     }
 
-    public boolean passwordRegister(PasswordCredentials psw){
-        return false;
-    }
 
+
+    //Método que se utiliza para obtener el salt del usuario según el userId
+
+
+    public String getSaltById(int userId) {
+        String salt = null;
+        Cursor cursor = null;
+
+        try {
+            String query = "SELECT salt FROM user WHERE id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(userId)});
+
+            int saltIndex = cursor.getColumnIndex("salt");
+            if (saltIndex != -1 && cursor.moveToFirst()) {
+                salt = cursor.getString(saltIndex);
+            } else {
+                // La columna "salt" no existe en el conjunto de resultados
+                // o el cursor está vacío
+                Log.d("Error", "No se pudo encontrar la columna 'salt'");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return salt;
+    }
+    public boolean passwordRegister(PasswordCredentials psw) {
+
+        try {
+            //Obtengo el Salt para hashear la contraseña
+            String salt = getSaltById(psw.getUserId());
+            if (salt != null) {
+
+                ContentValues content = new ContentValues();
+                content.put(PASSWORD_ID, psw.getUserId());
+                content.put(PASSWORD_NAME, psw.getName());
+                content.put(PASSWORD_USERNAME, psw.getUser());
+                content.put(PASSWORD_URL, psw.getUrl());
+                content.put(PASSWORD_DESCRIPTION, psw.getDescription());
+                String hashedPassword = HashUtility.hashPassword(psw.getPassword(), salt);
+                content.put(PASSWORD_KEYWORD, hashedPassword); // Guardar la contraseña hasheada
+
+                long newRowId = db.insert(TB_PASSWORD, null, content);
+                return newRowId != -1;
+            } else {
+                // El usuario con el ID especificado no existe
+                return false;
+            }
+        } catch (Exception e) {
+            Log.e("Error", "Password registration error: " + e.getMessage());
+            return false;
+        }
+    }
 }
