@@ -3,7 +3,6 @@ package com.rocketteam.passkeeper.ui;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 import com.rocketteam.passkeeper.data.model.request.UserCredentials;
-import com.rocketteam.passkeeper.data.model.response.TokenResponse;
 import com.rocketteam.passkeeper.data.repository.Repo;
 
 
