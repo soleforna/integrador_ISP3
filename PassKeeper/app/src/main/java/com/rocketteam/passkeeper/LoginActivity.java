@@ -11,6 +11,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.rocketteam.passkeeper.data.db.DbManager;
 import com.rocketteam.passkeeper.util.InputTextWatcher;
 import android.text.TextUtils;
+import android.content.Intent;
+import android.widget.Toast;
+
 
 
 
@@ -67,11 +70,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //Metodo para validar las entradas de usuarios
-        //Estos strings me permiten obtener texto de lo ingresado por los usuarios en los inputs
         private boolean validateInput() {
-            String email = editTextEmail.getText().toString();
-            String password = editTextPassword.getText().toString();
-
+            String email = editTextEmail.getText().toString().trim();
+            String password = editTextPassword.getText().toString().trim();
+//Estos strings me permiten obtener texto de lo ingresado por los usuarios en los inputs
 
 // Validación del correo electrónico
             if (TextUtils.isEmpty(email)) {
@@ -88,26 +90,35 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
 
-            return true;
+            return true  && !email.isEmpty() && email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
         }
 
 
-
-
-
-
-        // Método para iniciar sesión
+    // Método para iniciar sesión
         private void iniciarSesion() {
-            // Implementa la lógica de inicio de sesión aquí
-            // Debes verificar si las credenciales del usuario son válidas en la base de datos
-            // Si las credenciales son válidas, puedes redirigir al usuario a la pantalla principal de la aplicación
-            // Si no son válidas, muestra un mensaje de error al usuario
+            String email = editTextEmail.getText().toString();
+            String password = editTextPassword.getText().toString();
+    //con estos dos strings capturo la información que el usuario ingresa en los inputs email y contraseña.
+
+
+    //El siguiente bloque verifica si las credenciales son válidas al iniciar sesión.
+            boolean credentialsValid = dbManager.validateUser(password, email);
+
+            if (credentialsValid) {
+                // Si las credenciales son válidas, redirigimos a la sección de contraseñas.
+                Intent intent = new Intent(LoginActivity.this, PasswordsActivity.class);
+                startActivity(intent);
+            } else {
+                // Las credenciales no son válidas, muestra un mensaje de error al usuario.
+                Toast.makeText(this, "Credenciales inválidas, por favor intenta nuevamente", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
 
 
 
-
+//-------------------------------------------
 
 

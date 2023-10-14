@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+
         btnLogin.setOnClickListener(new View.OnClickListener() { // LLeva a la activity PasswordActivity
             @Override
             public void onClick(View view) {
@@ -33,5 +34,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+//---------------------------------------------------
+
+
     }
 }
+
+
