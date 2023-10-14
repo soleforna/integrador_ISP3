@@ -18,6 +18,7 @@ public class DbManager {
     public static final String PASSWORD_URL = "url";
     public static final String PASSWORD_KEYWORD = "keyword";
     public static final String PASSWORD_DESCRIPTION = "description";
+    public static final String PASSWORD_USER = "user_id";
     public static final String PASSWORD_NAME = "name";
     public static final String CREATE_PASSWORD_TABLE = "CREATE TABLE password( " +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -137,7 +138,7 @@ public class DbManager {
             if (salt != null) {
 
                 ContentValues content = new ContentValues();
-                content.put(PASSWORD_ID, psw.getUserId());
+                content.put(PASSWORD_USER, psw.getUserId());
                 content.put(PASSWORD_NAME, psw.getName());
                 content.put(PASSWORD_USERNAME, psw.getUser());
                 content.put(PASSWORD_URL, psw.getUrl());

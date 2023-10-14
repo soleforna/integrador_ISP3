@@ -18,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         imageViewFinger = findViewById(R.id.imageViewFinger);
-        boolean isLoguedIn = true;
+        boolean isLoguedIn = false;
 
         if (isLoguedIn) {
             // si el usuario esta autentificado te pide la autentificación biometrica

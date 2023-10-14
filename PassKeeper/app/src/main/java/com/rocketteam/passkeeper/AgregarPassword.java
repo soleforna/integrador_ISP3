@@ -16,6 +16,7 @@ import com.rocketteam.passkeeper.data.db.DbManager;
 import com.rocketteam.passkeeper.data.model.request.PasswordCredentials;
 
 import com.rocketteam.passkeeper.util.HashUtility;
+import com.rocketteam.passkeeper.util.InputTextWatcher;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -53,6 +54,12 @@ public class AgregarPassword extends AppCompatActivity {
         textInputLayoutUrl = findViewById(R.id.textInputLayout4);
         textInputLayoutPass = findViewById(R.id.textInputLayout3);
 
+        // Agrega TextWatcher a los EditText
+        editTextName.addTextChangedListener(new InputTextWatcher(textInputLayoutName));
+        editTextPassword.addTextChangedListener(new InputTextWatcher(textInputLayoutPass));
+        editTextUrl.addTextChangedListener(new InputTextWatcher(textInputLayoutUrl));
+
+
 
 //-------------------------------- Regresa a la activity PasswordActivity--------------------------------------
         btnAtras = findViewById(R.id.boton_atras_guardar);
@@ -83,13 +90,13 @@ public class AgregarPassword extends AppCompatActivity {
         String name = editTextName.getText().toString();
 
         if (pass.isEmpty() ) {
-            textInputLayoutUrl.setError("Por favor, ingresa una contraseña");
+            textInputLayoutName.setError("Por favor, ingresa una contraseña");
             return false;}
         else if(name.isEmpty()){
-            textInputLayoutUrl.setError("Por favor, ingresa un nombre");
+            textInputLayoutPass.setError("Por favor, ingresa un nombre");
             return false;
 
-        } else if (!url.matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~|!:,.;]*[-a-zA-Z0-9+&@#/%=~|]")){
+        } else if (!url.isEmpty() && !url.matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~|!:,.;]*[-a-zA-Z0-9+&@#/%=~|]")){
             textInputLayoutUrl.setError("Por favor, ingresa una url válida");
             return false;
         }
