@@ -199,7 +199,6 @@ public class DbManager {
             int idIndex = cursor.getColumnIndex("id");
             int emailIndex = cursor.getColumnIndex("email");
             int pwdIndex = cursor.getColumnIndex("password");
-            int saltIndex = cursor.getColumnIndex("salt");
 
             // Verificar si se encontró el usuario en la base de datos
             if (emailIndex != -1 && cursor.moveToFirst()) {
@@ -207,10 +206,9 @@ public class DbManager {
                 int id = cursor.getInt(idIndex);
                 String userEmail = cursor.getString(emailIndex);
                 String password = cursor.getString(pwdIndex);
-                String salt = cursor.getString(saltIndex);
-
+            
                 // Crear un nuevo objeto UserResponse con los datos obtenidos
-                user = new UserResponse(id, userEmail, password, salt);
+                user = new UserResponse(id, userEmail, password);
             }
 
             // Cerrar el cursor y la base de datos
