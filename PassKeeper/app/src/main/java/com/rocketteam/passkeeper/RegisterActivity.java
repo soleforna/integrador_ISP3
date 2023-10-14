@@ -155,7 +155,6 @@ public class RegisterActivity extends AppCompatActivity {
         sweetAlertDialog.setConfirmText("Aceptar"); // Botón aceptar
         sweetAlertDialog.setConfirmClickListener(sweetAlertDialog1 -> {
             sweetAlertDialog1.dismissWithAnimation();
-
             if (tipo == 2) {
                 finish(); // Cerrar la actividad en caso de un error de registro
             }
