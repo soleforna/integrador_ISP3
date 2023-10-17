@@ -4,11 +4,13 @@ public class UserResponse {
     private int id;
     private String email;
     private String password;
+    private String salt;
 
-    public UserResponse(int id, String email, String password) {
+    public UserResponse(int id, String email, String password, String salt) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.salt = salt;
     }
 
     public int getId() {
@@ -35,4 +37,11 @@ public class UserResponse {
         this.password = password;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 }
