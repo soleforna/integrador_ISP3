@@ -117,31 +117,31 @@ public class AgregarPassword extends AppCompatActivity {
 
             if (dbManager.passwordRegister(password)) {
                 // Mostrar un SweetAlertDialog para el registro exitoso de contraseña
-                ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.SUCCESS_TYPE, "Registro de contraseña exitoso", "La contraseña ha sido registrada correctamente.");
+                ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.SUCCESS_TYPE, "Registro de contraseña exitoso", "La contraseña ha sido registrada correctamente.", null);
 
             } else {
                 // Mostrar un SweetAlertDialog para el error de registro
-                ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error en el registro de contraseña", "Error" ); // TODO
+                ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error en el registro de contraseña", "Error" , null); // TODO
 
 
             }
 
         } catch (SQLiteException e) {
             // Mostrar un SweetAlertDialog para errores de base de datos
-            ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error al registrar la contraseña", "No se pudo registrar la contraseña en la base de datos." );
+            ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error al registrar la contraseña", "No se pudo registrar la contraseña en la base de datos.", null);
 
             e.printStackTrace();
 
         } catch (Exception e) {
             // Mostrar un SweetAlertDialog para errores inesperados
             e.printStackTrace();
-            ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE,"Error","Ocurrió un error inesperado.");
+            ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE,"Error","Ocurrió un error inesperado.", null);
 
         } finally {
             dbManager.close();
         }
     }
 
-    //------------------- Método para mostrar SweetAlertDialog------------------------------------------
+
 
 }
