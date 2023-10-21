@@ -1,5 +1,7 @@
     package com.rocketteam.passkeeper;
     
+    import static com.rocketteam.passkeeper.util.ShowAlertsUtility.mostrarSweetAlert;
+
     import androidx.annotation.NonNull;
     import androidx.appcompat.app.AppCompatActivity;
     import androidx.biometric.BiometricPrompt;
@@ -9,6 +11,7 @@
     import android.os.Bundle;
     import android.content.Intent;
     import android.util.Log;
+    import android.view.View;
     import android.widget.Button;
     import android.widget.TextView;
     import com.google.android.material.textfield.TextInputEditText;
@@ -26,6 +29,8 @@
     import cn.pedant.SweetAlert.SweetAlertDialog;
 
     public class MainActivity extends AppCompatActivity {
+        private final String TITLE = "Credenciales inválidas";
+        private final String MSG = "Usuario o contraseña incorrectos";
         private DbManager dbManager;
         private TextInputEditText editTextEmail;
         private TextInputEditText editTextPassword;
@@ -51,11 +56,17 @@
 
             int bio = sharedPreferences.getInt("biometric",-1);
             Log.i("TAG", "Login Biometric: "+bio);
+            Button btnBiometric = findViewById(R.id.fingerprint); //asigno el boton de la huella
+            boolean biometricFinger = BiometricUtils.isBiometricPromptEnabled(MainActivity.this);
+            btnBiometric.setVisibility(biometricFinger ? View.VISIBLE : View.GONE); // y lo hago visible si existe la biometria
+
             if(bio == 1) {
                 // Si el usuario ha configurado la preferencia para usar la autenticación biométrica
                 // Mostrar el cuadro de diálogo de autenticación biométrica
-                if (BiometricUtils.isBiometricPromptEnabled(MainActivity.this)) {
+
+                if (biometricFinger || ) {
                     // Si el dispositivo es compatible con la autenticación biométrica
+
                     BiometricUtils.showBiometricPrompt(MainActivity.this, new BiometricPrompt.AuthenticationCallback() {
                         @Override
                         public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
@@ -66,6 +77,7 @@
                             finish();
                         }
                     });
+
                 }
             }
 
@@ -141,7 +153,7 @@
                 dbManager.close();
             } else {
                 // Si las credenciales son inválidas, muestra un mensaje de error.
-                mostrarSweetAlert();
+                mostrarSweetAlert(this,2,TITLE,MSG);
                 // También podría usar Toast para mostrar un mensaje de error alternativo.
                 //Toast.makeText(this, "Credenciales inválidas, por favor intenta nuevamente", Toast.LENGTH_SHORT).show();
                 // Cierra la conexión con la base de datos.
@@ -150,27 +162,6 @@
 
         }
 
-        private void mostrarSweetAlert() {
 
-            // Crea una instancia de SweetAlertDialog con el contexto actual y el tipo especificado.
-            SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE);
-            // Establece el título del diálogo.
-            sweetAlertDialog.setTitleText("Credenciales inválidas");
-            // Establece el mensaje del diálogo.
-            sweetAlertDialog.setContentText("usuario o contraseña incorrecto");
-            // Establece el texto del botón de confirmación como "Aceptar".
-            sweetAlertDialog.setConfirmText("Aceptar");
-            // Establece un escuchador para el botón de confirmación.
-            sweetAlertDialog.setConfirmClickListener(sweetAlertDialog1 -> {
-                // Cierra el diálogo con animación.
-                sweetAlertDialog1.dismissWithAnimation();
 
-                // Realiza acciones adicionales en función del tipo de diálogo.
-                if (SweetAlertDialog.ERROR_TYPE == 2) {
-                    finish(); // Cerrar la actividad en caso de un error de registro
-                }
-            });
-            // Muestra el diálogo SweetAlertDialog.
-            sweetAlertDialog.show();
-        }
     }
