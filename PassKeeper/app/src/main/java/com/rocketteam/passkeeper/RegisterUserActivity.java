@@ -1,11 +1,11 @@
 package com.rocketteam.passkeeper;
-import com.rocketteam.passkeeper.util.ShowAlertsUtility;
+
+import static com.rocketteam.passkeeper.util.ShowAlertsUtility.mostrarSweetAlert;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.text.TextUtils;
-//import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,10 +17,12 @@ import com.rocketteam.passkeeper.data.db.DbManager;
 import com.rocketteam.passkeeper.data.model.request.UserCredentials;
 import com.rocketteam.passkeeper.util.HashUtility;
 import com.rocketteam.passkeeper.util.InputTextWatcher;
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class RegisterActivity extends AppCompatActivity {
+/**
+ * Activity para registrar un nuevo usuario.
+ */
+public class RegisterUserActivity extends AppCompatActivity {
     private DbManager dbManager;
     private TextInputEditText editTextEmail;
     private TextInputEditText editTextPassword;
@@ -43,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
         textInputLayoutPwd = findViewById(R.id.textInputLayout2Reg);
         textInputLayoutPwd2 = findViewById(R.id.textInputLayout2Reg2);
 
-        // Agrega TextWatcher a los EditText
+        // Agrega TextWatcher a los EditText para validación en tiempo real
         editTextEmail.addTextChangedListener(new InputTextWatcher(textInputLayoutEmail));
         editTextPassword.addTextChangedListener(new InputTextWatcher(textInputLayoutPwd));
         editTextPassword2.addTextChangedListener(new InputTextWatcher(textInputLayoutPwd2));
@@ -53,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         linkLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -63,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -80,7 +82,10 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    // Método para validar las entradas del usuario
+    /**
+     * Método para validar las entradas del usuario.
+     * @return true si las entradas son válidas, false si hay errores de validación.
+     */
     private boolean validateInput() {
         String email = editTextEmail.getText().toString();
         String password = editTextPassword.getText().toString();
@@ -115,7 +120,9 @@ public class RegisterActivity extends AppCompatActivity {
         return true;
     }
 
-    // Método para registrar al usuario
+    /**
+     * Método para registrar al usuario en la base de datos.
+     */
     private void registrarUsuario() {
         try {
             dbManager.open();
@@ -123,31 +130,28 @@ public class RegisterActivity extends AppCompatActivity {
 
             if (dbManager.userRegister(user)) {
                 // Mostrar un SweetAlertDialog para el registro exitoso
-                ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.SUCCESS_TYPE, "Registro exitoso", "El usuario ha sido registrado correctamente.");
+                mostrarSweetAlert(this, SweetAlertDialog.SUCCESS_TYPE, "Registro exitoso", "El usuario ha sido registrado correctamente.");
             } else {
                 // Mostrar un SweetAlertDialog para el error de registro
-                ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error en el registro", "El email " + user.getEmail() + " ya se encuentra registrado");
+                mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error en el registro", "El email " + user.getEmail() + " ya se encuentra registrado");
             }
         } catch (SQLiteException e) {
             // Mostrar un SweetAlertDialog para errores de base de datos
-            ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error al registrar el usuario", "No se pudo registrar el usuario en la base de datos.");
+            mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error al registrar el usuario", "No se pudo registrar el usuario en la base de datos.");
             e.printStackTrace();
         } catch (HashUtility.SaltException e) {
             // Mostrar un SweetAlertDialog para errores de generación de salt
-            ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error al registrar el usuario", "Error al generar el salt para la contraseña.");
+            mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error al registrar el usuario", "Error al generar el salt para la contraseña.");
         } catch (HashUtility.HashingException e) {
             // Mostrar un SweetAlertDialog para errores de hash
-            ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error al registrar el usuario", "Error al hashear la contraseña.");
+            mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error al registrar el usuario", "Error al hashear la contraseña.");
         } catch (Exception e) {
             // Mostrar un SweetAlertDialog para errores inesperados
             e.printStackTrace();
-            ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error", "Ocurrió un error inesperado.");
+            mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error", "Ocurrió un error inesperado.");
         } finally {
             dbManager.close();
         }
     }
-
-
-
-
 }
+
