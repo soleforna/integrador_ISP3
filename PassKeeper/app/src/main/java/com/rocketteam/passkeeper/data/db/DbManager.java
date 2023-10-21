@@ -139,7 +139,7 @@ public class DbManager {
      * @param psw La información de la contraseña a registrar.
      * @return true si la contraseña se registró correctamente, false si ocurrió un error.
      */
-    public boolean passwordRegister(PasswordCredentials psw) {
+    public boolean passwordRegister(PasswordCredentials psw) throws HashUtility.HashingException {
 
         if (psw == null) {
             throw new IllegalArgumentException("PasswordCredentials no puede ser null");
@@ -168,13 +168,13 @@ public class DbManager {
             }
         } catch (SQLException e) {
             Log.e("Error", "Error de SQL al registrar la contraseña: " + e.getMessage());
-            return false;
+            throw e;
         } catch (HashUtility.HashingException e) {
             Log.e("Error", "Error al hashear la contraseña: " + e.getMessage());
-            return false;
+            throw e;
         } catch (Exception e) {
             Log.e("Error", "Password registration error: " + e.getMessage());
-            return false;
+            throw e;
         }finally {
             db.close();
         }
