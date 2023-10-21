@@ -25,12 +25,12 @@ import com.rocketteam.passkeeper.util.InputTextWatcher;
 
 import java.util.Objects;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Activity para registrar un nuevo usuario.
  */
 public class RegisterUserActivity extends AppCompatActivity {
+    private final String USER_ERROR = "Error al registrar el usuario";
     private DbManager dbManager;
     private TextInputEditText editTextEmail;
     private TextInputEditText editTextPassword;
@@ -136,30 +136,31 @@ public class RegisterUserActivity extends AppCompatActivity {
             //envia 1 o 0 segun la posicion del switch biometrico
             if (dbManager.userRegister(user, switchBiometric.isChecked() ? 1 : 0)) {
                 // Mostrar un SweetAlertDialog para el registro exitoso
-                mostrarSweetAlert(this, SweetAlertDialog.SUCCESS_TYPE, "Registro exitoso", "El usuario ha sido registrado correctamente.");
+                mostrarSweetAlert(this, 2, "Registro exitoso", "El usuario ha sido registrado correctamente.");
                 // Cerrar la actividad actual y volver a la actividad anterior
                 finish();
             } else {
                 // Mostrar un SweetAlertDialog para el error de registro
-                mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error en el registro", "El email " + user.getEmail() + " ya se encuentra registrado");
+                mostrarSweetAlert(this, 1, USER_ERROR, "El email " + user.getEmail() + " ya se encuentra registrado");
             }
         } catch (SQLiteException e) {
             // Mostrar un SweetAlertDialog para errores de base de datos
-            mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error al registrar el usuario", "No se pudo registrar el usuario en la base de datos.");
+            mostrarSweetAlert(this, 1, USER_ERROR, "Falló el registro en la base de datos.");
             e.printStackTrace();
         } catch (HashUtility.SaltException e) {
             // Mostrar un SweetAlertDialog para errores de generación de salt
-            mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error al registrar el usuario", "Error al generar el salt para la contraseña.");
+            mostrarSweetAlert(this, 1, USER_ERROR, "Error al generar el salt para la contraseña.");
         } catch (HashUtility.HashingException e) {
             // Mostrar un SweetAlertDialog para errores de hash
-            mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error al registrar el usuario", "Error al hashear la contraseña.");
+            mostrarSweetAlert(this, 1, USER_ERROR, "Error al hashear la contraseña.");
         } catch (Exception e) {
             // Mostrar un SweetAlertDialog para errores inesperados
             e.printStackTrace();
-            mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error", "Ocurrió un error inesperado.");
+            mostrarSweetAlert(this, 1, "Error", "Ocurrió un error inesperado.");
         } finally {
             dbManager.close();
         }
     }
+
 }
 
