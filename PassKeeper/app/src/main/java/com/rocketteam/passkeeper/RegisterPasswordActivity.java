@@ -15,13 +15,13 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.rocketteam.passkeeper.data.db.DbManager;
 import com.rocketteam.passkeeper.data.model.request.PasswordCredentials;
+import com.rocketteam.passkeeper.util.HashUtility;
 import com.rocketteam.passkeeper.util.InputTextWatcher;
 
 import java.util.Objects;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
-
 public class RegisterPasswordActivity extends AppCompatActivity {
+    private final String ERROR = "Error al registrar la contraseña";
 
     // Variables de instancia para manejar la base de datos y las vistas
     private DbManager dbManager;
@@ -115,7 +115,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
             SharedPreferences sharedPreferences = getSharedPreferences("Storage", Context.MODE_PRIVATE);
             int userId = sharedPreferences.getInt("userId", -1);
             PasswordCredentials password = null;
-            if(userId != -1){
+            if (userId != -1) {
                 password = new PasswordCredentials(
                         userId,
                         Objects.requireNonNull(editTextName.getText()).toString(),
@@ -128,24 +128,18 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
             if (dbManager.passwordRegister(password)) {
                 // Mostrar un SweetAlertDialog para el registro exitoso de la contraseña
-                mostrarSweetAlert(this, SweetAlertDialog.SUCCESS_TYPE, "Registro de contraseña exitoso", "La contraseña ha sido registrada correctamente.");
-            } else {
-
-                // Mostrar un SweetAlertDialog para el error de registro de contraseña
-                mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error en el registro de contraseña", "Error al registrar la contraseña.");
-
-                // Mostrar un SweetAlertDialog para el error de registro
-                mostrarSweetAlert(this,SweetAlertDialog.ERROR_TYPE, "Error en el registro de contraseña", "Error");// TODO
-
+                mostrarSweetAlert(this, 2, "Registro de contraseña exitoso", "La contraseña ha sido registrada correctamente.");
             }
         } catch (SQLiteException e) {
             // Mostrar un SweetAlertDialog para errores de base de datos
-            mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error al registrar la contraseña", "No se pudo registrar la contraseña en la base de datos.");
+            mostrarSweetAlert(this, 1, ERROR, "Fallo el registro en la base de datos");
             e.printStackTrace();
+        } catch (HashUtility.HashingException e){
+            mostrarSweetAlert(this, 1, ERROR, "Fallo al encriptar la contraseña");
         } catch (Exception e) {
             // Mostrar un SweetAlertDialog para errores inesperados
             e.printStackTrace();
-            mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error", "Ocurrió un error inesperado.");
+            mostrarSweetAlert(this, 1, "Error", "Ocurrió un error inesperado.");
         } finally {
             dbManager.close();
         }
