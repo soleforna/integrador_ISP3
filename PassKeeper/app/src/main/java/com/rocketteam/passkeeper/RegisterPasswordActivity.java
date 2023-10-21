@@ -4,10 +4,11 @@ package com.rocketteam.passkeeper;
 import static com.rocketteam.passkeeper.util.ShowAlertsUtility.mostrarSweetAlert;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.textfield.TextInputEditText;
@@ -15,6 +16,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.rocketteam.passkeeper.data.db.DbManager;
 import com.rocketteam.passkeeper.data.model.request.PasswordCredentials;
 import com.rocketteam.passkeeper.util.InputTextWatcher;
+
+import java.util.Objects;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -64,22 +67,16 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
         // Configuración del botón para regresar a la actividad PasswordsActivity
         btnAtras = findViewById(R.id.boton_atras_guardar);
-        btnAtras.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RegisterPasswordActivity.this, PasswordsActivity.class);
-                startActivity(intent);
-            }
+        btnAtras.setOnClickListener(view -> {
+            Intent intent = new Intent(RegisterPasswordActivity.this, PasswordsActivity.class);
+            startActivity(intent);
         });
 
         // Configuración del botón para guardar la contraseña
         btnGuardar = findViewById(R.id.btn_guardar);
-        btnGuardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (validateInputNewPass()) {
-                    addPassword();
-                }
+        btnGuardar.setOnClickListener(view -> {
+            if (validateInputNewPass()) {
+                addPassword();
             }
         });
     }
@@ -90,9 +87,9 @@ public class RegisterPasswordActivity extends AppCompatActivity {
      * @return true si las entradas son válidas, false si hay errores de validación.
      */
     private boolean validateInputNewPass() {
-        String url = editTextUrl.getText().toString();
-        String pass = editTextPassword.getText().toString();
-        String name = editTextName.getText().toString();
+        String url = Objects.requireNonNull(editTextUrl.getText()).toString();
+        String pass = Objects.requireNonNull(editTextPassword.getText()).toString();
+        String name = Objects.requireNonNull(editTextName.getText()).toString();
 
         if (pass.isEmpty()) {
             textInputLayoutName.setError("Por favor, ingresa una contraseña");
@@ -113,21 +110,33 @@ public class RegisterPasswordActivity extends AppCompatActivity {
     private void addPassword() {
         try {
             dbManager.open();
-            PasswordCredentials password = new PasswordCredentials(
-                    1,
-                    editTextName.getText().toString(),
-                    editTextPassword.getText().toString(),
-                    editTextUsuario.getText().toString(),
-                    editTextUrl.getText().toString(),
-                    editTextDescripcion.getText().toString()
-            );
+
+            //obtengo el ID del usuario logueado
+            SharedPreferences sharedPreferences = getSharedPreferences("Storage", Context.MODE_PRIVATE);
+            int userId = sharedPreferences.getInt("userId", -1);
+            PasswordCredentials password = null;
+            if(userId != -1){
+                password = new PasswordCredentials(
+                        userId,
+                        Objects.requireNonNull(editTextName.getText()).toString(),
+                        Objects.requireNonNull(editTextPassword.getText()).toString(),
+                        Objects.requireNonNull(editTextUsuario.getText()).toString(),
+                        Objects.requireNonNull(editTextUrl.getText()).toString(),
+                        Objects.requireNonNull(editTextDescripcion.getText()).toString()
+                );
+            }
 
             if (dbManager.passwordRegister(password)) {
                 // Mostrar un SweetAlertDialog para el registro exitoso de la contraseña
                 mostrarSweetAlert(this, SweetAlertDialog.SUCCESS_TYPE, "Registro de contraseña exitoso", "La contraseña ha sido registrada correctamente.");
             } else {
+
                 // Mostrar un SweetAlertDialog para el error de registro de contraseña
                 mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error en el registro de contraseña", "Error al registrar la contraseña.");
+
+                // Mostrar un SweetAlertDialog para el error de registro
+                mostrarSweetAlert(this,SweetAlertDialog.ERROR_TYPE, "Error en el registro de contraseña", "Error");// TODO
+
             }
         } catch (SQLiteException e) {
             // Mostrar un SweetAlertDialog para errores de base de datos
