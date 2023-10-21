@@ -6,17 +6,25 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.rocketteam.passkeeper.data.db.DbManager;
 import com.rocketteam.passkeeper.data.model.request.UserCredentials;
+import com.rocketteam.passkeeper.util.BiometricUtils;
 import com.rocketteam.passkeeper.util.HashUtility;
 import com.rocketteam.passkeeper.util.InputTextWatcher;
+
+import java.util.Objects;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
@@ -30,11 +38,18 @@ public class RegisterUserActivity extends AppCompatActivity {
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPwd;
     private TextInputLayout textInputLayoutPwd2;
+    private Switch switchBiometric;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        // Verificar si la autenticación biométrica está habilitada en este dispositivo
+        boolean biometricEnabled = BiometricUtils.isBiometricPromptEnabled(this);
+        switchBiometric = findViewById(R.id.switch1);
+        switchBiometric.setVisibility(biometricEnabled ? View.VISIBLE : View.GONE);
+        Log.i("TAG", "switch biometrico "+ switchBiometric.getVisibility());
 
         // Inicialización de las variables
         dbManager = new DbManager(getApplicationContext());
@@ -52,32 +67,23 @@ public class RegisterUserActivity extends AppCompatActivity {
 
         // Configuración del enlace para regresar al MainActivity
         TextView linkLogin = findViewById(R.id.linkLogin);
-        linkLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        linkLogin.setOnClickListener(view -> {
+            Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
         // Configuración del botón para volver al MainActivity
         MaterialButton btnHome = findViewById(R.id.btn_home);
-        btnHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        btnHome.setOnClickListener(view -> {
+            Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
+            startActivity(intent);
         });
 
         // Configuración del botón de registro
         Button btnRegistrar = findViewById(R.id.btnRegistrar);
-        btnRegistrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validateInput()) {
-                    registrarUsuario();
-                }
+        btnRegistrar.setOnClickListener(v -> {
+            if (validateInput()) {
+                registrarUsuario();
             }
         });
     }
@@ -87,9 +93,9 @@ public class RegisterUserActivity extends AppCompatActivity {
      * @return true si las entradas son válidas, false si hay errores de validación.
      */
     private boolean validateInput() {
-        String email = editTextEmail.getText().toString();
-        String password = editTextPassword.getText().toString();
-        String password2 = editTextPassword2.getText().toString();
+        String email = Objects.requireNonNull(editTextEmail.getText()).toString();
+        String password = Objects.requireNonNull(editTextPassword.getText()).toString();
+        String password2 = Objects.requireNonNull(editTextPassword2.getText()).toString();
 
         // Validación del correo electrónico
         if (TextUtils.isEmpty(email)) {
@@ -126,11 +132,13 @@ public class RegisterUserActivity extends AppCompatActivity {
     private void registrarUsuario() {
         try {
             dbManager.open();
-            UserCredentials user = new UserCredentials(editTextEmail.getText().toString(), editTextPassword.getText().toString());
-
-            if (dbManager.userRegister(user)) {
+            UserCredentials user = new UserCredentials(Objects.requireNonNull(editTextEmail.getText()).toString(), Objects.requireNonNull(editTextPassword.getText()).toString());
+            //envia 1 o 0 segun la posicion del switch biometrico
+            if (dbManager.userRegister(user, switchBiometric.isChecked() ? 1 : 0)) {
                 // Mostrar un SweetAlertDialog para el registro exitoso
                 mostrarSweetAlert(this, SweetAlertDialog.SUCCESS_TYPE, "Registro exitoso", "El usuario ha sido registrado correctamente.");
+                // Cerrar la actividad actual y volver a la actividad anterior
+                finish();
             } else {
                 // Mostrar un SweetAlertDialog para el error de registro
                 mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error en el registro", "El email " + user.getEmail() + " ya se encuentra registrado");
