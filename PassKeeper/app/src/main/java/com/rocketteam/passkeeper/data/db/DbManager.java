@@ -40,15 +40,18 @@ public class DbManager {
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String SALT = "salt"; // Nueva columna para almacenar el salt
+    public static final string biometric ="biometric";
     public static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS user ( " +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "email TEXT UNIQUE, " +
             "password TEXT, " +
             "salt TEXT, " +
+            "biometric INTEGER DEFAULT 0,"+
             "created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
             "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) " +
             ")";
 
+    private SharedPreferences sharedPreferences;
     private DbConnection connection;
     private SQLiteDatabase db;
 
@@ -167,11 +170,24 @@ public class DbManager {
         UserResponse user = this.getUserByEmail(email);
 
         if (user != null && HashUtility.checkPassword(pwd, user.getPassword(), user.getSalt())) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            editor.putInt("userId", user.getId());  // userId es el ID del usuario autenticado
+            editor.putInt("biometric", user.getBiometric());
+            editor.apply();
+
+            Log.i("TAG", "userID guardado en DbManayer: "+sharedPreferences.getInt("userId", -1));
+            Log.i("TAG", "biometric guardado en DbManayer: "+sharedPreferences.getInt("biometric",-1));
+
             return true; // Las credenciales son válidas
         }
         return false; // Las credenciales son inválidas
     }
 
+    public DbManager(Context context) {
+        this.connection = new DbConnection(context);
+        this.sharedPreferences = context.getSharedPreferences("Storage", Context.MODE_PRIVATE);
+    }
     /**
      * Obtiene un usuario por su dirección de correo electrónico desde la base de datos.
      *

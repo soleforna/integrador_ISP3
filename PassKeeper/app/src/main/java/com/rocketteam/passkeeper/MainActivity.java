@@ -118,7 +118,7 @@
             // Valida las credenciales del usuario en la base de datos.
             if (dbManager.validateUser(password, email)) {
 
-                ObtenerID(userId);
+
                 // Si las credenciales son válidas, se inicia la actividad de contraseñas.
                 Intent intent = new Intent(MainActivity.this, PasswordsActivity.class);
                 startActivity(intent);
@@ -134,16 +134,6 @@
                 dbManager.close();
             }
 
-            private void ObtenerID(String userId) {
-                // Obtiene una instancia de SharedPreferences.
-                SharedPreferences sharedPreferences = getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                // Guarda el ID del usuario en SharedPreferences.
-                editor.putString("user_id", userId);
-                editor.apply();
-            }
-        }
 
 
         /**
