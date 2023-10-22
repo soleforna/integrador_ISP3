@@ -22,8 +22,11 @@ import com.rocketteam.passkeeper.data.model.request.UserCredentials;
 import com.rocketteam.passkeeper.util.BiometricUtils;
 import com.rocketteam.passkeeper.util.HashUtility;
 import com.rocketteam.passkeeper.util.InputTextWatcher;
+import com.rocketteam.passkeeper.util.ShowAlertsUtility;
 
 import java.util.Objects;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 /**
@@ -39,6 +42,7 @@ public class RegisterUserActivity extends AppCompatActivity {
     private TextInputLayout textInputLayoutPwd;
     private TextInputLayout textInputLayoutPwd2;
     private Switch switchBiometric;
+    private boolean biometricEnabled;
 
     private final String MSGERROR = "Error al registrar el usuario";
 
@@ -48,10 +52,10 @@ public class RegisterUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         // Verificar si la autenticación biométrica está habilitada en este dispositivo
-        boolean biometricEnabled = BiometricUtils.isBiometricPromptEnabled(this);
+        biometricEnabled = BiometricUtils.isBiometricPromptEnabled(this);
+        Log.i("TAG", "la biometria esta: "+biometricEnabled);
         switchBiometric = findViewById(R.id.switch1);
         switchBiometric.setVisibility(biometricEnabled ? View.VISIBLE : View.GONE);
-        Log.i("TAG", "switch biometrico "+ switchBiometric.getVisibility());
 
         // Inicialización de las variables
         dbManager = new DbManager(getApplicationContext());
@@ -99,6 +103,10 @@ public class RegisterUserActivity extends AppCompatActivity {
         String password = Objects.requireNonNull(editTextPassword.getText()).toString();
         String password2 = Objects.requireNonNull(editTextPassword2.getText()).toString();
 
+        //si no hay biometria pone el switch en false
+        if(!biometricEnabled){
+            switchBiometric.setChecked(false);
+        }
         // Validación del correo electrónico
         if (TextUtils.isEmpty(email)) {
             textInputLayoutEmail.setError("El email es necesario");
@@ -107,7 +115,6 @@ public class RegisterUserActivity extends AppCompatActivity {
             textInputLayoutEmail.setError("Por favor, ingresa un correo electrónico válido");
             return false;
         }
-
         // Validación de las contraseñas
         if (TextUtils.isEmpty(password)) {
             textInputLayoutPwd.setError("La contraseña es necesaria");
@@ -135,13 +142,14 @@ public class RegisterUserActivity extends AppCompatActivity {
         try {
             dbManager.open();
             UserCredentials user = new UserCredentials(editTextEmail.getText().toString(), editTextPassword.getText().toString());
-            if (dbManager.userRegister(user)) {
+            int bio = switchBiometric.isChecked() ? 1:0;
+            if (dbManager.userRegister(user,switchBiometric.isChecked() ? 1:0)){
                 ShowAlertsUtility.mostrarSweetAlert(this, 2, "Registro exitoso", "El usuario ha sido registrado correctamente", new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         sweetAlertDialog.dismissWithAnimation();
                         // Redirigir al usuario a la página de inicio de sesión
-                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
                         startActivity(intent);
                     }
                 });
