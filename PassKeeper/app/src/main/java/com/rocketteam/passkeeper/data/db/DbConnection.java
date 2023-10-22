@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.rocketteam.passkeeper.RegisterActivity;
+import com.rocketteam.passkeeper.RegisterUserActivity;
 
 
 public class DbConnection extends SQLiteOpenHelper {
@@ -18,8 +18,8 @@ public class DbConnection extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
-   public DbConnection(RegisterActivity registerActivity) {
-        super(registerActivity, DB_NAME, null, DB_VERSION);
+   public DbConnection(RegisterUserActivity registerUserActivity) {
+        super(registerUserActivity, DB_NAME, null, DB_VERSION);
    }
 
 

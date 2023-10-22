@@ -24,8 +24,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 public class PasswordsActivity extends AppCompatActivity {
 
     FloatingActionButton btnA;
@@ -50,7 +48,7 @@ public class PasswordsActivity extends AppCompatActivity {
         fabAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PasswordsActivity.this, AgregarPassword.class);
+                Intent intent = new Intent(PasswordsActivity.this, RegisterPasswordActivity.class);
                 startActivity(intent);
             }
         });

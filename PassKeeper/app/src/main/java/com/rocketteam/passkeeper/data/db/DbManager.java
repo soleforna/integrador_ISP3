@@ -3,6 +3,7 @@ package com.rocketteam.passkeeper.data.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,7 +17,7 @@ import com.rocketteam.passkeeper.util.HashUtility;
 
 public class DbManager {
     public static final String TB_PASSWORD = "password";
-    public static final String PASSWORD_ID = "id";
+    //public static final String PASSWORD_ID = "id";
     public static final String PASSWORD_USERNAME = "username";
     public static final String PASSWORD_URL = "url";
     public static final String PASSWORD_KEYWORD = "keyword";
@@ -36,24 +37,28 @@ public class DbManager {
             "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE)";
 
     public static final String TB_USER = "user";
-    public static final String ID_USER = "id";
+    //public static final String ID_USER = "id";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
-    public static final String SALT = "salt"; // Nueva columna para almacenar el salt
+    public static final String SALT = "salt"; // Columna para almacenar el salt
+    public static final String BIO = "biometric"; // Columna para almacenar la opcion biometrica
     public static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS user ( " +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "email TEXT UNIQUE, " +
             "password TEXT, " +
             "salt TEXT, " +
+            "biometric INTEGER DEFAULT 0,"+
             "created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
             "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) " +
             ")";
 
-    private DbConnection connection;
+    private final DbConnection connection;
     private SQLiteDatabase db;
+    private final SharedPreferences sharedPreferences;
 
     public DbManager(Context context) {
         this.connection = new DbConnection(context);
+        this.sharedPreferences = context.getSharedPreferences("Storage", Context.MODE_PRIVATE);
     }
 
     public DbManager open() throws SQLException {
@@ -69,11 +74,12 @@ public class DbManager {
      * Registra un nuevo usuario en la base de datos.
      *
      * @param user Objeto UserCredentials que contiene la información del usuario.
+     * @param bio  Valor Entero que representa la selección de utilizar Huella del usuario
      * @return true si el registro es exitoso, false si hay un error.
      * @throws HashUtility.HashingException Si ocurre un error durante el hashing de la contraseña.
      * @throws HashUtility.SaltException    Si ocurre un error durante la generación del salt.
      */
-    public boolean userRegister(UserCredentials user) throws HashUtility.HashingException, HashUtility.SaltException {
+    public boolean userRegister(UserCredentials user, int bio) throws HashUtility.HashingException, HashUtility.SaltException {
         try {
             // Generar un salt aleatorio
             String salt = HashUtility.generateSalt();
@@ -84,6 +90,7 @@ public class DbManager {
             content.put(EMAIL, user.getEmail());
             content.put(PASSWORD, hashedPassword); // Guardar el hash en la base de datos
             content.put(SALT, salt); // Guardar el salt en la base de datos
+            content.put(BIO, bio); //guardar la seleccion biometrica
 
             // Evitar el conflicto de email duplicado y no realizar el registro, pero devolver -1
             long newRowId = db.insertWithOnConflict(TB_USER, null, content, SQLiteDatabase.CONFLICT_IGNORE);
@@ -126,8 +133,17 @@ public class DbManager {
 
         return salt;
     }
+    /**
+     * Registra una nueva contraseña en la base de datos.
+     *
+     * @param psw La información de la contraseña a registrar.
+     * @return true si la contraseña se registró correctamente, false si ocurrió un error.
+     */
+    public boolean passwordRegister(PasswordCredentials psw) throws HashUtility.HashingException {
 
-    public boolean passwordRegister(PasswordCredentials psw) {
+        if (psw == null) {
+            throw new IllegalArgumentException("PasswordCredentials no puede ser null");
+        }
 
         try {
             //Obtengo el Salt para hashear la contraseña
@@ -150,9 +166,17 @@ public class DbManager {
                 Log.e("Error", "No existe el usuario");
                 return false;
             }
+        } catch (SQLException e) {
+            Log.e("Error", "Error de SQL al registrar la contraseña: " + e.getMessage());
+            throw e;
+        } catch (HashUtility.HashingException e) {
+            Log.e("Error", "Error al hashear la contraseña: " + e.getMessage());
+            throw e;
         } catch (Exception e) {
             Log.e("Error", "Password registration error: " + e.getMessage());
-            return false;
+            throw e;
+        }finally {
+            db.close();
         }
     }
 
@@ -168,6 +192,13 @@ public class DbManager {
         UserResponse user = this.getUserByEmail(email);
 
         if (user != null && HashUtility.checkPassword(pwd, user.getPassword(), user.getSalt())) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            editor.putInt("userId", user.getId());  // userId es el ID del usuario autenticado
+            editor.putInt("biometric", user.getBiometric());
+            editor.apply();
+            Log.i("TAG", "userID guardado en DbManayer: "+sharedPreferences.getInt("userId", -1));
+            Log.i("TAG", "biometric guardado en DbManayer: "+sharedPreferences.getInt("biometric",-1));
             return true; // Las credenciales son válidas
         }
         return false; // Las credenciales son inválidas
@@ -190,6 +221,7 @@ public class DbManager {
             int emailIndex = cursor.getColumnIndex("email");
             int pwdIndex = cursor.getColumnIndex("password");
             int salIndex = cursor.getColumnIndex("salt");
+            int bioIndex = cursor.getColumnIndex("biometric");
 
             // Verificar si se encontró el usuario en la base de datos
             if (emailIndex != -1 && cursor.moveToFirst()) {
@@ -198,9 +230,10 @@ public class DbManager {
                 String userEmail = cursor.getString(emailIndex);
                 String password = cursor.getString(pwdIndex);
                 String sal = cursor.getString(salIndex);
+                int biometric = cursor.getInt(bioIndex);
 
                 // Crear un nuevo objeto UserResponse con los datos obtenidos
-                user = new UserResponse(id, userEmail, password, sal);
+                user = new UserResponse(id, userEmail, password, sal, biometric);
             }
             // Cerrar el cursor y la base de datos
             cursor.close();

@@ -5,12 +5,14 @@ public class UserResponse {
     private String email;
     private String password;
     private String salt;
+    private Integer biometric;
 
-    public UserResponse(int id, String email, String password, String salt) {
+    public UserResponse(int id, String email, String password, String salt, Integer biometric) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.salt = salt;
+        this.biometric = biometric;
     }
 
     public int getId() {
@@ -43,5 +45,13 @@ public class UserResponse {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public Integer getBiometric() {
+        return biometric;
+    }
+
+    public void setBiometric(Integer biometric) {
+        this.biometric = biometric;
     }
 }
