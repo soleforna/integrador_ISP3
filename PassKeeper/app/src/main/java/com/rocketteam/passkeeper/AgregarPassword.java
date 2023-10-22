@@ -2,7 +2,9 @@ package com.rocketteam.passkeeper;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,8 +38,8 @@ public class AgregarPassword extends AppCompatActivity {
     private TextInputEditText editTextDescripcion;
     private TextInputLayout textInputLayoutName;
     private TextInputLayout textInputLayoutUrl;
+    private ImageView imageViewGenerar2;
     private TextInputLayout textInputLayoutPass;
-    private ImageView imageViewGenerar;
 
 
     Button btnAtras;
@@ -59,14 +61,24 @@ public class AgregarPassword extends AppCompatActivity {
         textInputLayoutName = findViewById(R.id.textInputLayout);
         textInputLayoutUrl = findViewById(R.id.textInputLayout4);
         textInputLayoutPass = findViewById(R.id.textInputLayout3);
-        imageViewGenerar = findViewById(R.id.imageViewGenerar);
+        imageViewGenerar2 = findViewById(R.id.imageViewGenerar2);
 
         // Agrega TextWatcher a los EditText
         editTextName.addTextChangedListener(new InputTextWatcher(textInputLayoutName));
         editTextPassword.addTextChangedListener(new InputTextWatcher(textInputLayoutPass));
         editTextUrl.addTextChangedListener(new InputTextWatcher(textInputLayoutUrl));
 
-
+        //------------------- Método para generar un password aleatorio------------------------------------------
+        imageViewGenerar2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String randomPassword = HashUtility.generateRandomPassword(12);
+                editTextPassword.setText(randomPassword);
+                // Establece la selección al final del texto
+                editTextPassword.setSelection(editTextPassword.getText().length());
+                Toast.makeText(AgregarPassword.this, "Contraseña generada con éxito", Toast.LENGTH_SHORT).show();
+            }
+        });
 //-------------------------------- Regresa a la activity PasswordActivity--------------------------------------
         btnAtras = findViewById(R.id.boton_atras_guardar);
         btnAtras.setOnClickListener(new View.OnClickListener() {
@@ -84,17 +96,6 @@ public class AgregarPassword extends AppCompatActivity {
                 if (validateInputNewPass()) {
                     addPassword();
                 }
-            }
-        });
-        //------------------- Método para generar un password aleatorio------------------------------------------
-        imageViewGenerar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String randomPassword = HashUtility.generateRandomPassword(12);
-                editTextPassword.setText(randomPassword);
-                // Establece la selección al final del texto
-                editTextPassword.setSelection(editTextPassword.getText().length());
-                Toast.makeText(AgregarPassword.this, "Contraseña generada con éxito", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -127,15 +128,27 @@ public class AgregarPassword extends AppCompatActivity {
 
         try {
             dbManager.open();
-            PasswordCredentials password = new PasswordCredentials(1, editTextName.getText().toString(), editTextPassword.getText().toString(), editTextUsuario.getText().toString(), editTextUrl.getText().toString(), editTextDescripcion.getText().toString());
+            SharedPreferences sharedPreferences = getSharedPreferences("Storage", MODE_PRIVATE);
 
+            // Obtener el valor de "userId" de SharedPreferences
+            int userId = sharedPreferences.getInt("userId", -1); // -1 es un valor predeterminado en caso de que no se encuentre la clave "userId"
+            PasswordCredentials password = new PasswordCredentials(userId, editTextName.getText().toString(), editTextPassword.getText().toString(), editTextUsuario.getText().toString(), editTextUrl.getText().toString(), editTextDescripcion.getText().toString());
+            Log.i("PasswordActivity", "Mostrando Id" + userId);
             if (dbManager.passwordRegister(password)) {
                 // Mostrar un SweetAlertDialog para el registro exitoso de contraseña
-                ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.SUCCESS_TYPE, "Registro de contraseña exitoso", "La contraseña ha sido registrada correctamente.", null);
-
+                ShowAlertsUtility.mostrarSweetAlert(this, 2, "Registro exitoso", "El Password ha sido registrado correctamente", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                        // Redirigir al usuario a la página de PasswordActivity
+                        Intent intent = new Intent(AgregarPassword.this, PasswordsActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
             } else {
                 // Mostrar un SweetAlertDialog para el error de registro
-                ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error en el registro de contraseña", "Error" , null); // TODO
+                ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error en el registro de contraseña", "Error", null); // TODO
 
 
             }
@@ -149,7 +162,7 @@ public class AgregarPassword extends AppCompatActivity {
         } catch (Exception e) {
             // Mostrar un SweetAlertDialog para errores inesperados
             e.printStackTrace();
-            ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE,"Error","Ocurrió un error inesperado.", null);
+            ShowAlertsUtility.mostrarSweetAlert(this, SweetAlertDialog.ERROR_TYPE, "Error", "Ocurrió un error inesperado.", null);
 
         } finally {
             dbManager.close();
