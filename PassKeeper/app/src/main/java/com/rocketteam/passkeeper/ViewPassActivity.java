@@ -21,7 +21,6 @@ import com.rocketteam.passkeeper.util.HashUtility;
 
 public class ViewPassActivity extends AppCompatActivity {
     private ImageView imageViewCopy;
-    private ImageView imageViewGenerar;
     private TextInputEditText editTextPassword;
     Button btnYouPass;
 
@@ -37,21 +36,9 @@ public class ViewPassActivity extends AppCompatActivity {
         Log.i("ViewPassActivity", "Valor de columnIndexId: " + columnIndexId);
 
         imageViewCopy = findViewById(R.id.imageViewCopy);
-        imageViewGenerar = findViewById(R.id.imageViewGenerar);
         editTextPassword = findViewById(R.id.editTextPassword);
         TextInputLayout textInputLayout3 = findViewById(R.id.textInputLayout3);
 
-        //------------------- Método para generar un password aleatorio------------------------------------------
-        imageViewGenerar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String randomPassword = HashUtility.generateRandomPassword(12);
-                editTextPassword.setText(randomPassword);
-                // Establece la selección al final del texto
-                editTextPassword.setSelection(editTextPassword.getText().length());
-                Toast.makeText(ViewPassActivity.this, "Contraseña generada con éxito", Toast.LENGTH_SHORT).show();
-            }
-        });
         imageViewCopy.setOnClickListener(new View.OnClickListener() { //copiar la contraseña al portapapeles
             @Override
             public void onClick(View v) {

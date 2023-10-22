@@ -123,6 +123,7 @@
                     android:id="@+id/editTextName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:inputType="text"
                     android:textColor="@color/greyLigth"
                     app:hintTextColor="@color/greyLigth" />
@@ -151,6 +152,7 @@
                     android:id="@+id/editTextUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:inputType="text"
                     android:textColor="@color/greyLigth"
                     app:hintTextColor="@color/greyLigth" />
@@ -186,10 +188,12 @@
                         app:startIconDrawable="@drawable/lock_solid"
                         app:startIconTint="@color/greyLigth">
 
+
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editTextPassword"
-                            android:layout_width="225dp"
+                            android:layout_width="255dp"
                             android:layout_height="wrap_content"
+                            android:enabled="false"
                             android:inputType="text"
                             android:textColor="@color/greyLigth"
                             app:hintTextColor="@color/greyLigth" />
@@ -199,21 +203,10 @@
                         android:id="@+id/imageViewCopy"
                         android:layout_width="24dp"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="230dp"
-                        android:layout_marginTop="20dp"
-                        android:scaleType="fitStart"
-                        android:src="@drawable/copy_regular"
-                        app:endIconContentDescription="Clic para copiar la contraseña al portapapeles"
-                        app:tint="@color/greyLigth" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/imageViewGenerar"
-                        android:layout_width="24dp"
-                        android:layout_height="match_parent"
                         android:layout_marginStart="270dp"
                         android:layout_marginTop="20dp"
                         android:scaleType="fitStart"
-                        android:src="@drawable/circle_plus"
+                        android:src="@drawable/copy_regular"
                         app:endIconContentDescription="Clic para copiar la contraseña al portapapeles"
                         app:tint="@color/greyLigth" />
                 </FrameLayout>
@@ -242,6 +235,7 @@
                     android:id="@+id/editTextUrl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:enabled="false"
                     android:inputType="text"
                     android:textColor="@color/greyLigth"
                     app:hintTextColor="@color/greyLigth" />
@@ -269,6 +263,7 @@
                     android:id="@+id/editTextDescripcion"
                     android:layout_width="match_parent"
                     android:layout_height="95dp"
+                    android:enabled="false"
                     android:inputType="text"
                     android:textColor="@color/greyLigth"
                     app:hintTextColor="@color/greyLigth" />
@@ -293,6 +288,7 @@
                         android:id="@+id/editTextFechaModificacion"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
+                        android:enabled="false"
                         android:inputType="text"
                         android:textColor="@color/greyLigth"
                         app:hintTextColor="@color/greyLigth" />
