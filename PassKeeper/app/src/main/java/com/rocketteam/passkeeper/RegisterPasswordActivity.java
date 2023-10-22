@@ -128,18 +128,18 @@ public class RegisterPasswordActivity extends AppCompatActivity {
 
             if (dbManager.passwordRegister(password)) {
                 // Mostrar un SweetAlertDialog para el registro exitoso de la contraseña
-                mostrarSweetAlert(this, 2, "Registro de contraseña exitoso", "La contraseña ha sido registrada correctamente.");
+                mostrarSweetAlert(this, 2, "Registro de contraseña exitoso", "La contraseña ha sido registrada correctamente.", null);
             }
         } catch (SQLiteException e) {
             // Mostrar un SweetAlertDialog para errores de base de datos
-            mostrarSweetAlert(this, 1, ERROR, "Fallo el registro en la base de datos");
+            mostrarSweetAlert(this, 1, ERROR, "Fallo el registro en la base de datos",null);
             e.printStackTrace();
         } catch (HashUtility.HashingException e){
-            mostrarSweetAlert(this, 1, ERROR, "Fallo al encriptar la contraseña");
+            mostrarSweetAlert(this, 1, ERROR, "Fallo al encriptar la contraseña", null);
         } catch (Exception e) {
             // Mostrar un SweetAlertDialog para errores inesperados
             e.printStackTrace();
-            mostrarSweetAlert(this, 1, "Error", "Ocurrió un error inesperado.");
+            mostrarSweetAlert(this, 1, "Error", "Ocurrió un error inesperado.", null);
         } finally {
             dbManager.close();
         }
