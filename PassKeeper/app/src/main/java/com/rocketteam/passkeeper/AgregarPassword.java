@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,6 +34,7 @@ public class AgregarPassword extends AppCompatActivity {
     private TextInputLayout textInputLayoutName;
     private TextInputLayout textInputLayoutUrl;
     private TextInputLayout textInputLayoutPass;
+    private ImageView imageViewGenerar;
 
 
     Button btnAtras;
@@ -45,20 +48,20 @@ public class AgregarPassword extends AppCompatActivity {
 
         // -------inicializacion de variables----------
         dbManager = new DbManager(getApplicationContext());
-        editTextName= findViewById(R.id.editTextName);
+        editTextName = findViewById(R.id.editTextName);
         editTextUsuario = findViewById(R.id.editTextUsuario);
-        editTextPassword =findViewById(R.id.editTextPassword);
+        editTextPassword = findViewById(R.id.editTextPassword);
         editTextUrl = findViewById(R.id.editTextUrl);
         editTextDescripcion = findViewById(R.id.editTextDescripcion);
-        textInputLayoutName= findViewById(R.id.textInputLayout);
+        textInputLayoutName = findViewById(R.id.textInputLayout);
         textInputLayoutUrl = findViewById(R.id.textInputLayout4);
         textInputLayoutPass = findViewById(R.id.textInputLayout3);
+        imageViewGenerar = findViewById(R.id.imageViewGenerar);
 
         // Agrega TextWatcher a los EditText
         editTextName.addTextChangedListener(new InputTextWatcher(textInputLayoutName));
         editTextPassword.addTextChangedListener(new InputTextWatcher(textInputLayoutPass));
         editTextUrl.addTextChangedListener(new InputTextWatcher(textInputLayoutUrl));
-
 
 
 //-------------------------------- Regresa a la activity PasswordActivity--------------------------------------
@@ -80,6 +83,17 @@ public class AgregarPassword extends AppCompatActivity {
                 }
             }
         });
+        //------------------- Método para generar un password aleatorio------------------------------------------
+        imageViewGenerar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String randomPassword = HashUtility.generateRandomPassword(12);
+                editTextPassword.setText(randomPassword);
+                // Establece la selección al final del texto
+                editTextPassword.setSelection(editTextPassword.getText().length());
+                Toast.makeText(AgregarPassword.this, "Contraseña generada con éxito", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
     // -------------------- validar campos obligatorios vacios---------------
@@ -89,14 +103,14 @@ public class AgregarPassword extends AppCompatActivity {
         String pass = editTextPassword.getText().toString();
         String name = editTextName.getText().toString();
 
-        if (pass.isEmpty() ) {
+        if (pass.isEmpty()) {
             textInputLayoutName.setError("Por favor, ingresa una contraseña");
-            return false;}
-        else if(name.isEmpty()){
+            return false;
+        } else if (name.isEmpty()) {
             textInputLayoutPass.setError("Por favor, ingresa un nombre");
             return false;
 
-        } else if (!url.isEmpty() && !url.matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~|!:,.;]*[-a-zA-Z0-9+&@#/%=~|]")){
+        } else if (!url.isEmpty() && !url.matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~|!:,.;]*[-a-zA-Z0-9+&@#/%=~|]")) {
             textInputLayoutUrl.setError("Por favor, ingresa una url válida");
             return false;
         }
@@ -110,7 +124,7 @@ public class AgregarPassword extends AppCompatActivity {
 
         try {
             dbManager.open();
-            PasswordCredentials password = new PasswordCredentials(1,editTextName.getText().toString(), editTextPassword.getText().toString(), editTextUsuario.getText().toString(), editTextUrl.getText().toString(), editTextDescripcion.getText().toString());
+            PasswordCredentials password = new PasswordCredentials(1, editTextName.getText().toString(), editTextPassword.getText().toString(), editTextUsuario.getText().toString(), editTextUrl.getText().toString(), editTextDescripcion.getText().toString());
 
             if (dbManager.passwordRegister(password)) {
                 // Mostrar un SweetAlertDialog para el registro exitoso de contraseña
@@ -136,7 +150,7 @@ public class AgregarPassword extends AppCompatActivity {
     }
 
     //------------------- Método para mostrar SweetAlertDialog------------------------------------------
-    private void mostrarSweetAlert ( int tipo, String titulo, String mensaje){
+    private void mostrarSweetAlert(int tipo, String titulo, String mensaje) {
         Log.d("AgregarPassword", "Mostrando SweetAlertDialog de tipo: " + tipo);
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, tipo);
         sweetAlertDialog.setTitleText(titulo);
@@ -148,7 +162,10 @@ public class AgregarPassword extends AppCompatActivity {
             if (tipo == 2) {
                 finish(); // Cerrar la actividad en caso de un error de registro de contraseña
             }
+            Intent intent = new Intent(AgregarPassword.this, PasswordsActivity.class);
+            startActivity(intent);
         });
         sweetAlertDialog.show();
     }
+
 }
