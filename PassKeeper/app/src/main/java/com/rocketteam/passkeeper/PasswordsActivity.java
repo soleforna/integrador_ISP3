@@ -13,8 +13,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 
-import androidx.annotation.NonNull;
-
 public class PasswordsActivity extends AppCompatActivity {
 
     FloatingActionButton btnA;
@@ -32,7 +30,7 @@ public class PasswordsActivity extends AppCompatActivity {
         fabAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PasswordsActivity.this, AgregarPassword.class);
+                Intent intent = new Intent(PasswordsActivity.this, RegisterPasswordActivity.class);
                 startActivity(intent);
             }
         });
