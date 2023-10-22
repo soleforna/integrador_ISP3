@@ -145,7 +145,7 @@
                 dbManager.close();
             } else {
                 // Si las credenciales son inválidas, muestra un mensaje de error.
-                mostrarSweetAlert(this,2,TITLE,MSG,null);
+                mostrarSweetAlert(this,3,TITLE,MSG,null);
                 // También podría usar Toast para mostrar un mensaje de error alternativo.
                 //Toast.makeText(this, "Credenciales inválidas, por favor intenta nuevamente", Toast.LENGTH_SHORT).show();
                 // Cierra la conexión con la base de datos.
