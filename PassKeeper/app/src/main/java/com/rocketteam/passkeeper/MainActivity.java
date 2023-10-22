@@ -58,26 +58,18 @@
             Log.i("TAG", "Login Biometric: "+bio);
             Button btnBiometric = findViewById(R.id.fingerprint); //asigno el boton de la huella
             boolean biometricFinger = BiometricUtils.isBiometricPromptEnabled(MainActivity.this);
+
             btnBiometric.setVisibility(biometricFinger ? View.VISIBLE : View.GONE); // y lo hago visible si existe la biometria
+            // Si el dispositivo es compatible con la autenticación biométrica
+            btnBiometric.setOnClickListener(view -> {
+                this.BiometricAuth();
+            });
 
             if(bio == 1) {
                 // Si el usuario ha configurado la preferencia para usar la autenticación biométrica
-                // Mostrar el cuadro de diálogo de autenticación biométrica
-
-                if (biometricFinger || ) {
-                    // Si el dispositivo es compatible con la autenticación biométrica
-
-                    BiometricUtils.showBiometricPrompt(MainActivity.this, new BiometricPrompt.AuthenticationCallback() {
-                        @Override
-                        public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                            super.onAuthenticationSucceeded(result);
-                            // La autenticación biométrica fue exitosa
-                            startActivity(new Intent(MainActivity.this, PasswordsActivity.class));
-                            Toast.makeText(MainActivity.this, "Aunticado con exito", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    });
-
+                if (biometricFinger) {
+                    // Mostrar el cuadro de diálogo de autenticación biométrica
+                    this.BiometricAuth();
                 }
             }
 
@@ -153,7 +145,7 @@
                 dbManager.close();
             } else {
                 // Si las credenciales son inválidas, muestra un mensaje de error.
-                mostrarSweetAlert(this,2,TITLE,MSG);
+                mostrarSweetAlert(this,2,TITLE,MSG,null);
                 // También podría usar Toast para mostrar un mensaje de error alternativo.
                 //Toast.makeText(this, "Credenciales inválidas, por favor intenta nuevamente", Toast.LENGTH_SHORT).show();
                 // Cierra la conexión con la base de datos.
@@ -162,6 +154,18 @@
 
         }
 
+        private void BiometricAuth() {
+            BiometricUtils.showBiometricPrompt(MainActivity.this, new BiometricPrompt.AuthenticationCallback() {
+                @Override
+                public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                    super.onAuthenticationSucceeded(result);
+                    // La autenticación biométrica fue exitosa
+                    startActivity(new Intent(MainActivity.this, PasswordsActivity.class));
+                    Toast.makeText(MainActivity.this, "Autenticado con éxito", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            });
+        }
 
 
     }
