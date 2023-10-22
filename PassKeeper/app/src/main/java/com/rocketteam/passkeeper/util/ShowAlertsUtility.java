@@ -4,7 +4,26 @@ import android.content.Context;
 
 public class ShowAlertsUtility {
 
-    public static void mostrarSweetAlert(Context context, int tipo, String titulo, String mensaje) {
+    public static void mostrarSweetAlert(Context context, int tipo, String titulo, String mensaje, SweetAlertDialog.OnSweetClickListener listener) {
+        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(context, tipo);
+        sweetAlertDialog.setTitleText(titulo);
+        sweetAlertDialog.setContentText(mensaje);
+        sweetAlertDialog.setConfirmText("Aceptar");
+
+        sweetAlertDialog.setConfirmClickListener(sweetAlertDialog1 -> {
+            sweetAlertDialog1.dismissWithAnimation();
+            if (listener != null) {
+                listener.onClick(sweetAlertDialog1);
+            }
+        });
+
+        sweetAlertDialog.show();
+    }
+
+
+    /*public static void mostrarSweetAlert(Context context, int tipo, String titulo, String mensaje) {
+
+
         SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(context, tipo);
         sweetAlertDialog.setTitleText(titulo);
         sweetAlertDialog.setContentText(mensaje);
@@ -19,5 +38,5 @@ public class ShowAlertsUtility {
         });
 
         sweetAlertDialog.show();
-    }
+    }*/
 }
