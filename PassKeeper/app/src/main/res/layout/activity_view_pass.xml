@@ -157,32 +157,68 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- ver contraseña -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout3"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="@string/password_sitio"
-                android:textColor="@color/greyLigth"
-                app:boxCornerRadiusBottomEnd="25dp"
-                app:boxCornerRadiusBottomStart="25dp"
-                app:boxCornerRadiusTopEnd="25dp"
-                app:boxCornerRadiusTopStart="25dp"
-                app:boxStrokeColor="@color/greyLigth"
-                app:hintTextColor="@color/greyLigth"
-                app:passwordToggleEnabled="true"
-                app:startIconContentDescription="Lock icon"
-                app:startIconDrawable="@drawable/lock_solid"
-                app:startIconTint="@color/greyLigth">
+                android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextPassword"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:textColor="@color/greyLigth"
-                    app:hintTextColor="@color/greyLigth" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="start">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputLayout3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:hint="@string/password"
+                        android:textColor="@color/greyLigth"
+                        app:boxCornerRadiusBottomEnd="25dp"
+                        app:boxCornerRadiusBottomStart="25dp"
+                        app:boxCornerRadiusTopEnd="25dp"
+                        app:boxCornerRadiusTopStart="25dp"
+                        app:boxStrokeColor="@color/greyLigth"
+                        app:endIconContentDescription="Click para mostrar u ocultar la contraseña"
+                        app:endIconMode="password_toggle"
+                        app:hintTextColor="@color/greyLigth"
+                        app:startIconContentDescription="Clic para generar una contraseña aleatoria"
+                        app:startIconDrawable="@drawable/lock_solid"
+                        app:startIconTint="@color/greyLigth">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextPassword"
+                            android:layout_width="225dp"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:textColor="@color/greyLigth"
+                            app:hintTextColor="@color/greyLigth" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewCopy"
+                        android:layout_width="24dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="230dp"
+                        android:layout_marginTop="20dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/copy_regular"
+                        app:endIconContentDescription="Clic para copiar la contraseña al portapapeles"
+                        app:tint="@color/greyLigth" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageViewGenerar"
+                        android:layout_width="24dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="270dp"
+                        android:layout_marginTop="20dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/circle_plus"
+                        app:endIconContentDescription="Clic para copiar la contraseña al portapapeles"
+                        app:tint="@color/greyLigth" />
+                </FrameLayout>
+
+            </LinearLayout>
 
             <!-- url del sitio -->
             <com.google.android.material.textfield.TextInputLayout
