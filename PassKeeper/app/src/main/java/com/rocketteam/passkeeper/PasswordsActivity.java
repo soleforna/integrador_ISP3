@@ -3,6 +3,8 @@ package com.rocketteam.passkeeper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,17 +44,28 @@ public class PasswordsActivity extends AppCompatActivity {
         dbManager = new DbManager(this);
         dbManager.open();
         tableLayout = findViewById(R.id.tableLayout); //busca el id del tablelayout
+        // Nombre del SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("Storage", MODE_PRIVATE);
 
+        //Comprobar si la clave "userId" existe
+        if (sharedPreferences.contains("userId")) {
+            // Obtener el valor de "userId" de SharedPreferences
+            int userId = sharedPreferences.getInt("userId", -1);
+            Log.i("PasswordsActivity", "Mostrando el Id" + userId);
+            MostrarPasswords(userId);
+        } else {
+            // La clave "userId" no existe
+            Log.e("PasswordsActivity", "La clave 'userId' no existe");
+        }
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) FloatingActionButton fabAgregar = findViewById(R.id.btn_agregar);
 
         fabAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PasswordsActivity.this, RegisterPasswordActivity.class);
+                Intent intent = new Intent(PasswordsActivity.this, AgregarPassword.class);
                 startActivity(intent);
             }
         });
-        MostrarPasswords(1);
         imageView = findViewById(R.id.menu_view);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +157,7 @@ public class PasswordsActivity extends AppCompatActivity {
                     ImageButton iconTrash = row.findViewById(R.id.icon_trash);
 
                     try {
-                        String columnId = DbManager.PASSWORD_ID;
+                        String columnId = DbManager.PASSWORD_USER;
                         String columnName = DbManager.PASSWORD_NAME;
                         int columnIndexName = cursor.getColumnIndex(columnName);
                         int columnIndexId = cursor.getColumnIndex(columnId);
@@ -160,12 +173,10 @@ public class PasswordsActivity extends AppCompatActivity {
                                 public void onClick(View v) {
 
                                     // Crea un intent para abrir la actividad ViewPassActivity
-
                                     Intent intent = new Intent(PasswordsActivity.this, ViewPassActivity.class);
                                     // Agrega el id como un extra en el intent
                                     intent.putExtra("idColumna", getId);
                                     // utlizamos el putExtra para pasar información con el intent
-
                                     // Inicia la actividad ViewPassActivity
                                     startActivity(intent);
                                 }
@@ -175,15 +186,11 @@ public class PasswordsActivity extends AppCompatActivity {
                             iconPen.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    int idColumnaSeleccionada = cursor.getInt(columnIndexId);
-
                                     // Crea un intent para abrir la actividad ViewPassActivity
-
                                     Intent intent = new Intent(PasswordsActivity.this, EditarPassword.class);
                                     // Agrega el id como un extra en el intent
                                     intent.putExtra("idColumna", getId);
                                     // utlizamos el putExtra para pasar información con el intent
-
                                     // Inicia la actividad ViewPassActivity
                                     startActivity(intent);
 
