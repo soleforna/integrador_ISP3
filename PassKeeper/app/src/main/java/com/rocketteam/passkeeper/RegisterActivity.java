@@ -1,10 +1,11 @@
 package com.rocketteam.passkeeper;
+import com.rocketteam.passkeeper.util.ShowAlertsUtility;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
+//import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +28,8 @@ public class RegisterActivity extends AppCompatActivity {
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPwd;
     private TextInputLayout textInputLayoutPwd2;
+
+    private final String MSGERROR = "Error al registrar el usuario";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,47 +122,40 @@ public class RegisterActivity extends AppCompatActivity {
         try {
             dbManager.open();
             UserCredentials user = new UserCredentials(editTextEmail.getText().toString(), editTextPassword.getText().toString());
-
             if (dbManager.userRegister(user)) {
-                // Mostrar un SweetAlertDialog para el registro exitoso
-                mostrarSweetAlert(SweetAlertDialog.SUCCESS_TYPE, "Registro exitoso", "El usuario ha sido registrado correctamente.");
-            } else {
+                ShowAlertsUtility.mostrarSweetAlert(this, 2, "Registro exitoso", "El usuario ha sido registrado correctamente", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                        // Redirigir al usuario a la página de inicio de sesión
+                        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            }else {
                 // Mostrar un SweetAlertDialog para el error de registro
-                mostrarSweetAlert(SweetAlertDialog.ERROR_TYPE, "Error en el registro", "El email "+user.getEmail()+" ya se encuentra registrado");
+                ShowAlertsUtility.mostrarSweetAlert(this, 1, "Error en el registro", "El email " + user.getEmail() + " ya se encuentra registrado", null);
             }
         } catch (SQLiteException e) {
             // Mostrar un SweetAlertDialog para errores de base de datos
-            mostrarSweetAlert(SweetAlertDialog.ERROR_TYPE, "Error al registrar el usuario", "No se pudo registrar el usuario en la base de datos.");
+            ShowAlertsUtility.mostrarSweetAlert(this, 1, MSGERROR, "No se pudo registrar el usuario en la base de datos.", null );
             e.printStackTrace();
         } catch (HashUtility.SaltException e) {
             // Mostrar un SweetAlertDialog para errores de generación de salt
-            mostrarSweetAlert(SweetAlertDialog.ERROR_TYPE, "Error al registrar el usuario", "Error al generar el salt para la contraseña.");
+            ShowAlertsUtility.mostrarSweetAlert(this, 1, MSGERROR, "Error al generar el salt para la contraseña.", null );
         } catch (HashUtility.HashingException e) {
             // Mostrar un SweetAlertDialog para errores de hash
-            mostrarSweetAlert(SweetAlertDialog.ERROR_TYPE, "Error al registrar el usuario", "Error al hashear la contraseña.");
+            ShowAlertsUtility.mostrarSweetAlert(this, 1, MSGERROR, "Error al hashear la contraseña.", null );
         } catch (Exception e) {
             // Mostrar un SweetAlertDialog para errores inesperados
             e.printStackTrace();
-            mostrarSweetAlert(SweetAlertDialog.ERROR_TYPE, "Error", "Ocurrió un error inesperado.");
+            ShowAlertsUtility.mostrarSweetAlert(this, 1, "Error", "Ocurrió un error inesperado.", null );
         } finally {
             dbManager.close();
         }
     }
 
-    // Método para mostrar SweetAlertDialog
-    private void mostrarSweetAlert(int tipo, String titulo, String mensaje) {
-        Log.d("RegisterActivity", "Mostrando SweetAlertDialog de tipo: " + tipo);
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(this, tipo);
-        sweetAlertDialog.setTitleText(titulo);
-        sweetAlertDialog.setContentText(mensaje);
-        sweetAlertDialog.setConfirmText("Aceptar"); // Botón aceptar
-        sweetAlertDialog.setConfirmClickListener(sweetAlertDialog1 -> {
-            sweetAlertDialog1.dismissWithAnimation();
 
-            if (tipo == 2) {
-                finish(); // Cerrar la actividad en caso de un error de registro
-            }
-        });
-        sweetAlertDialog.show();
-    }
+
+
 }
