@@ -249,7 +249,7 @@ public class DbManager {
     }
 
     public Cursor getPasswordsForUser(int userId) {
-        String[] columns = {PASSWORD_ID,PASSWORD_NAME};
+        String[] columns = {PASSWORD_USER,PASSWORD_NAME};
         String selection = PASSWORD_USER + " = ?";
         String[] selectionArgs = {String.valueOf(userId)};
         return getDb().query(TB_PASSWORD, columns, selection, selectionArgs, null, null, null);
