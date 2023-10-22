@@ -25,13 +25,13 @@ public class DbManager {
     public static final String PASSWORD_NAME = "name";
     public static final String CREATE_PASSWORD_TABLE = "CREATE TABLE password( " +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "username TEXT, "+
-            "url TEXT, "+
-            "keyword TEXT NOT NULL, "+
-            "description TEXT, "+
-            "name TEXT, "+
-            "user_id INTEGER, "+
-            "created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), "+
+            "username TEXT, " +
+            "url TEXT, " +
+            "keyword TEXT NOT NULL, " +
+            "description TEXT, " +
+            "name TEXT, " +
+            "user_id INTEGER, " +
+            "created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
             "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
             "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE)";
 
@@ -126,6 +126,7 @@ public class DbManager {
 
         return salt;
     }
+
     public boolean passwordRegister(PasswordCredentials psw) {
 
         try {
@@ -212,6 +213,17 @@ public class DbManager {
 
         // Devolver el usuario encontrado (o null si no se encontró)
         return user;
+    }
+
+    public Cursor getPasswordsForUser(int userId) {
+        String[] columns = {PASSWORD_ID,PASSWORD_NAME};
+        String selection = PASSWORD_USER + " = ?";
+        String[] selectionArgs = {String.valueOf(userId)};
+        return getDb().query(TB_PASSWORD, columns, selection, selectionArgs, null, null, null);
+    }
+
+    public SQLiteDatabase getDb() {
+        return db;
     }
 
 
