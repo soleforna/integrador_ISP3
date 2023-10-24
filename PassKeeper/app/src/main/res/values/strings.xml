@@ -21,6 +21,7 @@
 
     <!--Tus Contraseñas-->
     <string name="passwords">Tus Contraseñas</string>
+    <string name="txtPasswords">No hay contraseñas  que mostrar, ¡por favor añada una!</string>
     <string name="btn_agregar">+</string>
 
     <!--Editar Contraseña-->

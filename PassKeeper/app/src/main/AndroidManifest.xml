@@ -25,7 +25,7 @@
             android:name=".PasswordsActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterPasswordActivity"
+            android:name=".AgregarPassword"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
