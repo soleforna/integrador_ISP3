@@ -14,6 +14,8 @@ import com.rocketteam.passkeeper.data.model.request.UserCredentials;
 import com.rocketteam.passkeeper.data.model.response.UserResponse;
 import com.rocketteam.passkeeper.util.HashUtility;
 
+import java.security.PublicKey;
+
 
 public class DbManager {
     public static final String TB_PASSWORD = "password";
@@ -249,10 +251,47 @@ public class DbManager {
     }
 
     public Cursor getPasswordsForUser(int userId) {
-        String[] columns = {PASSWORD_USER,PASSWORD_NAME};
-        String selection = PASSWORD_USER + " = ?";
-        String[] selectionArgs = {String.valueOf(userId)};
-        return getDb().query(TB_PASSWORD, columns, selection, selectionArgs, null, null, null);
+        try {
+            this.open();
+            String[] columns = {PASSWORD_USER, PASSWORD_NAME};
+            String selection = PASSWORD_USER + " = ?";
+            String[] selectionArgs = {String.valueOf(userId)};
+            return db.query(TB_PASSWORD, columns, selection, selectionArgs, null, null, null);
+        }catch (SQLException e){
+            Log.e("Error", "Error de SQL: " + e.getMessage());
+            throw e;
+        }finally {
+            this.close();
+        }
+    }
+
+    /**
+     * Verifica si hay usuarios con biometría habilitada en la base de datos.
+     *
+     * @return true si hay usuarios con biometría habilitada, false en caso contrario.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
+    public boolean userWhitBiometrics(){
+        try {
+            this.open();
+            String query = "SELECT COUNT(*) FROM user WHERE biometric = 1";
+            Cursor cursor = db.rawQuery(query, null);
+            int count = 0;
+
+            if (cursor != null) {
+                cursor.moveToFirst();
+                count = cursor.getInt(0);
+                cursor.close();
+            }
+            return count > 0;
+
+        }catch (SQLException e){
+            Log.e("Error", "Error de SQL: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        } finally {
+            this.close();
+        }
     }
 
     public SQLiteDatabase getDb() {
