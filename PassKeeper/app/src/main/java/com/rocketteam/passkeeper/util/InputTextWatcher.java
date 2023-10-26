@@ -5,29 +5,30 @@ import android.text.TextWatcher;
 import com.google.android.material.textfield.TextInputLayout;
 
 /**
- * Clase personalizada que implementa TextWatcher para validar campos de texto en tiempo real.
- * Permite mostrar un mensaje de error en un TextInputLayout si el campo está vacío.
+ * Esta clase implementa la interfaz TextWatcher y se utiliza para validar los campos de texto
+ * en tiempo real. Muestra un mensaje de error si el campo está vacío y borra el mensaje de
+ * error si el campo no está vacío.
  */
 public class InputTextWatcher implements TextWatcher {
 
-    private TextInputLayout textInputLayout;
+    private final TextInputLayout textInputLayout;
 
     /**
-     * Constructor que toma un TextInputLayout como parámetro.
+     * Constructor de la clase InputTextWatcher.
      *
-     * @param textInputLayout TextInputLayout asociado al campo de texto que se debe validar.
+     * @param textInputLayout El TextInputLayout al que se asociará el TextWatcher.
      */
     public InputTextWatcher(TextInputLayout textInputLayout) {
         this.textInputLayout = textInputLayout;
     }
 
     /**
-     * Se llama cuando el texto en el campo de texto cambia.
+     * Se llama cuando el texto en el EditText cambia.
      *
-     * @param s      Texto actual en el campo de texto.
-     * @param start  Índice del primer carácter modificado.
-     * @param before Número de caracteres eliminados.
-     * @param count  Número de caracteres agregados.
+     * @param s      La secuencia de caracteres actual en el EditText.
+     * @param start  El índice de inicio del cambio en el texto.
+     * @param before La longitud del texto que fue reemplazado.
+     * @param count  La longitud del nuevo texto.
      */
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -41,23 +42,26 @@ public class InputTextWatcher implements TextWatcher {
     }
 
     /**
-     * Se llama antes de que el texto en el campo de texto cambie.
+     * Se llama para notificar que algún texto dentro del EditText está a punto de ser reemplazado.
      *
-     * @param s      Texto actual en el campo de texto.
-     * @param start  Índice del primer carácter a ser cambiado.
-     * @param count  Número de caracteres a ser cambiados.
-     * @param after  Número de caracteres que serán agregados después de 'start'.
+     * @param s      La secuencia de caracteres actual en el EditText.
+     * @param start  El índice de inicio del cambio en el texto.
+     * @param count  La longitud del texto que será reemplazado.
+     * @param after  La longitud del nuevo texto que reemplazará al antiguo.
      */
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        // No se utiliza en esta implementación
     }
 
     /**
-     * Se llama después de que el texto en el campo de texto cambia.
+     * Se llama para notificar que algún texto dentro del EditText ha sido reemplazado.
      *
-     * @param s Texto actual en el campo de texto después del cambio.
+     * @param s La secuencia de caracteres actual en el EditText después de los cambios.
      */
     @Override
     public void afterTextChanged(Editable s) {
+        // No se utiliza en esta implementación
     }
 }
+

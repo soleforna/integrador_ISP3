@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.rocketteam.passkeeper.RegisterActivity;
+import com.rocketteam.passkeeper.RegisterUserActivity;
 
 /**
  * Clase que gestiona la conexión y la creación de la base de datos SQLite para PassKeeper.
@@ -25,14 +25,10 @@ public class DbConnection extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
-    /**
-     * Constructor de la clase para actividades específicas.
-     *
-     * @param registerActivity Instancia de RegisterActivity para la conexión de la base de datos.
-     */
-    public DbConnection(RegisterActivity registerActivity) {
-        super(registerActivity, DB_NAME, null, DB_VERSION);
-    }
+   public DbConnection(RegisterUserActivity registerUserActivity) {
+        super(registerUserActivity, DB_NAME, null, DB_VERSION);
+   }
+
 
     /**
      * Método llamado cuando se crea la base de datos por primera vez.

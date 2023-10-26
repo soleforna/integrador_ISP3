@@ -4,33 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" >
+    android:background="@color/white">
 
     <View
         android:id="@+id/viewBlue"
-        android:layout_width="412dp"
-        android:layout_height="364dp"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:background="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintVertical_bias="0"
+        tools:ignore="VisualLintBounds" />
 
- <TextView
+    <TextView
         android:id="@+id/textTitle"
-        android:text="@string/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="italic"
-        android:textSize="30sp"
-        android:textColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="35dp"
-        android:layout_marginBottom="16dp" />
+        android:text="@string/app_name"
+        android:textColor="@android:color/white"
+        android:textSize="48sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
@@ -39,6 +39,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/white"
+        android:visibility="visible"
         app:cardCornerRadius="30dp"
         app:cardElevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,7 +55,8 @@
             android:layout_marginBottom="60dp"
             android:backgroundTint="@color/white"
             app:cardCornerRadius="30dp"
-            app:cardElevation="8dp">
+            app:cardElevation="8dp"
+            tools:ignore="VisualLintBounds">
 
 
             <LinearLayout
@@ -78,18 +80,20 @@
 
         <LinearLayout
             android:layout_width="300dp"
-            android:layout_height="173dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="150dp"
+            android:layout_marginTop="110dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:orientation="vertical">
 
             <!-- Primer campo de entrada -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginTop="8dp"
                 android:hint="@string/correo"
                 android:textColor="@color/greyLigth"
                 app:boxCornerRadiusBottomEnd="25dp"
@@ -106,12 +110,11 @@
                     android:id="@+id/editTextUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:textColor="@color/greyLigth"
-                    app:hintTextColor="@color/greyLigth" />
+                    android:inputType="textWebEmailAddress"
+                    android:textColor="@android:color/primary_text_light"
+                    app:hintTextColor="@android:color/secondary_text_light" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Segundo campo de entrada -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2"
                 android:layout_width="match_parent"
@@ -136,33 +139,53 @@
                     android:id="@+id/editPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:textColor="@color/greyLigth" />
+                    android:inputType="text|textWebPassword"
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/fingerprint"
+                android:layout_width="40dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="120dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:autoText="false"
+                android:backgroundTint="@color/blue"
+                android:drawableTop="@drawable/fingerprint_solid"
+                android:drawableTint="@android:color/darker_gray"
+                android:textAllCaps="false"
+                android:visibility="gone" />
+
+            <!-- Segundo campo de entrada -->
+
         </LinearLayout>
 
         <TextView
             android:id="@+id/linkRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="160dp"
-            android:layout_marginTop="350dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="380dp"
             android:text="No estas registrado?"
             android:textColor="@color/blue"
             app:layout_constraintBottom_toTopOf="@+id/materialButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.72"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/cardView" />
+            app:layout_constraintTop_toTopOf="@+id/cardView"
+            tools:ignore="HardcodedText" />
+
     </com.google.android.material.card.MaterialCardView>
 
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_login_m"
         style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="231dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="373dp"
+        android:layout_width="230dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="350dp"
         android:backgroundTint="@color/blue"
         android:text="@string/log_in"
         android:textColor="@color/white"
@@ -173,7 +196,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cardView"
-        app:layout_constraintVertical_bias="0.21"
+        app:layout_constraintVertical_bias="0.449"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

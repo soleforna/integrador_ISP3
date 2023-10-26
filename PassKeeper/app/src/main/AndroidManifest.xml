@@ -6,14 +6,14 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_passkeeper_launcher"
+        android:icon="@mipmap/ic_passkeeper_launcher_foreground"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_passkeeper_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PassKeeper"
         tools:targetApi="31">
         <activity
-            android:name=".RegisterActivity"
+            android:name=".RegisterUserActivity"
             android:exported="false" />
         <activity
             android:name=".ViewPassActivity"
@@ -25,25 +25,22 @@
             android:name=".PasswordsActivity"
             android:exported="false" />
         <activity
-            android:name=".AgregarPassword"
+            android:name=".RegisterPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"/>
         <activity
             android:name=".AboutActivity"
             android:exported="false" />
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- Permiso para leer-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:ignore="ManifestOrder" /> <!-- Permiso para leer-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- Permiso para guardar-->
 
     <uses-permission android:name="android.permission.USE_BIOMETRIC" /> <!--  Permiso para la autentificación bieometrica-->

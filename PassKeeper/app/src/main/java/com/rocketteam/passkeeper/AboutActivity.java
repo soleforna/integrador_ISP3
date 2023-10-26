@@ -2,10 +2,8 @@ package com.rocketteam.passkeeper;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 
 import com.google.android.material.button.MaterialButton;
 
@@ -25,8 +23,6 @@ public class AboutActivity extends AppCompatActivity {
             Intent intent = new Intent(AboutActivity.this, PasswordsActivity.class);
             startActivity(intent);
         });
-
     }
-
 
 }
