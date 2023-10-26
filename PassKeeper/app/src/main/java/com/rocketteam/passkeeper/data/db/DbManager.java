@@ -14,16 +14,20 @@ import com.rocketteam.passkeeper.data.model.request.UserCredentials;
 import com.rocketteam.passkeeper.data.model.response.UserResponse;
 import com.rocketteam.passkeeper.util.HashUtility;
 
-
+/**
+ * Clase que gestiona las operaciones de base de datos relacionadas con usuarios y contraseñas.
+ */
 public class DbManager {
+    // Definición de las columnas de la tabla de contraseñas
     public static final String TB_PASSWORD = "password";
-    //public static final String PASSWORD_ID = "id";
     public static final String PASSWORD_USERNAME = "username";
     public static final String PASSWORD_URL = "url";
     public static final String PASSWORD_KEYWORD = "keyword";
     public static final String PASSWORD_DESCRIPTION = "description";
     public static final String PASSWORD_USER = "user_id";
     public static final String PASSWORD_NAME = "name";
+
+    //definicion de la tabla contraseña
     public static final String CREATE_PASSWORD_TABLE = "CREATE TABLE password( " +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "username TEXT, " +
@@ -36,12 +40,15 @@ public class DbManager {
             "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
             "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE)";
 
+    // Definición de las columnas de la tabla de usuarios
     public static final String TB_USER = "user";
     //public static final String ID_USER = "id";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String SALT = "salt"; // Columna para almacenar el salt
     public static final String BIO = "biometric"; // Columna para almacenar la opcion biometrica
+
+    //definicion de la tabla usuario
     public static final String CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS user ( " +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "email TEXT UNIQUE, " +
@@ -52,15 +59,27 @@ public class DbManager {
             "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) " +
             ")";
 
+    //Definicion de variables y constantes globales
     private final DbConnection connection;
     private SQLiteDatabase db;
-    private final SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
 
+    /**
+     * Constructor de la clase DbManager.
+     *
+     * @param context Contexto de la aplicación.
+     */
     public DbManager(Context context) {
         this.connection = new DbConnection(context);
         this.sharedPreferences = context.getSharedPreferences("Storage", Context.MODE_PRIVATE);
     }
 
+    /**
+     * Abre la conexión a la base de datos para realizar operaciones.
+     *
+     * @return Instancia de DbManager para realizar operaciones en la base de datos.
+     * @throws SQLException Si ocurre un error al abrir la base de datos.
+     */
     public DbManager open() throws SQLException {
         db = connection.getWritableDatabase();
         return this;
@@ -81,6 +100,7 @@ public class DbManager {
      */
     public boolean userRegister(UserCredentials user, int bio) throws HashUtility.HashingException, HashUtility.SaltException {
         try {
+            Log.i("TAG", "LLEGA PARAMETRO DE BIO: "+bio);
             // Generar un salt aleatorio
             String salt = HashUtility.generateSalt();
             // Hashear la contraseña con el salt generado
@@ -94,6 +114,12 @@ public class DbManager {
 
             // Evitar el conflicto de email duplicado y no realizar el registro, pero devolver -1
             long newRowId = db.insertWithOnConflict(TB_USER, null, content, SQLiteDatabase.CONFLICT_IGNORE);
+
+            //Si se registro el usuario con la biometria activada
+            if(newRowId !=-1 && bio!=0){
+                saveStorage(-1,bio);
+            }
+
             // Si newRowId es -1, indica que hubo un conflicto y no se pudo insertar el nuevo usuario
             return newRowId != -1;
         } catch (HashUtility.SaltException e) {
@@ -107,7 +133,12 @@ public class DbManager {
         }
     }
 
-    //Método que se utiliza para obtener el salt del usuario según el userId
+    /**
+     * Obtiene el salt de un usuario por su ID.
+     *
+     * @param userId ID del usuario.
+     * @return Salt del usuario o null si el usuario no existe en la base de datos.
+     */
     public String getSaltById(int userId) {
         String salt = null;
         Cursor cursor = null;
@@ -192,11 +223,7 @@ public class DbManager {
         UserResponse user = this.getUserByEmail(email);
 
         if (user != null && HashUtility.checkPassword(pwd, user.getPassword(), user.getSalt())) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-            editor.putInt("userId", user.getId());  // userId es el ID del usuario autenticado
-            editor.putInt("biometric", user.getBiometric());
-            editor.apply();
+            saveStorage(user.getId(),user.getBiometric());
             Log.i("TAG", "userID guardado en DbManayer: "+sharedPreferences.getInt("userId", -1));
             Log.i("TAG", "biometric guardado en DbManayer: "+sharedPreferences.getInt("biometric",-1));
             return true; // Las credenciales son válidas
@@ -210,9 +237,9 @@ public class DbManager {
      * @param email Correo electrónico del usuario a buscar.
      * @return Objeto UserResponse si se encuentra el usuario, o null si no se encuentra.
      */
-    public UserResponse getUserByEmail(String email) {
+    private UserResponse getUserByEmail(String email) {
         UserResponse user = null;
-
+        Log.i("TAG", "llega el email: "+email);
         try {
             // Define la consulta SQL para seleccionar el usuario por email
             String query = "SELECT * FROM user WHERE email = ?";
@@ -248,16 +275,70 @@ public class DbManager {
         return user;
     }
 
+    /**
+     * Obtiene las contraseñas para un usuario específico.
+     *
+     * @param userId ID del usuario.
+     * @return Cursor con las contraseñas asociadas al usuario.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public Cursor getPasswordsForUser(int userId) {
-        String[] columns = {PASSWORD_USER,PASSWORD_NAME};
-        String selection = PASSWORD_USER + " = ?";
-        String[] selectionArgs = {String.valueOf(userId)};
-        return getDb().query(TB_PASSWORD, columns, selection, selectionArgs, null, null, null);
+        try {
+            String[] columns = {PASSWORD_USER, PASSWORD_NAME};
+            String selection = PASSWORD_USER + " = ?";
+            String[] selectionArgs = {String.valueOf(userId)};
+            return db.query(TB_PASSWORD, columns, selection, selectionArgs, null, null, null);
+        }catch (SQLException e){
+            Log.e("Error", "Error de SQL: " + e.getMessage());
+            throw e;
+        }
     }
 
-    public SQLiteDatabase getDb() {
-        return db;
+    /**
+     * Verifica si hay usuarios con biometría habilitada en la base de datos.
+     *
+     * @return true si hay usuarios con biometría habilitada, false en caso contrario. También
+     * completa el SharedPreference STORAGE con los datos del usuario
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
+    public boolean userWhitBiometrics(){
+        try {
+            this.open();
+            String query = "SELECT * FROM user WHERE biometric = 1";
+            Cursor cursor = db.rawQuery(query,null);
+            int emailIndex = cursor.getColumnIndex("email");
+            int idIndex = cursor.getColumnIndex("id");
+
+            if(emailIndex != -1 && cursor.moveToFirst()){
+                Log.i("TAG", "Usuario con biometria: "+cursor.getString(emailIndex));
+                saveStorage(cursor.getInt(idIndex),1);
+                cursor.close();
+                return true;
+            }
+
+        }catch (SQLException e){
+            Log.e("Error", "Error de SQL: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            this.close();
+        }
+        return false;
     }
 
+    /**
+     * Guarda los datos de usuario en SharedPreferences.
+     *
+     * @param userId          ID del usuario.
+     * @param biometricValue  Valor de la opción biométrica.
+     */
+    private void saveStorage(int userId, int biometricValue) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
+        //Verifica si el userId es diferente de -1 antes de guardarlo
+        if (userId != -1) {
+            editor.putInt("userId", userId);
+        }
+        editor.putInt("biometric", biometricValue);
+        editor.apply();
+    }
 }

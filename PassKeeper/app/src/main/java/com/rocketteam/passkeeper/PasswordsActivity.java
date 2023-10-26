@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,7 +52,7 @@ public class PasswordsActivity extends AppCompatActivity {
         if (sharedPreferences.contains("userId")) {
             // Obtener el valor de "userId" de SharedPreferences
             int userId = sharedPreferences.getInt("userId", -1);
-            Log.i("PasswordsActivity", "Mostrando el Id" + userId);
+            Log.i("PasswordsActivity", "Mostrando el Id " + userId);
             MostrarPasswords(userId);
         } else {
             // La clave "userId" no existe
@@ -62,7 +63,7 @@ public class PasswordsActivity extends AppCompatActivity {
         fabAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(PasswordsActivity.this, AgregarPassword.class);
+                Intent intent = new Intent(PasswordsActivity.this, RegisterPasswordActivity.class);
                 startActivity(intent);
             }
         });
@@ -122,103 +123,108 @@ public class PasswordsActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private void MostrarPasswords(int userId) {
-        Cursor cursor = dbManager.getPasswordsForUser(userId);
-        // Definimos un cursor y vamos a la función en el DbManajer y le pasamos un parametro de tipo int userId, osea el usuario logueado
-        TableLayout tableLayout = findViewById(R.id.tableLayout);//Obtenemos el tableLayout
-        TextView noPasswordsText = findViewById(R.id.txtNoPassword);//Obtenemos el textView
-        ImageView circleExclamation = findViewById(R.id.imageView);//Obtenemos el imageView
+        try {
+            dbManager.open();
+            Cursor cursor = dbManager.getPasswordsForUser(userId);
+            // Definimos un cursor y vamos a la función en el DbManager y le pasamos un parametro de tipo int userId, osea el usuario logueado
+            TableLayout tableLayout = findViewById(R.id.tableLayout);//Obtenemos el tableLayout
+            TextView noPasswordsText = findViewById(R.id.txtNoPassword);//Obtenemos el textView
+            ImageView circleExclamation = findViewById(R.id.imageView);//Obtenemos el imageView
 
-        if (cursor != null) {
-            if (cursor.getCount() == 0) {
-                // Verificamos si el numero de filas en el cursor es 0
-                // Si no hay filas en el cursor, muestra el texto y oculta el TableLayout
-                noPasswordsText.setVisibility(View.VISIBLE);
-                circleExclamation.setVisibility(View.VISIBLE);
-                tableLayout.setVisibility(View.GONE);
-            } else {
-                // Si hay filas en el cursor, muestra el TableLayout y oculta el texto
-                noPasswordsText.setVisibility(View.GONE);
-                circleExclamation.setVisibility(View.GONE);
-                tableLayout.setVisibility(View.VISIBLE);
+            if (cursor != null) {
+                if (cursor.getCount() == 0) {
+                    // Verificamos si el numero de filas en el cursor es 0
+                    // Si no hay filas en el cursor, muestra el texto y oculta el TableLayout
+                    noPasswordsText.setVisibility(View.VISIBLE);
+                    circleExclamation.setVisibility(View.VISIBLE);
+                    tableLayout.setVisibility(View.GONE);
+                } else {
+                    // Si hay filas en el cursor, muestra el TableLayout y oculta el texto
+                    noPasswordsText.setVisibility(View.GONE);
+                    circleExclamation.setVisibility(View.GONE);
+                    tableLayout.setVisibility(View.VISIBLE);
 
-                LayoutInflater inflater = LayoutInflater.from(this);
+                    LayoutInflater inflater = LayoutInflater.from(this);
 
-                while (cursor.moveToNext()) {
-                    // Esto crea un nuevo tableRow para cada contraseña,el tableRow esta en row_password.xml
-                    TableRow row = (TableRow) inflater.inflate(R.layout.row_password, null);
+                    while (cursor.moveToNext()) {
+                        // Esto crea un nuevo tableRow para cada contraseña,el tableRow esta en row_password.xml
+                        TableRow row = (TableRow) inflater.inflate(R.layout.row_password, null);
 
-                    ImageButton iconEye = row.findViewById(R.id.icon_eye);
-                    ImageButton iconPen = row.findViewById(R.id.icon_pen);
-                    ImageButton iconTrash = row.findViewById(R.id.icon_trash);
+                        ImageButton iconEye = row.findViewById(R.id.icon_eye);
+                        ImageButton iconPen = row.findViewById(R.id.icon_pen);
+                        ImageButton iconTrash = row.findViewById(R.id.icon_trash);
+                        try {
+                            String columnId = DbManager.PASSWORD_USER;
+                            String columnName = DbManager.PASSWORD_NAME;
+                            int columnIndexName = cursor.getColumnIndex(columnName);
+                            int columnIndexId = cursor.getColumnIndex(columnId);
 
-                    try {
-                        String columnId = DbManager.PASSWORD_USER;
-                        String columnName = DbManager.PASSWORD_NAME;
-                        int columnIndexName = cursor.getColumnIndex(columnName);
-                        int columnIndexId = cursor.getColumnIndex(columnId);
+                            // verifica que las columnas de password y name existen en el resultado del cursor
+                            if (columnIndexId != -1 && columnIndexName != -1) {
+                                TextView nombreTextView = row.findViewById(R.id.textView);
+                                nombreTextView.setText(cursor.getString(columnIndexName)); //Setea el PASSWORD_NAME AL textView
+                                int getId = cursor.getInt(columnIndexId);
+                                iconEye.setOnClickListener(new View.OnClickListener() {
+                                    //onclick para abrir la actividad del ViewPassActivity
+                                    @Override
+                                    public void onClick(View v) {
 
-                        // verifica que las columnas de password y name existen en el resultado del cursor
-                        if (columnIndexId != -1 && columnIndexName != -1) {
-                            TextView nombreTextView = row.findViewById(R.id.textView);
-                            nombreTextView.setText(cursor.getString(columnIndexName)); //Setea el PASSWORD_NAME AL textView
-                            int getId = cursor.getInt(columnIndexId);
-                            iconEye.setOnClickListener(new View.OnClickListener() {
-                                //onclick para abrir la actividad del ViewPassActivity
-                                @Override
-                                public void onClick(View v) {
+                                        // Crea un intent para abrir la actividad ViewPassActivity
+                                        Intent intent = new Intent(PasswordsActivity.this, ViewPassActivity.class);
+                                        // Agrega el id como un extra en el intent
+                                        intent.putExtra("idColumna", getId);
+                                        // utlizamos el putExtra para pasar información con el intent
+                                        // Inicia la actividad ViewPassActivity
+                                        startActivity(intent);
+                                    }
+                                });
 
-                                    // Crea un intent para abrir la actividad ViewPassActivity
-                                    Intent intent = new Intent(PasswordsActivity.this, ViewPassActivity.class);
-                                    // Agrega el id como un extra en el intent
-                                    intent.putExtra("idColumna", getId);
-                                    // utlizamos el putExtra para pasar información con el intent
-                                    // Inicia la actividad ViewPassActivity
-                                    startActivity(intent);
-                                }
-                            });
+                                // onclick del el editar
+                                iconPen.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        // Crea un intent para abrir la actividad ViewPassActivity
+                                        Intent intent = new Intent(PasswordsActivity.this, EditarPassword.class);
+                                        // Agrega el id como un extra en el intent
+                                        intent.putExtra("idColumna", getId);
+                                        // utlizamos el putExtra para pasar información con el intent
+                                        // Inicia la actividad ViewPassActivity
+                                        startActivity(intent);
 
-                            // onclick del el editar
-                            iconPen.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    // Crea un intent para abrir la actividad ViewPassActivity
-                                    Intent intent = new Intent(PasswordsActivity.this, EditarPassword.class);
-                                    // Agrega el id como un extra en el intent
-                                    intent.putExtra("idColumna", getId);
-                                    // utlizamos el putExtra para pasar información con el intent
-                                    // Inicia la actividad ViewPassActivity
-                                    startActivity(intent);
+                                    }
+                                });
+                                // onclick para borrar un password
+                                iconTrash.setOnClickListener(new View.OnClickListener() {
+                                    //onclick borrar
+                                    @Override
+                                    public void onClick(View v) {
 
-                                }
-                            });
-                            // onclick para borrar un password
-                            iconTrash.setOnClickListener(new View.OnClickListener() {
-                                //onclick borrar
-                                @Override
-                                public void onClick(View v) {
+                                    }
+                                });
 
-                                }
-                            });
-
-                        } else {
-                            Log.e("PasswordActivity", "Column not found: " + columnName);
+                            } else {
+                                Log.e("PasswordActivity", "Column not found: " + columnName);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+
+                        // Agrega el TableRow al TableLayout
+                        tableLayout.addView(row);
                     }
-
-                    // Agrega el TableRow al TableLayout
-                    tableLayout.addView(row);
                 }
-            }
 
-            cursor.close();
+                cursor.close();
+            }
+        }catch (SQLException e){
+            Log.e("ERROR", "Error de SQL: "+e.getMessage());
+        }catch (Exception e){
+            Log.e("ERROR", "Error general "+e.getMessage());
         }
+
     }
 
     protected void onDestroy() {

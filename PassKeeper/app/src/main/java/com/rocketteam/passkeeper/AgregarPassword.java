@@ -49,7 +49,7 @@ public class AgregarPassword extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agregar_password);
+        setContentView(R.layout.activity_add_password);
 
         // -------inicializacion de variables----------
         dbManager = new DbManager(getApplicationContext());

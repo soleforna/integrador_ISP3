@@ -3,14 +3,18 @@ package com.rocketteam.passkeeper;
 
 import static com.rocketteam.passkeeper.util.ShowAlertsUtility.mostrarSweetAlert;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.rocketteam.passkeeper.data.db.DbManager;
@@ -21,7 +25,6 @@ import com.rocketteam.passkeeper.util.InputTextWatcher;
 import java.util.Objects;
 
 public class RegisterPasswordActivity extends AppCompatActivity {
-    private final String ERROR = "Error al registrar la contraseña";
 
     // Variables de instancia para manejar la base de datos y las vistas
     private DbManager dbManager;
@@ -43,13 +46,12 @@ public class RegisterPasswordActivity extends AppCompatActivity {
      *
      * @param savedInstanceState Objeto que contiene el estado previamente guardado de la actividad.
      */
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agregar_password);
+        setContentView(R.layout.activity_add_password);
 
-        // Inicialización de las variables
+        // Inicializacion de variables
         dbManager = new DbManager(getApplicationContext());
         editTextName = findViewById(R.id.editTextName);
         editTextUsuario = findViewById(R.id.editTextUsuario);
@@ -59,11 +61,21 @@ public class RegisterPasswordActivity extends AppCompatActivity {
         textInputLayoutName = findViewById(R.id.textInputLayout);
         textInputLayoutUrl = findViewById(R.id.textInputLayout4);
         textInputLayoutPass = findViewById(R.id.textInputLayout3);
+        ImageView imageViewGenerar2 = findViewById(R.id.imageViewGenerar2);
 
         // Agrega TextWatcher a los EditText para validar en tiempo real
         editTextName.addTextChangedListener(new InputTextWatcher(textInputLayoutName));
         editTextPassword.addTextChangedListener(new InputTextWatcher(textInputLayoutPass));
         editTextUrl.addTextChangedListener(new InputTextWatcher(textInputLayoutUrl));
+
+        // Método para generar un password aleatorio
+        imageViewGenerar2.setOnClickListener(v -> {
+            String randomPassword = HashUtility.generateRandomPassword(12);
+            editTextPassword.setText(randomPassword);
+            // Establece la selección al final del texto
+            editTextPassword.setSelection(Objects.requireNonNull(editTextPassword.getText()).length());
+            Toast.makeText(RegisterPasswordActivity.this, "Contraseña generada con éxito", Toast.LENGTH_SHORT).show();
+        });
 
         // Configuración del botón para regresar a la actividad PasswordsActivity
         btnAtras = findViewById(R.id.boton_atras_guardar);
@@ -108,12 +120,14 @@ public class RegisterPasswordActivity extends AppCompatActivity {
      * Método para registrar una nueva contraseña en la base de datos.
      */
     private void addPassword() {
+        String ERROR = "Error al registrar la contraseña";
         try {
             dbManager.open();
 
             //obtengo el ID del usuario logueado
             SharedPreferences sharedPreferences = getSharedPreferences("Storage", Context.MODE_PRIVATE);
             int userId = sharedPreferences.getInt("userId", -1);
+            Log.i("TAG", "UserId desde addPassword: "+userId);
             PasswordCredentials password = null;
             if (userId != -1) {
                 password = new PasswordCredentials(
