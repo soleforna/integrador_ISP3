@@ -100,6 +100,7 @@ public class DbManager {
      */
     public boolean userRegister(UserCredentials user, int bio) throws HashUtility.HashingException, HashUtility.SaltException {
         try {
+            Log.i("TAG", "LLEGA PARAMETRO DE BIO: "+bio);
             // Generar un salt aleatorio
             String salt = HashUtility.generateSalt();
             // Hashear la contraseña con el salt generado
@@ -303,12 +304,13 @@ public class DbManager {
     public boolean userWhitBiometrics(){
         try {
             this.open();
-            String query = "SELECT id FROM user WHERE biometric = 1";
+            String query = "SELECT * FROM user WHERE biometric = 1";
             Cursor cursor = db.rawQuery(query,null);
             int emailIndex = cursor.getColumnIndex("email");
             int idIndex = cursor.getColumnIndex("id");
 
             if(emailIndex != -1 && cursor.moveToFirst()){
+                Log.i("TAG", "Usuario con biometria: "+cursor.getString(emailIndex));
                 saveStorage(cursor.getInt(idIndex),1);
                 cursor.close();
                 return true;
