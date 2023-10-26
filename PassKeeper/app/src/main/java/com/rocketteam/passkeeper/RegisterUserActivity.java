@@ -53,7 +53,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         // Inicialización de las variables
         dbManager = new DbManager(getApplicationContext());
         userWhitBiometrics = dbManager.userWhitBiometrics();
-        Log.i("TAG", "Existen usuario con biometria habilitada: "+userWhitBiometrics);
+        Log.i("TAG", "Existe usuario con biometria habilitada: "+userWhitBiometrics);
         editTextEmail = findViewById(R.id.editTextUsernameReg);
         editTextPassword = findViewById(R.id.editPasswordReg);
         editTextPassword2 = findViewById(R.id.editPasswordReg2);
