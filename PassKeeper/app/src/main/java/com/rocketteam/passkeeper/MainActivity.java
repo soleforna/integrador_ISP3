@@ -17,7 +17,6 @@
     import com.google.android.material.textfield.TextInputEditText;
     import com.google.android.material.textfield.TextInputLayout;
     import com.rocketteam.passkeeper.data.db.DbManager;
-    import com.rocketteam.passkeeper.data.model.request.UserCredentials;
     import com.rocketteam.passkeeper.util.BiometricUtils;
     import com.rocketteam.passkeeper.util.HashUtility;
     import com.rocketteam.passkeeper.util.InputTextWatcher;
@@ -26,8 +25,6 @@
 
     import java.security.NoSuchAlgorithmException;
     import java.util.Objects;
-
-    import cn.pedant.SweetAlert.SweetAlertDialog;
 
     public class MainActivity extends AppCompatActivity {
         private final String TITLE = "Credenciales inválidas";
@@ -66,7 +63,7 @@
             if(bio == 1) {
                 boolean biometricFinger = BiometricUtils.isBiometricPromptEnabled(MainActivity.this);
                 boolean userWhitBiometric = dbManager.userWhitBiometrics();
-                Log.i("TAG", "existen usuario con biometria: "+userWhitBiometric);
+                Log.i("TAG", "existe usuario con biometria: "+userWhitBiometric);
                 // Si el usuario ha configurado la preferencia para usar la autenticación biométrica
                 if (biometricFinger) {
                     // Mostrar el cuadro de diálogo de autenticación biométrica
@@ -91,7 +88,7 @@
                 if (validateInput()) {// Verifica si la entrada del usuario es válida antes de intentar iniciar sesión.
                     try {
                         // Intenta iniciar sesión, manejando posibles excepciones de Hashing y NoSuchAlgorithmException.
-                        iniciarSesion();
+                        login();
                     } catch (HashUtility.HashingException | NoSuchAlgorithmException e) {
                         // Lanza una RuntimeException en caso de excepción para propagar el error.
                         throw new RuntimeException(e);
@@ -136,7 +133,7 @@
          * @throws HashUtility.HashingException si se produce un error al realizar el hashing de la contraseña.
          * @throws NoSuchAlgorithmException si no se encuentra el algoritmo de hashing especificado.
          */
-        private void iniciarSesion() throws HashUtility.HashingException, NoSuchAlgorithmException {
+        private void login() throws HashUtility.HashingException, NoSuchAlgorithmException {
             // Obtiene el correo electrónico ingresado por el usuario.
             String email = Objects.requireNonNull(editTextEmail.getText()).toString();
             // Obtiene la contraseña ingresada por el usuario.
