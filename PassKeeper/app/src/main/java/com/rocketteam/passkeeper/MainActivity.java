@@ -17,6 +17,7 @@
     import com.google.android.material.textfield.TextInputEditText;
     import com.google.android.material.textfield.TextInputLayout;
     import com.rocketteam.passkeeper.data.db.DbManager;
+    import com.rocketteam.passkeeper.data.model.request.UserCredentials;
     import com.rocketteam.passkeeper.util.BiometricUtils;
     import com.rocketteam.passkeeper.util.HashUtility;
     import com.rocketteam.passkeeper.util.InputTextWatcher;
@@ -42,13 +43,17 @@
             Log.i("TAG", "PasKeeper Iniciado");
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main);
-
+            //abro el storage
             SharedPreferences sharedPreferences = getSharedPreferences("Storage", Context.MODE_PRIVATE);
+
             dbManager = new DbManager(getApplicationContext());
             editTextEmail = findViewById(R.id.editTextUsername);
             editTextPassword = findViewById(R.id.editPassword);
             textInputLayoutEmail = findViewById(R.id.textInputLayout);
             textInputLayoutPwd = findViewById(R.id.textInputLayout2);
+
+            //asigno el boton de la huella
+            Button btnBiometric = findViewById(R.id.fingerprint);
     
             // Agregamos TextWatcher a los EditText
             editTextEmail.addTextChangedListener(new InputTextWatcher(textInputLayoutEmail));
@@ -56,22 +61,26 @@
 
             int bio = sharedPreferences.getInt("biometric",-1);
             Log.i("TAG", "Login Biometric: "+bio);
-            Button btnBiometric = findViewById(R.id.fingerprint); //asigno el boton de la huella
-            boolean biometricFinger = BiometricUtils.isBiometricPromptEnabled(MainActivity.this);
 
-            btnBiometric.setVisibility(biometricFinger ? View.VISIBLE : View.GONE); // y lo hago visible si existe la biometria
-            // Si el dispositivo es compatible con la autenticación biométrica
-            btnBiometric.setOnClickListener(view -> {
-                this.BiometricAuth();
-            });
 
             if(bio == 1) {
+                boolean biometricFinger = BiometricUtils.isBiometricPromptEnabled(MainActivity.this);
+                boolean userWhitBiometric = dbManager.userWhitBiometrics();
+                Log.i("TAG", "existen usuario con biometria: "+userWhitBiometric);
                 // Si el usuario ha configurado la preferencia para usar la autenticación biométrica
                 if (biometricFinger) {
                     // Mostrar el cuadro de diálogo de autenticación biométrica
                     this.BiometricAuth();
                 }
+                // y lo hago visible si existe la biometria y un usuario la tiene activada
+                btnBiometric.setVisibility(biometricFinger && userWhitBiometric ? View.VISIBLE : View.GONE);
             }
+
+            // Si apretan el boton de la huella
+            btnBiometric.setOnClickListener(view -> {
+
+                this.BiometricAuth();
+            });
 
             /*
               Busca el botón de inicio de sesión en la interfaz de usuario y agrega un escuchador
@@ -158,11 +167,19 @@
             BiometricUtils.showBiometricPrompt(MainActivity.this, new BiometricPrompt.AuthenticationCallback() {
                 @Override
                 public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                    super.onAuthenticationSucceeded(result);
-                    // La autenticación biométrica fue exitosa
-                    startActivity(new Intent(MainActivity.this, PasswordsActivity.class));
-                    Toast.makeText(MainActivity.this, "Autenticado con éxito", Toast.LENGTH_SHORT).show();
-                    finish();
+
+                    try {
+                        if (dbManager.userWhitBiometrics()){
+                            Log.i("TAG", "INGRESANDO POR BIOMETRIA");
+                            super.onAuthenticationSucceeded(result);
+                            // La autenticación biométrica fue exitosa
+                            startActivity(new Intent(MainActivity.this, PasswordsActivity.class));
+                            Toast.makeText(MainActivity.this, "Autenticado con éxito", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
         }
