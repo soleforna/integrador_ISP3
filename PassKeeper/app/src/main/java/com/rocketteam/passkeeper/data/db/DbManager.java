@@ -334,7 +334,6 @@ public class DbManager {
     private void saveStorage(int userId, int biometricValue) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-<<<<<<< Updated upstream
         //Verifica si el userId es diferente de -1 antes de guardarlo
         if (userId != -1) {
             editor.putInt("userId", userId);
@@ -342,8 +341,8 @@ public class DbManager {
         editor.putInt("biometric", biometricValue);
         editor.apply();
     }
-=======
-    //-----------------------//////-------------------------------------------//
+
+    //--------------------///-----------------------//
 
     public int updatePassword(int passwordId, PasswordCredentials updatedPassword) {
         try {
@@ -372,6 +371,4 @@ public class DbManager {
         }
     }
 
-
->>>>>>> Stashed changes
 }
