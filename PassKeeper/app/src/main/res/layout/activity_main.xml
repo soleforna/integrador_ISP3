@@ -156,7 +156,7 @@
                 android:drawableTop="@drawable/fingerprint_solid"
                 android:drawableTint="@android:color/darker_gray"
                 android:textAllCaps="false"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <!-- Segundo campo de entrada -->
 
