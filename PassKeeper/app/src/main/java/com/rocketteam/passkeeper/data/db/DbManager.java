@@ -334,6 +334,7 @@ public class DbManager {
     private void saveStorage(int userId, int biometricValue) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
+<<<<<<< Updated upstream
         //Verifica si el userId es diferente de -1 antes de guardarlo
         if (userId != -1) {
             editor.putInt("userId", userId);
@@ -341,4 +342,36 @@ public class DbManager {
         editor.putInt("biometric", biometricValue);
         editor.apply();
     }
+=======
+    //-----------------------//////-------------------------------------------//
+
+    public int updatePassword(int passwordId, PasswordCredentials updatedPassword) {
+        try {
+            // Crea un objeto ContentValues para almacenar los valores que se actualizarán en la base de datos
+            ContentValues values = new ContentValues();
+
+            // Asigna los nuevos valores a las columnas
+            values.put(PASSWORD_NAME, updatedPassword.getName());
+            values.put(PASSWORD_USERNAME, updatedPassword.getUser());
+            values.put(PASSWORD_KEYWORD, updatedPassword.getPassword());
+            values.put(PASSWORD_URL, updatedPassword.getUrl());
+            values.put(PASSWORD_DESCRIPTION, updatedPassword.getDescription());
+
+            // Define una cláusula "WHERE" que identifica la fila a actualizar en la base de datos
+            String whereClause = "id = ?";
+            String[] whereArgs = {String.valueOf(passwordId)};
+
+            // Realiza la actualización en la base de datos
+            int rowsUpdated = db.update(TB_PASSWORD, values, whereClause, whereArgs);
+
+            // Devuelve el número de filas actualizadas
+            return rowsUpdated;
+        } catch (SQLException e) {
+            Log.e("DbManager", "Error al actualizar la contraseña: " + e.getMessage());
+            return -1;
+        }
+    }
+
+
+>>>>>>> Stashed changes
 }

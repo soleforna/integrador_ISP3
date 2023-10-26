@@ -16,6 +16,8 @@ public class PasswordCredentials {
 
     private String description;
 
+
+
     public PasswordCredentials(Integer userId, String name, String user, String password, String url, String description){
 
         this.userId = userId;
@@ -24,7 +26,6 @@ public class PasswordCredentials {
         this.user = user;
         this.url = url;
         this.description = description;
-
 
     }
 
@@ -75,4 +76,5 @@ public class PasswordCredentials {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }
