@@ -9,8 +9,8 @@
 
     <View
         android:id="@+id/viewBlue"
-        android:layout_width="412dp"
-        android:layout_height="364dp"
+        android:layout_width="wrap_content"
+        android:layout_height="365dp"
         android:background="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
@@ -70,7 +70,7 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="#A1887F"
             android:textIsSelectable="false"
             android:textOff="OFF"
             android:textOn="ON"
@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40dp"
                     android:text="@string/register"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="#A1887F"
                     android:textSize="30sp"
                     android:textStyle="italic" />
             </LinearLayout>
@@ -133,18 +133,23 @@
         <!-- Inicia configuración de la caja de los inputs-->
         <LinearLayout
             android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_height="292dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="80dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="16dp"
             android:orientation="vertical">
 
             <!-- Primer campo de entrada -->
+
+            <!-- Segundo campo de entrada -->
+
+            <!-- Tercer campo de entrada -->
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutReg"
                 android:layout_width="285dp"
-                android:layout_height="83dp"
+                android:layout_height="87dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
                 android:hint="@string/correo"
@@ -166,10 +171,6 @@
                     android:inputType="text"
                     android:textColor="@color/greyLigth" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Segundo campo de entrada -->
-
-            <!-- Tercer campo de entrada -->
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2Reg"
@@ -243,10 +244,11 @@
             android:id="@+id/linkLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
+            android:layout_marginStart="110dp"
             android:layout_marginTop="470dp"
             android:text="Ya tiene una cuenta?"
             android:textColor="@color/blue"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/materialButtonLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.72"
