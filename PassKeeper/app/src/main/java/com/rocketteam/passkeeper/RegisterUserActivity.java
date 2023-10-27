@@ -1,7 +1,5 @@
 package com.rocketteam.passkeeper;
 
-import static com.rocketteam.passkeeper.util.ShowAlertsUtility.mostrarSweetAlert;
-
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
@@ -26,14 +24,11 @@ import com.rocketteam.passkeeper.util.ShowAlertsUtility;
 
 import java.util.Objects;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
-
 
 /**
  * Activity para registrar un nuevo usuario.
  */
 public class RegisterUserActivity extends AppCompatActivity {
-    private final String USER_ERROR = "Error al registrar el usuario";
     private DbManager dbManager;
     private TextInputEditText editTextEmail;
     private TextInputEditText editTextPassword;
@@ -43,8 +38,7 @@ public class RegisterUserActivity extends AppCompatActivity {
     private TextInputLayout textInputLayoutPwd2;
     private Switch switchBiometric;
     private boolean biometricEnabled;
-
-    private final String MSGERROR = "Error al registrar el usuario";
+    private boolean userWhitBiometrics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,10 +49,11 @@ public class RegisterUserActivity extends AppCompatActivity {
         biometricEnabled = BiometricUtils.isBiometricPromptEnabled(this);
         Log.i("TAG", "la biometria esta: "+biometricEnabled);
         switchBiometric = findViewById(R.id.switch1);
-        switchBiometric.setVisibility(biometricEnabled ? View.VISIBLE : View.GONE);
 
         // Inicialización de las variables
         dbManager = new DbManager(getApplicationContext());
+        userWhitBiometrics = dbManager.userWhitBiometrics();
+        Log.i("TAG", "Existe usuario con biometria habilitada: "+userWhitBiometrics);
         editTextEmail = findViewById(R.id.editTextUsernameReg);
         editTextPassword = findViewById(R.id.editPasswordReg);
         editTextPassword2 = findViewById(R.id.editPasswordReg2);
@@ -70,6 +65,9 @@ public class RegisterUserActivity extends AppCompatActivity {
         editTextEmail.addTextChangedListener(new InputTextWatcher(textInputLayoutEmail));
         editTextPassword.addTextChangedListener(new InputTextWatcher(textInputLayoutPwd));
         editTextPassword2.addTextChangedListener(new InputTextWatcher(textInputLayoutPwd2));
+
+        //En esta Linea el swicht sera visible si tanto la biometria esta activa o si ningun usuario la tiene activada
+        switchBiometric.setVisibility(biometricEnabled && !userWhitBiometrics ? View.VISIBLE : View.GONE);
 
         // Configuración del enlace para regresar al MainActivity
         TextView linkLogin = findViewById(R.id.linkLogin);
@@ -103,8 +101,8 @@ public class RegisterUserActivity extends AppCompatActivity {
         String password = Objects.requireNonNull(editTextPassword.getText()).toString();
         String password2 = Objects.requireNonNull(editTextPassword2.getText()).toString();
 
-        //si no hay biometria pone el switch en false
-        if(!biometricEnabled){
+        //si no hay biometria ó hay un usuario ya utilizando la biometria pone el switch en false
+        if(!biometricEnabled || userWhitBiometrics){
             switchBiometric.setChecked(false);
         }
         // Validación del correo electrónico
@@ -139,19 +137,17 @@ public class RegisterUserActivity extends AppCompatActivity {
      * Método para registrar al usuario en la base de datos.
      */
     private void registrarUsuario() {
+        String MSGERROR = "Error al registrar el usuario";
         try {
             dbManager.open();
-            UserCredentials user = new UserCredentials(editTextEmail.getText().toString(), editTextPassword.getText().toString());
-            int bio = switchBiometric.isChecked() ? 1:0;
+            UserCredentials user = new UserCredentials(Objects.requireNonNull(editTextEmail.getText()).toString(), Objects.requireNonNull(editTextPassword.getText()).toString());
+
             if (dbManager.userRegister(user,switchBiometric.isChecked() ? 1:0)){
-                ShowAlertsUtility.mostrarSweetAlert(this, 2, "Registro exitoso", "El usuario ha sido registrado correctamente", new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        sweetAlertDialog.dismissWithAnimation();
-                        // Redirigir al usuario a la página de inicio de sesión
-                        Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }
+                ShowAlertsUtility.mostrarSweetAlert(this, 2, "Registro exitoso", "El usuario ha sido registrado correctamente", sweetAlertDialog -> {
+                    sweetAlertDialog.dismissWithAnimation();
+                    // Redirigir al usuario a la página de inicio de sesión
+                    Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
+                    startActivity(intent);
                 });
             }else {
                 // Mostrar un SweetAlertDialog para el error de registro
