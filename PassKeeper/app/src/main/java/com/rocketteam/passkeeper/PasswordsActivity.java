@@ -220,7 +220,6 @@ public class PasswordsActivity extends AppCompatActivity {
             cursor.close();
         }
     }
-
     protected void onDestroy() {
         super.onDestroy();
         dbManager.close(); // Cierra la base de datos al destruir la actividad.

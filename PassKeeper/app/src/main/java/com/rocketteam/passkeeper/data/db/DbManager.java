@@ -11,9 +11,12 @@ import android.util.Log;
 
 import com.rocketteam.passkeeper.data.model.request.PasswordCredentials;
 import com.rocketteam.passkeeper.data.model.request.UserCredentials;
+import com.rocketteam.passkeeper.data.model.response.PasswordResponse;
 import com.rocketteam.passkeeper.data.model.response.UserResponse;
 import com.rocketteam.passkeeper.util.HashUtility;
 
+import java.util.List;
+import java.util.ArrayList;
 
 public class DbManager {
     public static final String TB_PASSWORD = "password";
@@ -254,6 +257,50 @@ public class DbManager {
         String[] selectionArgs = {String.valueOf(userId)};
         return getDb().query(TB_PASSWORD, columns, selection, selectionArgs, null, null, null);
     }
+    /* Pasa a lista, las contraseñas obtenidas para un usuario especifico en getPasswordForUser */
+
+    public List<PasswordResponse> getPasswordsListForUserId(int userId) {
+        List<PasswordResponse> passwords = new ArrayList<>();
+        Cursor cursor = null;
+
+        try {
+            cursor = getPasswordsForUser(userId);
+            int idIndex= cursor.getColumnIndex( "id");
+            int nameIndex =cursor.getColumnIndex(PASSWORD_NAME);
+            int userIndex =cursor.getColumnIndex(PASSWORD_USERNAME);
+            int keywordIndex =cursor.getColumnIndex(PASSWORD_KEYWORD);
+            int urlIndex =cursor.getColumnIndex(PASSWORD_URL);
+            int descriptionIndex =cursor.getColumnIndex(PASSWORD_DESCRIPTION);
+
+
+            if (nameIndex != -1) {
+                while (cursor.moveToNext()) {
+                    int id= cursor.getInt(idIndex);
+                    String name = cursor.getString(nameIndex);
+                    String user = cursor.getString(userIndex);
+                    String keyword = cursor.getString(keywordIndex);
+                    String url = cursor.getString(urlIndex);
+                    String description = cursor.getString(descriptionIndex);
+
+                    PasswordResponse passwordResponse = new PasswordResponse(id,name, user,keyword,url,description);
+                    passwords.add(passwordResponse);
+                }
+            }
+        } catch (Exception e) {
+            Log.e("TAG", "Error al crear lista de contraseñas", e);
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return passwords;
+    }
+
+
+
+
 
     public SQLiteDatabase getDb() {
         return db;
