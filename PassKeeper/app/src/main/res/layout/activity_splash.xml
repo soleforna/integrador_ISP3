@@ -23,8 +23,8 @@
 
     <View
         android:id="@+id/viewBlue"
-        android:layout_width="412dp"
-        android:layout_height="364dp"
+        android:layout_width="wrap_content"
+        android:layout_height="365dp"
         android:background="@color/blue"
         app:layout_constraintBottom_toBottomOf="@+id/textTitle5"
         app:layout_constraintDimensionRatio="1:1"
