@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.rocketteam.passkeeper.data.db.DbManager;
 import com.rocketteam.passkeeper.data.model.request.PasswordCredentials;
+import com.rocketteam.passkeeper.data.model.response.PasswordResponse;
 import com.rocketteam.passkeeper.util.InputTextWatcher;
 
 public class EditarPassword extends AppCompatActivity {
@@ -49,7 +50,7 @@ public class EditarPassword extends AppCompatActivity {
         Intent intent = getIntent();
 
         // Utiliza 0 como valor predeterminado en el caso que no venga ningun valor
-         columnIndexId = intent.getIntExtra("idColumna", 0);
+        columnIndexId = intent.getIntExtra("idColumna", 0);
 
         // Proporciona una etiqueta ("TAG") donde le paso la activity y el mensaje
         Log.i("EditarPassword", "Valor de columnIndexId: " + columnIndexId);
@@ -58,13 +59,13 @@ public class EditarPassword extends AppCompatActivity {
         dbManager = new DbManager(EditarPassword.this);
         dbManager.open();
         // Obtiene los detalles de la contraseña que se va a editar
-        PasswordCredentials updatedPasswordDetails = dbManager.getPasswordDetails(columnIndexId);
+        PasswordResponse updatedPasswordDetails = dbManager.getPasswordDetails(columnIndexId);
 
 
         if (updatedPasswordDetails != null) {
             // Rellena los campos de texto con los detalles de la contraseña a editar
             editTextName.setText(updatedPasswordDetails.getName());
-            editTextUsuario.setText(updatedPasswordDetails.getUser());
+            editTextUsuario.setText(updatedPasswordDetails.getUsername());
             editTextPassword.setText(updatedPasswordDetails.getPassword());
             editTextUrl.setText(updatedPasswordDetails.getUrl());
             editTextDescripcion.setText(updatedPasswordDetails.getDescription());
@@ -87,6 +88,7 @@ public class EditarPassword extends AppCompatActivity {
                 String newDescription = editTextDescripcion.getText().toString();
 
                 // Obtiene los detalles de la contraseña actual
+                /*
                 PasswordCredentials existingPassword  = dbManager.getPasswordDetails(columnIndexId);
 
                 if (existingPassword != null) {
@@ -106,7 +108,7 @@ public class EditarPassword extends AppCompatActivity {
                     // Mensaje de error si no se encuentra la contraseña
                     Toast.makeText(EditarPassword.this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show();
                 }
-
+*/
             }
 
         });
