@@ -2,24 +2,19 @@ package com.rocketteam.passkeeper.data.model.response;
 
 public class PasswordResponse {
     private int id;
-
+    private String username;
+    private String url;
+    private String keyword;
+    private String description;
     private String name;
 
-    private String username;
-
-    private String password;
-
-    private String url;
-
-    private String description;
-
-    public PasswordResponse(int id, String name, String username, String password, String url, String description){
+    public PasswordResponse(int id, String username, String url,String keyword, String description, String name){
         this.id=id;
-        this.name = name;
-        this.password = password;
         this.username = username;
         this.url = url;
+        this.keyword = keyword;
         this.description = description;
+        this.name = name;
 
 
     }
@@ -48,12 +43,12 @@ public class PasswordResponse {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     public String getUrl() {
