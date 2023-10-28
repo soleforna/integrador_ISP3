@@ -24,6 +24,7 @@ import java.util.List;
 public class DbManager {
     // Definición de las columnas de la tabla de contraseñas
     public static final String TB_PASSWORD = "password";
+    private static final String PASSWORD_ID = "id";
     public static final String PASSWORD_USERNAME = "username";
     public static final String PASSWORD_URL = "url";
     public static final String PASSWORD_KEYWORD = "keyword";
@@ -62,6 +63,7 @@ public class DbManager {
             "created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
             "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) " +
             ")";
+
 
     //Definicion de variables y constantes globales
     private final DbConnection connection;
@@ -175,7 +177,7 @@ public class DbManager {
      * @param psw La información de la contraseña a registrar.
      * @return true si la contraseña se registró correctamente, false si ocurrió un error.
      */
-    public boolean passwordRegister(PasswordCredentials psw) throws HashUtility.HashingException {
+    public boolean passwordRegister(PasswordCredentials psw) throws Exception {
 
         if (psw == null) {
             throw new IllegalArgumentException("PasswordCredentials no puede ser null");
@@ -189,7 +191,7 @@ public class DbManager {
                 ContentValues content = new ContentValues();
                 content.put(PASSWORD_USERNAME, psw.getUsername());
                 content.put(PASSWORD_URL, psw.getUrl());
-                String hashedPassword = HashUtility.hashPassword(psw.getKeyword(), salt);
+                String hashedPassword = HashUtility.encrypt(psw.getKeyword(), salt);
                 content.put(PASSWORD_KEYWORD, hashedPassword); // Guardar la contraseña hasheada
                 content.put(PASSWORD_DESCRIPTION, psw.getDescription());
                 content.put(PASSWORD_NAME, psw.getName());
@@ -204,13 +206,13 @@ public class DbManager {
                 return false;
             }
         } catch (SQLException e) {
-            Log.e("Error", "Error de SQL al registrar la contraseña: " + e.getMessage());
+            Log.e("TAG", "Error de SQL al registrar la contraseña: " + e.getMessage());
             throw e;
         } catch (HashUtility.HashingException e) {
-            Log.e("Error", "Error al hashear la contraseña: " + e.getMessage());
+            Log.e("TAG", "Error al hashear la contraseña: " + e.getMessage());
             throw e;
         } catch (Exception e) {
-            Log.e("Error", "Password registration error: " + e.getMessage());
+            Log.e("TAG", "Password registration error: " + e.getMessage());
             throw e;
         } finally {
             db.close();
@@ -346,30 +348,34 @@ public class DbManager {
         editor.apply();
     }
 
+    // crea una lista de contraseñas, obtenidas en un cursor en getPasswordsForUser
+
     public List<PasswordResponse> getPasswordsListForUserId(int userId) {
         List<PasswordResponse> passwords = null;
         Cursor cursor = null;
+        this.open();
 
         try {
             passwords = new ArrayList<>();
             cursor = getPasswordsForUser(userId);
-            int idIndex = cursor.getColumnIndex("id");
-            int nameIndex = cursor.getColumnIndex(PASSWORD_NAME);
-            int userIndex = cursor.getColumnIndex(PASSWORD_USERNAME);
-            int keywordIndex = cursor.getColumnIndex(PASSWORD_KEYWORD);
-            int urlIndex = cursor.getColumnIndex(PASSWORD_URL);
-            int descriptionIndex = cursor.getColumnIndex(PASSWORD_DESCRIPTION);
+            int idIndex= cursor.getColumnIndex( PASSWORD_ID);
+            int usernameIndex =cursor.getColumnIndex(PASSWORD_USERNAME);
+            int urlIndex =cursor.getColumnIndex(PASSWORD_URL);
+            int keywordIndex =cursor.getColumnIndex(PASSWORD_KEYWORD);
+            int descriptionIndex =cursor.getColumnIndex(PASSWORD_DESCRIPTION);
+            int nameIndex =cursor.getColumnIndex(PASSWORD_NAME);
 
-            if (nameIndex != -1) {
+
+            if (idIndex != -1) {
                 while (cursor.moveToNext()) {
-                    int id = cursor.getInt(idIndex);
-                    String name = cursor.getString(nameIndex);
-                    String user = cursor.getString(userIndex);
-                    String keyword = cursor.getString(keywordIndex);
+                    int id= cursor.getInt(idIndex);
+                    String username = cursor.getString(usernameIndex);
                     String url = cursor.getString(urlIndex);
+                    String keyword = cursor.getString(keywordIndex);
                     String description = cursor.getString(descriptionIndex);
+                    String name = cursor.getString(nameIndex);
 
-                    PasswordResponse passwordResponse = new PasswordResponse(id, name, user, keyword, url, description);
+                    PasswordResponse passwordResponse = new PasswordResponse(id,username,url,keyword,description,name);
                     passwords.add(passwordResponse);
                 }
             }
@@ -380,12 +386,13 @@ public class DbManager {
             if (cursor != null) {
                 cursor.close();
             }
+            this.close();
         }
 
         return passwords;
     }
 
-    //--------------------Editar Password
+
 
     /**
      * Recupera los detalles de una contraseña a partir de su ID.
@@ -394,15 +401,17 @@ public class DbManager {
      * @return Un objeto PasswordCredentials que contiene los detalles de la contraseña, o null si no se encuentra.
      */
 
-    public PasswordCredentials getPasswordDetails(int passwordId) {
-
-        PasswordCredentials passwordCredentials = null;
+    public PasswordResponse getPasswordDetails(int passwordId, int userId) {
+        this.open();
+        PasswordResponse passwordResponse = null;
         Cursor cursor = null;
+
+        Log.i("TAG", "llega el id de password: "+passwordId);
 
 
         try {
             // Consulta SQL para seleccionar detalles de contraseña por ID
-            String query = "SELECT name, username, keyword, url, description FROM password WHERE id = ?";
+            String query = "SELECT * FROM password WHERE id = ?";
             cursor = db.rawQuery(query, new String[]{String.valueOf(passwordId)});
 
             // Obtener los índices de las columnas en el resultado del cursor
@@ -411,12 +420,13 @@ public class DbManager {
             int keywordIndex = cursor.getColumnIndex(PASSWORD_KEYWORD);
             int urlIndex = cursor.getColumnIndex(PASSWORD_URL);
             int descriptionIndex = cursor.getColumnIndex(PASSWORD_DESCRIPTION);
+            String salt = this.getSaltById(userId);
 
             // Verificar si el cursor tiene datos
             if (cursor.moveToFirst()) {
                 String name = cursor.getString(nameIndex);
                 String username = cursor.getString(usernameIndex);
-                String keyword = cursor.getString(keywordIndex);
+                String keyword = HashUtility.decrypt(cursor.getString(keywordIndex),salt);
                 String url = cursor.getString(urlIndex);
                 String description = cursor.getString(descriptionIndex);
                 Log.d("DbManager", "Name: " + name);
@@ -425,27 +435,24 @@ public class DbManager {
                 Log.d("DbManager", "URL: " + url);
                 Log.d("DbManager", "Description: " + description);
 
-                // Crear objeto PasswordCredentials y establecer atributos
-                passwordCredentials = new PasswordCredentials(passwordId, name, username, url, description, keyword);
-                passwordCredentials.setName(name);
-                passwordCredentials.setUser(username);
-                passwordCredentials.setUrl(url);
-                passwordCredentials.setDescription(description);
-                passwordCredentials.setPassword(keyword);
+                passwordResponse = new PasswordResponse(passwordId, username, url, keyword, description, name);
             }
         } catch (SQLException e) {
             // Capturar excepción en caso de error
             Log.e("Error", "Error al obtener detalles de la contraseña: " + e.getMessage());
+        } catch (Exception e) {
+            Log.e("TAG", "ERROR: "+e.getMessage());
+            throw new RuntimeException(e);
         } finally {
             if (cursor != null) {
                 // Cerrar el cursor para liberar recursos
                 cursor.close();
             }
+            this.close();
         }
-        
-        return passwordCredentials;
-    }
 
+        return passwordResponse;
+    }
 
     /**
      * Actualiza una contraseña en la base de datos.
@@ -454,13 +461,16 @@ public class DbManager {
      * @param updatedPassword Un objeto PasswordCredentials que contiene los nuevos detalles de la contraseña.
      * @return true si la actualización se realizó con éxito, o false en caso de error.
      */
-    public boolean updatePassword(int passwordId, PasswordCredentials updatedPassword) {
+    public boolean updatePassword(int passwordId, PasswordCredentials updatedPassword, int userId) {
+        this.open();
         try {
             // Crear objeto ContentValues para almacenar los nuevos valores
             ContentValues content = new ContentValues();
             content.put(PASSWORD_NAME, updatedPassword.getName());
-            content.put(PASSWORD_USERNAME, updatedPassword.getUser());
-            content.put(PASSWORD_KEYWORD, updatedPassword.getPassword());
+            content.put(PASSWORD_USERNAME, updatedPassword.getUsername());
+            String salt = this.getSaltById(userId);
+            String pass = HashUtility.encrypt(updatedPassword.getKeyword(),salt);
+            content.put(PASSWORD_KEYWORD, pass);
             content.put(PASSWORD_URL, updatedPassword.getUrl());
             content.put(PASSWORD_DESCRIPTION, updatedPassword.getDescription());
 
@@ -477,8 +487,21 @@ public class DbManager {
             // Capturar excepción en caso de error
             Log.e("Error", "Error al actualizar la contraseña: " + e.getMessage());
             return false;
+        }catch (Exception e){
+            Log.e("TAG", "Error: "+e.getMessage());
+            return false;
+        } finally {
+            this.close();
         }
+
     }
+
+
+
+
+
+
+
 
 
 }
