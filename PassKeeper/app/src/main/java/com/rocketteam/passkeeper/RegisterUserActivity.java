@@ -1,5 +1,6 @@
 package com.rocketteam.passkeeper;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
@@ -151,22 +152,22 @@ public class RegisterUserActivity extends AppCompatActivity {
                 });
             }else {
                 // Mostrar un SweetAlertDialog para el error de registro
-                ShowAlertsUtility.mostrarSweetAlert(this, 1, "Error en el registro", "El email " + user.getEmail() + " ya se encuentra registrado", null);
+                ShowAlertsUtility.mostrarSweetAlert((Context) this, 1, "Error en el registro", "El email " + user.getEmail() + " ya se encuentra registrado", null);
             }
         } catch (SQLiteException e) {
             // Mostrar un SweetAlertDialog para errores de base de datos
-            ShowAlertsUtility.mostrarSweetAlert(this, 1, MSGERROR, "No se pudo registrar el usuario en la base de datos.", null );
+            ShowAlertsUtility.mostrarSweetAlert((Context) this, 1, MSGERROR, "No se pudo registrar el usuario en la base de datos.", null );
             e.printStackTrace();
         } catch (HashUtility.SaltException e) {
             // Mostrar un SweetAlertDialog para errores de generación de salt
-            ShowAlertsUtility.mostrarSweetAlert(this, 1, MSGERROR, "Error al generar el salt para la contraseña.", null );
+            ShowAlertsUtility.mostrarSweetAlert((Context) this, 1, MSGERROR, "Error al generar el salt para la contraseña.", null );
         } catch (HashUtility.HashingException e) {
             // Mostrar un SweetAlertDialog para errores de hash
-            ShowAlertsUtility.mostrarSweetAlert(this, 1, MSGERROR, "Error al hashear la contraseña.", null );
+            ShowAlertsUtility.mostrarSweetAlert((Context) this, 1, MSGERROR, "Error al hashear la contraseña.", null );
         } catch (Exception e) {
             // Mostrar un SweetAlertDialog para errores inesperados
             e.printStackTrace();
-            ShowAlertsUtility.mostrarSweetAlert(this, 1, "Error", "Ocurrió un error inesperado.", null );
+            ShowAlertsUtility.mostrarSweetAlert((Context) this, 1, "Error", "Ocurrió un error inesperado.", null );
         } finally {
             dbManager.close();
         }
