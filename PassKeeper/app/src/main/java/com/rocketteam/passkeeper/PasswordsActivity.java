@@ -41,10 +41,8 @@ public class PasswordsActivity extends AppCompatActivity {
     private ScrollView scrollView;
 
     private ImageButton iconEye;
-    private ImageButton iconPen ;
-    private ImageButton iconTrash ;
-    private LayoutInflater inflater;
-    private TableRow row;
+    private ImageButton iconPen;
+    private ImageButton iconTrash;
     private  List<PasswordResponse> passwords;
 
 
@@ -55,15 +53,10 @@ public class PasswordsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_passwords);
         // Inicializa el DbManager y otros elementos de la actividad.
         dbManager = new DbManager(this);
-        dbManager.open();
+
         tableLayout = findViewById(R.id.tableLayout); //busca el id del tablelayout
 
-        inflater = LayoutInflater.from(this);
-        row = (TableRow) inflater.inflate(R.layout.row_password, null);
 
-        iconEye = row.findViewById(R.id.icon_eye);
-        iconPen = row.findViewById(R.id.icon_pen);
-        iconTrash = row.findViewById(R.id.icon_trash);
 
 
         // Nombre del SharedPreferences
@@ -73,9 +66,15 @@ public class PasswordsActivity extends AppCompatActivity {
         if (sharedPreferences.contains("userId")) {
             // Obtener el valor de "userId" de SharedPreferences
             int userId = sharedPreferences.getInt("userId", -1);
-            Log.i("PasswordsActivity", "Mostrando el Id " + userId);
-            dbManager.open();
+            Log.i("TAG", "Mostrando las contraseñas del usuario Id: " + userId);
             passwords = dbManager.getPasswordsListForUserId(userId);
+
+            if(passwords.size()>0){
+                Log.i("TAG", "La lista tiene: "+passwords.size());
+            }else {
+                Log.i("TAG", "La lista llega VACIA");
+            }
+
             MostrarPasswords(passwords);
         } else {
             // La clave "userId" no existe
@@ -148,7 +147,7 @@ public class PasswordsActivity extends AppCompatActivity {
         });
     }
 
-    /* private void MostrarPasswords(int userId) {
+    /*private void MostrarPasswords(int userId) {
         try {
             dbManager.open();
             Cursor cursor = dbManager.getPasswordsForUser(userId);
@@ -247,12 +246,8 @@ public class PasswordsActivity extends AppCompatActivity {
             Log.e("ERROR", "Error general "+e.getMessage());
         }
 
-    }
-
-    protected void onDestroy() {
-        super.onDestroy();
-        dbManager.close(); // Cierra la base de datos al destruir la actividad.
     }*/
+
 
 
     private void MostrarPasswords(List<PasswordResponse> passwords) {
@@ -262,41 +257,44 @@ public class PasswordsActivity extends AppCompatActivity {
             TextView noPasswordsText = findViewById(R.id.txtNoPassword);//Obtenemos el textView
             ImageView circleExclamation = findViewById(R.id.imageView);//Obtenemos el imageView
 
-
-            //List<PasswordResponse> passwords = dbManager.getPasswordsListForUserId(userId);
-
-            if (passwords != null) {
-                noPasswordsText.setVisibility(View.VISIBLE);
-                circleExclamation.setVisibility(View.VISIBLE);
-                tableLayout.setVisibility(View.GONE);
-            } else {
-                // Si hay filas en el cursor, muestra el TableLayout y oculta el texto
+            //si la lista esta vacia muestra cartel de advertencia
+            if (passwords.isEmpty()) {
+                noPasswordsText.setVisibility(View.VISIBLE); //NO hay contraseñas
+                circleExclamation.setVisibility(View.VISIBLE); //Signo de Admiracion
+                tableLayout.setVisibility(View.GONE);//oculta la tabla
+            } else { //sino completa la tabla de password
                 noPasswordsText.setVisibility(View.GONE);
                 circleExclamation.setVisibility(View.GONE);
                 tableLayout.setVisibility(View.VISIBLE);
 
+                LayoutInflater inflater = LayoutInflater.from(this);
 
                 for (int i = 0; i < passwords.size(); i++) {
                     PasswordResponse pwd = passwords.get(i);
 
+                    // Esto crea un nuevo tableRow para cada contraseña,el tableRow esta en row_password.xml
+                    TableRow row = (TableRow) inflater.inflate(R.layout.row_password, null);
+
+                    iconEye = row.findViewById(R.id.icon_eye);
+                    iconPen = row.findViewById(R.id.icon_pen);
+                    iconTrash = row.findViewById(R.id.icon_trash);
 
                     TextView nombreTextView = row.findViewById(R.id.textView);
                     nombreTextView.setText(pwd.getName()); //Setea el PASSWORD_NAME AL textView
-                    asignarBotones(pwd.getId());
 
+                    asignarBotones(pwd.getId());
+                    // Agrega el TableRow al TableLayout
+                    tableLayout.addView(row);
                 }
-                // Agrega el TableRow al TableLayout
-                tableLayout.addView(row);
 
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }catch (Exception e){
+            Log.e("TAG", "ERROR: "+e.getMessage());
         }
     }
-
-
-
 
     protected void onDestroy() {
         super.onDestroy();
@@ -346,7 +344,6 @@ public class PasswordsActivity extends AppCompatActivity {
 
     public List<PasswordResponse> filterPasswords(List<PasswordResponse> passwords) {
         List<PasswordResponse> filterpass= new ArrayList<>();
-
 
         return filterpass;
     }
