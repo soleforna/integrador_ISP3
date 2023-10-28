@@ -385,7 +385,7 @@ public class DbManager {
         return passwords;
     }
 
-    //--------------------Editar Password
+
 
     /**
      * Recupera los detalles de una contraseña a partir de su ID.
@@ -394,9 +394,9 @@ public class DbManager {
      * @return Un objeto PasswordCredentials que contiene los detalles de la contraseña, o null si no se encuentra.
      */
 
-    public PasswordCredentials getPasswordDetails(int passwordId) {
+    public PasswordResponse getPasswordDetails(int passwordId) {
 
-        PasswordCredentials passwordCredentials = null;
+        PasswordResponse passwordResponse = null;
         Cursor cursor = null;
 
 
@@ -425,13 +425,8 @@ public class DbManager {
                 Log.d("DbManager", "URL: " + url);
                 Log.d("DbManager", "Description: " + description);
 
-                // Crear objeto PasswordCredentials y establecer atributos
-                passwordCredentials = new PasswordCredentials(passwordId, name, username, url, description, keyword);
-                passwordCredentials.setName(name);
-                passwordCredentials.setUser(username);
-                passwordCredentials.setUrl(url);
-                passwordCredentials.setDescription(description);
-                passwordCredentials.setPassword(keyword);
+
+                passwordResponse = new PasswordResponse(passwordId, name, username, keyword, url, description);
             }
         } catch (SQLException e) {
             // Capturar excepción en caso de error
@@ -442,9 +437,24 @@ public class DbManager {
                 cursor.close();
             }
         }
-        
-        return passwordCredentials;
+
+        return passwordResponse;
     }
+
+
+
+
+
+
+
+
+
+    //---------------
+
+
+
+
+
 
 
     /**
@@ -459,8 +469,8 @@ public class DbManager {
             // Crear objeto ContentValues para almacenar los nuevos valores
             ContentValues content = new ContentValues();
             content.put(PASSWORD_NAME, updatedPassword.getName());
-            content.put(PASSWORD_USERNAME, updatedPassword.getUser());
-            content.put(PASSWORD_KEYWORD, updatedPassword.getPassword());
+            content.put(PASSWORD_USERNAME, updatedPassword.getUsername());
+            content.put(PASSWORD_KEYWORD, updatedPassword.getKeyword());
             content.put(PASSWORD_URL, updatedPassword.getUrl());
             content.put(PASSWORD_DESCRIPTION, updatedPassword.getDescription());
 
@@ -479,6 +489,13 @@ public class DbManager {
             return false;
         }
     }
+
+
+
+
+
+
+
 
 
 }
