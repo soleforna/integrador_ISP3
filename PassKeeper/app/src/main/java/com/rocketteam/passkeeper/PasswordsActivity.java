@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.rocketteam.passkeeper.data.db.DbManager;
+import com.rocketteam.passkeeper.data.model.response.PasswordResponse;
 
 import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PasswordsActivity extends AppCompatActivity {
 
     FloatingActionButton btnA;
@@ -35,6 +39,14 @@ public class PasswordsActivity extends AppCompatActivity {
     private DbManager dbManager;
     private TableLayout tableLayout;
     private ScrollView scrollView;
+
+    private ImageButton iconEye;
+    private ImageButton iconPen ;
+    private ImageButton iconTrash ;
+    private LayoutInflater inflater;
+    private TableRow row;
+    private  List<PasswordResponse> passwords;
+
 
 
     @Override
@@ -45,6 +57,15 @@ public class PasswordsActivity extends AppCompatActivity {
         dbManager = new DbManager(this);
         dbManager.open();
         tableLayout = findViewById(R.id.tableLayout); //busca el id del tablelayout
+
+        inflater = LayoutInflater.from(this);
+        row = (TableRow) inflater.inflate(R.layout.row_password, null);
+
+        iconEye = row.findViewById(R.id.icon_eye);
+        iconPen = row.findViewById(R.id.icon_pen);
+        iconTrash = row.findViewById(R.id.icon_trash);
+
+
         // Nombre del SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("Storage", MODE_PRIVATE);
 
@@ -53,7 +74,9 @@ public class PasswordsActivity extends AppCompatActivity {
             // Obtener el valor de "userId" de SharedPreferences
             int userId = sharedPreferences.getInt("userId", -1);
             Log.i("PasswordsActivity", "Mostrando el Id " + userId);
-            MostrarPasswords(userId);
+            dbManager.open();
+            passwords = dbManager.getPasswordsListForUserId(userId);
+            MostrarPasswords(passwords);
         } else {
             // La clave "userId" no existe
             Log.e("PasswordsActivity", "La clave 'userId' no existe");
@@ -125,7 +148,7 @@ public class PasswordsActivity extends AppCompatActivity {
         });
     }
 
-    private void MostrarPasswords(int userId) {
+    /* private void MostrarPasswords(int userId) {
         try {
             dbManager.open();
             Cursor cursor = dbManager.getPasswordsForUser(userId);
@@ -229,6 +252,104 @@ public class PasswordsActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dbManager.close(); // Cierra la base de datos al destruir la actividad.
+    }*/
+
+
+    private void MostrarPasswords(List<PasswordResponse> passwords) {
+        try {
+
+            TableLayout tableLayout = findViewById(R.id.tableLayout);//Obtenemos el tableLayout
+            TextView noPasswordsText = findViewById(R.id.txtNoPassword);//Obtenemos el textView
+            ImageView circleExclamation = findViewById(R.id.imageView);//Obtenemos el imageView
+
+
+            //List<PasswordResponse> passwords = dbManager.getPasswordsListForUserId(userId);
+
+            if (passwords != null) {
+                noPasswordsText.setVisibility(View.VISIBLE);
+                circleExclamation.setVisibility(View.VISIBLE);
+                tableLayout.setVisibility(View.GONE);
+            } else {
+                // Si hay filas en el cursor, muestra el TableLayout y oculta el texto
+                noPasswordsText.setVisibility(View.GONE);
+                circleExclamation.setVisibility(View.GONE);
+                tableLayout.setVisibility(View.VISIBLE);
+
+
+                for (int i = 0; i < passwords.size(); i++) {
+                    PasswordResponse pwd = passwords.get(i);
+
+
+                    TextView nombreTextView = row.findViewById(R.id.textView);
+                    nombreTextView.setText(pwd.getName()); //Setea el PASSWORD_NAME AL textView
+                    asignarBotones(pwd.getId());
+
+                }
+                // Agrega el TableRow al TableLayout
+                tableLayout.addView(row);
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+
+
+
+    protected void onDestroy() {
+        super.onDestroy();
+        dbManager.close(); // Cierra la base de datos al destruir la actividad.
+    }
+
+    private void asignarBotones(int id){
+        iconEye.setOnClickListener(new View.OnClickListener() {
+            //onclick para abrir la actividad del ViewPassActivity
+            @Override
+            public void onClick(View v) {
+
+                // Crea un intent para abrir la actividad ViewPassActivity
+                Intent intent = new Intent(PasswordsActivity.this, ViewPassActivity.class);
+                // Agrega el id como un extra en el intent
+                intent.putExtra("idColumna", id);
+                // utlizamos el putExtra para pasar información con el intent
+                // Inicia la actividad ViewPassActivity
+                startActivity(intent);
+            }
+        });
+
+        // onclick del el editar
+        iconPen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Crea un intent para abrir la actividad ViewPassActivity
+                Intent intent = new Intent(PasswordsActivity.this, EditarPassword.class);
+                // Agrega el id como un extra en el intent
+                intent.putExtra("idColumna", id);
+                // utlizamos el putExtra para pasar información con el intent
+                // Inicia la actividad ViewPassActivity
+                startActivity(intent);
+
+            }
+        });
+        // onclick para borrar un password
+        iconTrash.setOnClickListener(new View.OnClickListener() {
+            //onclick borrar
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+
+    public List<PasswordResponse> filterPasswords(List<PasswordResponse> passwords) {
+        List<PasswordResponse> filterpass= new ArrayList<>();
+
+
+        return filterpass;
+    }
 }
+
+
