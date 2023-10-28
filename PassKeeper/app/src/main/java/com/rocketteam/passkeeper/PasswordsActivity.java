@@ -256,7 +256,7 @@ public class PasswordsActivity extends AppCompatActivity {
             TableLayout tableLayout = findViewById(R.id.tableLayout);//Obtenemos el tableLayout
             TextView noPasswordsText = findViewById(R.id.txtNoPassword);//Obtenemos el textView
             ImageView circleExclamation = findViewById(R.id.imageView);//Obtenemos el imageView
-
+            tableLayout.removeAllViews();
             //si la lista esta vacia muestra cartel de advertencia
             if (passwords.isEmpty()) {
                 noPasswordsText.setVisibility(View.VISIBLE); //NO hay contraseñas
@@ -301,8 +301,11 @@ public class PasswordsActivity extends AppCompatActivity {
         dbManager.close(); // Cierra la base de datos al destruir la actividad.
     }
 
-    private void asignarBotones(int id){
+    private void asignarBotones(int id) {
+        iconTrash.setTag(id); // Donde 'id' es el ID de la contraseña correspondiente
+
         iconEye.setOnClickListener(new View.OnClickListener() {
+
             //onclick para abrir la actividad del ViewPassActivity
             @Override
             public void onClick(View v) {
@@ -331,18 +334,34 @@ public class PasswordsActivity extends AppCompatActivity {
 
             }
         });
-        // onclick para borrar un password
-        iconTrash.setOnClickListener(new View.OnClickListener() {
-            //onclick borrar
-            @Override
-            public void onClick(View v) {
+        // Onclick Borrar
+         iconTrash.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                // Obtén el ID de la contraseña a eliminar desde la vista
+                int idToDelete = (int) v.getTag(); //  tag de la vista con el ID
 
-            }
-        });
-    }
+                // Llama al método eliminarContraseña con el ID
+                dbManager.deletePassword(idToDelete);
+                // Actualiza la lista de contraseñas eliminando el elemento correspondiente
+                PasswordResponse deletedPassword = null;
+                for (PasswordResponse password : passwords) {
+                    if (password.getId() == idToDelete) {
+                        deletedPassword = password;
+                        break;
+                    }
+                }
+                if (deletedPassword != null) {
+                    passwords.remove(deletedPassword);
+                }
 
+                // Actualiza la vista para reflejar los cambios después de la eliminación
+                MostrarPasswords(passwords);
+             }
+        } );
+     }
 
-    public List<PasswordResponse> filterPasswords(List<PasswordResponse> passwords) {
+        public List<PasswordResponse> filterPasswords(List<PasswordResponse> passwords) {
         List<PasswordResponse> filterpass= new ArrayList<>();
 
         return filterpass;
