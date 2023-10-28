@@ -58,7 +58,7 @@ public class DbManager {
             "email TEXT UNIQUE, " +
             "password TEXT, " +
             "salt TEXT, " +
-            "biometric INTEGER DEFAULT 0,"+
+            "biometric INTEGER DEFAULT 0," +
             "created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
             "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) " +
             ")";
@@ -104,7 +104,7 @@ public class DbManager {
      */
     public boolean userRegister(UserCredentials user, int bio) throws HashUtility.HashingException, HashUtility.SaltException {
         try {
-            Log.i("TAG", "LLEGA PARAMETRO DE BIO: "+bio);
+            Log.i("TAG", "LLEGA PARAMETRO DE BIO: " + bio);
             // Generar un salt aleatorio
             String salt = HashUtility.generateSalt();
             // Hashear la contraseña con el salt generado
@@ -120,8 +120,8 @@ public class DbManager {
             long newRowId = db.insertWithOnConflict(TB_USER, null, content, SQLiteDatabase.CONFLICT_IGNORE);
 
             //Si se registro el usuario con la biometria activada
-            if(newRowId !=-1 && bio!=0){
-                saveStorage(-1,bio);
+            if (newRowId != -1 && bio != 0) {
+                saveStorage(-1, bio);
             }
 
             // Si newRowId es -1, indica que hubo un conflicto y no se pudo insertar el nuevo usuario
@@ -168,6 +168,7 @@ public class DbManager {
 
         return salt;
     }
+
     /**
      * Registra una nueva contraseña en la base de datos.
      *
@@ -179,7 +180,7 @@ public class DbManager {
         if (psw == null) {
             throw new IllegalArgumentException("PasswordCredentials no puede ser null");
         }
-            Log.i("TAG", "Llega al passwordRegister: "+psw.getUsername());
+        Log.i("TAG", "Llega al passwordRegister: " + psw.getUsername());
         try {
             //Obtengo el Salt para hashear la contraseña
             String salt = getSaltById(psw.getUserId());
@@ -195,7 +196,7 @@ public class DbManager {
                 content.put(PASSWORD_USER, psw.getUserId());
 
                 long newRowId = db.insertWithOnConflict(TB_PASSWORD, null, content, SQLiteDatabase.CONFLICT_IGNORE);
-                Log.i("TAG", "Se registra PWD: "+newRowId+" de nombre: "+content.getAsString(PASSWORD_NAME));
+                Log.i("TAG", "Se registra PWD: " + newRowId + " de nombre: " + content.getAsString(PASSWORD_NAME));
                 return newRowId != -1;
             } else {
                 // El usuario con el ID especificado no existe
@@ -211,7 +212,7 @@ public class DbManager {
         } catch (Exception e) {
             Log.e("Error", "Password registration error: " + e.getMessage());
             throw e;
-        }finally {
+        } finally {
             db.close();
         }
     }
@@ -228,9 +229,9 @@ public class DbManager {
         UserResponse user = this.getUserByEmail(email);
 
         if (user != null && HashUtility.checkPassword(pwd, user.getPassword(), user.getSalt())) {
-            saveStorage(user.getId(),user.getBiometric());
-            Log.i("TAG", "userID guardado en DbManayer: "+sharedPreferences.getInt("userId", -1));
-            Log.i("TAG", "biometric guardado en DbManayer: "+sharedPreferences.getInt("biometric",-1));
+            saveStorage(user.getId(), user.getBiometric());
+            Log.i("TAG", "userID guardado en DbManayer: " + sharedPreferences.getInt("userId", -1));
+            Log.i("TAG", "biometric guardado en DbManayer: " + sharedPreferences.getInt("biometric", -1));
             return true; // Las credenciales son válidas
         }
         return false; // Las credenciales son inválidas
@@ -244,7 +245,7 @@ public class DbManager {
      */
     private UserResponse getUserByEmail(String email) {
         UserResponse user = null;
-        Log.i("TAG", "llega el email: "+email);
+        Log.i("TAG", "llega el email: " + email);
         try {
             // Define la consulta SQL para seleccionar el usuario por email
             String query = "SELECT * FROM user WHERE email = ?";
@@ -291,7 +292,7 @@ public class DbManager {
         try {
             String query = "SELECT * FROM password WHERE user_id = ? ORDER BY name";
             return db.rawQuery(query, new String[]{String.valueOf(userId)});
-        }catch (SQLException e){
+        } catch (SQLException e) {
             Log.e("Error", "Error de SQL: " + e.getMessage());
             throw e;
         }
@@ -304,22 +305,22 @@ public class DbManager {
      * completa el SharedPreference STORAGE con los datos del usuario
      * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
      */
-    public boolean userWhitBiometrics(){
+    public boolean userWhitBiometrics() {
         try {
             this.open();
             String query = "SELECT * FROM user WHERE biometric = 1";
-            Cursor cursor = db.rawQuery(query,null);
+            Cursor cursor = db.rawQuery(query, null);
             int emailIndex = cursor.getColumnIndex("email");
             int idIndex = cursor.getColumnIndex("id");
 
-            if(emailIndex != -1 && cursor.moveToFirst()){
-                Log.i("TAG", "Usuario con biometria: "+cursor.getString(emailIndex));
-                saveStorage(cursor.getInt(idIndex),1);
+            if (emailIndex != -1 && cursor.moveToFirst()) {
+                Log.i("TAG", "Usuario con biometria: " + cursor.getString(emailIndex));
+                saveStorage(cursor.getInt(idIndex), 1);
                 cursor.close();
                 return true;
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             Log.e("Error", "Error de SQL: " + e.getMessage());
             e.printStackTrace();
         } finally {
@@ -331,8 +332,8 @@ public class DbManager {
     /**
      * Guarda los datos de usuario en SharedPreferences.
      *
-     * @param userId          ID del usuario.
-     * @param biometricValue  Valor de la opción biométrica.
+     * @param userId         ID del usuario.
+     * @param biometricValue Valor de la opción biométrica.
      */
     private void saveStorage(int userId, int biometricValue) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -350,25 +351,25 @@ public class DbManager {
         Cursor cursor = null;
 
         try {
-            passwords=new ArrayList<>();
+            passwords = new ArrayList<>();
             cursor = getPasswordsForUser(userId);
-            int idIndex= cursor.getColumnIndex( "id");
-            int nameIndex =cursor.getColumnIndex(PASSWORD_NAME);
-            int userIndex =cursor.getColumnIndex(PASSWORD_USERNAME);
-            int keywordIndex =cursor.getColumnIndex(PASSWORD_KEYWORD);
-            int urlIndex =cursor.getColumnIndex(PASSWORD_URL);
-            int descriptionIndex =cursor.getColumnIndex(PASSWORD_DESCRIPTION);
+            int idIndex = cursor.getColumnIndex("id");
+            int nameIndex = cursor.getColumnIndex(PASSWORD_NAME);
+            int userIndex = cursor.getColumnIndex(PASSWORD_USERNAME);
+            int keywordIndex = cursor.getColumnIndex(PASSWORD_KEYWORD);
+            int urlIndex = cursor.getColumnIndex(PASSWORD_URL);
+            int descriptionIndex = cursor.getColumnIndex(PASSWORD_DESCRIPTION);
 
             if (nameIndex != -1) {
                 while (cursor.moveToNext()) {
-                    int id= cursor.getInt(idIndex);
+                    int id = cursor.getInt(idIndex);
                     String name = cursor.getString(nameIndex);
                     String user = cursor.getString(userIndex);
                     String keyword = cursor.getString(keywordIndex);
                     String url = cursor.getString(urlIndex);
                     String description = cursor.getString(descriptionIndex);
 
-                    PasswordResponse passwordResponse = new PasswordResponse(id,name, user,keyword,url,description);
+                    PasswordResponse passwordResponse = new PasswordResponse(id, name, user, keyword, url, description);
                     passwords.add(passwordResponse);
                 }
             }
@@ -384,7 +385,100 @@ public class DbManager {
         return passwords;
     }
 
+    //--------------------Editar Password
 
+    /**
+     * Recupera los detalles de una contraseña a partir de su ID.
+     *
+     * @param passwordId El ID de la contraseña que se desea recuperar.
+     * @return Un objeto PasswordCredentials que contiene los detalles de la contraseña, o null si no se encuentra.
+     */
+
+    public PasswordCredentials getPasswordDetails(int passwordId) {
+
+        PasswordCredentials passwordCredentials = null;
+        Cursor cursor = null;
+
+
+        try {
+            // Consulta SQL para seleccionar detalles de contraseña por ID
+            String query = "SELECT name, username, keyword, url, description FROM password WHERE id = ?";
+            cursor = db.rawQuery(query, new String[]{String.valueOf(passwordId)});
+
+            // Obtener los índices de las columnas en el resultado del cursor
+            int nameIndex = cursor.getColumnIndex(PASSWORD_NAME);
+            int usernameIndex = cursor.getColumnIndex(PASSWORD_USERNAME);
+            int keywordIndex = cursor.getColumnIndex(PASSWORD_KEYWORD);
+            int urlIndex = cursor.getColumnIndex(PASSWORD_URL);
+            int descriptionIndex = cursor.getColumnIndex(PASSWORD_DESCRIPTION);
+
+            // Verificar si el cursor tiene datos
+            if (cursor.moveToFirst()) {
+                String name = cursor.getString(nameIndex);
+                String username = cursor.getString(usernameIndex);
+                String keyword = cursor.getString(keywordIndex);
+                String url = cursor.getString(urlIndex);
+                String description = cursor.getString(descriptionIndex);
+                Log.d("DbManager", "Name: " + name);
+                Log.d("DbManager", "Username: " + username);
+                Log.d("DbManager", "Keyword: " + keyword);
+                Log.d("DbManager", "URL: " + url);
+                Log.d("DbManager", "Description: " + description);
+
+                // Crear objeto PasswordCredentials y establecer atributos
+                passwordCredentials = new PasswordCredentials(passwordId, name, username, url, description, keyword);
+                passwordCredentials.setName(name);
+                passwordCredentials.setUser(username);
+                passwordCredentials.setUrl(url);
+                passwordCredentials.setDescription(description);
+                passwordCredentials.setPassword(keyword);
+            }
+        } catch (SQLException e) {
+            // Capturar excepción en caso de error
+            Log.e("Error", "Error al obtener detalles de la contraseña: " + e.getMessage());
+        } finally {
+            if (cursor != null) {
+                // Cerrar el cursor para liberar recursos
+                cursor.close();
+            }
+        }
+        
+        return passwordCredentials;
+    }
+
+
+    /**
+     * Actualiza una contraseña en la base de datos.
+     *
+     * @param passwordId      El ID de la contraseña que se va a actualizar.
+     * @param updatedPassword Un objeto PasswordCredentials que contiene los nuevos detalles de la contraseña.
+     * @return true si la actualización se realizó con éxito, o false en caso de error.
+     */
+    public boolean updatePassword(int passwordId, PasswordCredentials updatedPassword) {
+        try {
+            // Crear objeto ContentValues para almacenar los nuevos valores
+            ContentValues content = new ContentValues();
+            content.put(PASSWORD_NAME, updatedPassword.getName());
+            content.put(PASSWORD_USERNAME, updatedPassword.getUser());
+            content.put(PASSWORD_KEYWORD, updatedPassword.getPassword());
+            content.put(PASSWORD_URL, updatedPassword.getUrl());
+            content.put(PASSWORD_DESCRIPTION, updatedPassword.getDescription());
+
+            // Definir la cláusula WHERE para la actualización
+            String whereClause = "id = ?";
+            String[] whereArgs = {String.valueOf(passwordId)};
+
+            // Realizar la actualización en la base de datos
+            int rowsAffected = db.update(TB_PASSWORD, content, whereClause, whereArgs);
+
+            // Verificar si se actualizaron filas y retornar true si se actualizó al menos una fila
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            // Capturar excepción en caso de error
+            Log.e("Error", "Error al actualizar la contraseña: " + e.getMessage());
+            return false;
+        }
+    }
 
 
 }
