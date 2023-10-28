@@ -132,7 +132,7 @@ public class AgregarPassword extends AppCompatActivity {
 
             // Obtener el valor de "userId" de SharedPreferences
             int userId = sharedPreferences.getInt("userId", -1); // -1 es un valor predeterminado en caso de que no se encuentre la clave "userId"
-            PasswordCredentials password = new PasswordCredentials(userId, editTextName.getText().toString(), editTextPassword.getText().toString(), editTextUsuario.getText().toString(), editTextUrl.getText().toString(), editTextDescripcion.getText().toString());
+            PasswordCredentials password = new PasswordCredentials(editTextName.getText().toString(), editTextPassword.getText().toString(), editTextUsuario.getText().toString(), editTextUrl.getText().toString(), editTextDescripcion.getText().toString(),userId);
             Log.i("PasswordActivity", "Mostrando Id" + userId);
             if (dbManager.passwordRegister(password)) {
                 // Mostrar un SweetAlertDialog para el registro exitoso de contraseña

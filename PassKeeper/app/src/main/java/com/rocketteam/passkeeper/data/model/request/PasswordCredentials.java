@@ -4,28 +4,20 @@ package com.rocketteam.passkeeper.data.model.request;
  * Clase que representa las credenciales de una contraseña.
  */
 public class PasswordCredentials {
+    private String username;
+    private String url;
+    private String keyword;
+    private String description;
+    private String name;
     private Integer userId;
 
-    private String name;
-
-    private String user;
-
-    private String password;
-
-    private String url;
-
-    private String description;
-
-    public PasswordCredentials(Integer userId, String name, String user, String password, String url, String description){
-
-        this.userId = userId;
-        this.name = name;
-        this.password = password;
-        this.user = user;
+    public PasswordCredentials(String username, String url, String keyword, String description,String name, Integer userId){
+        this.username = username;
         this.url = url;
+        this.keyword = keyword;
         this.description = description;
-
-
+        this.name = name;
+        this.userId = userId;
     }
 
     public Integer getUserId() {
@@ -44,20 +36,20 @@ public class PasswordCredentials {
         this.name = name;
     }
 
-    public String getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     public String getUrl() {
