@@ -24,6 +24,7 @@ import java.util.ArrayList;
 public class DbManager {
     // Definición de las columnas de la tabla de contraseñas
     public static final String TB_PASSWORD = "password";
+    public static final String PASSWORD_ID = "id";
     public static final String PASSWORD_USERNAME = "username";
     public static final String PASSWORD_URL = "url";
     public static final String PASSWORD_KEYWORD = "keyword";
@@ -288,7 +289,7 @@ public class DbManager {
      */
     public Cursor getPasswordsForUser(int userId) {
         try {
-            String[] columns = {PASSWORD_USER, PASSWORD_NAME};
+            String[] columns = {PASSWORD_ID, PASSWORD_NAME};
             String selection = PASSWORD_USER + " = ?";
             String[] selectionArgs = {String.valueOf(userId)};
             return db.query(TB_PASSWORD, columns, selection, selectionArgs, null, null, null);
@@ -300,10 +301,11 @@ public class DbManager {
     /* Pasa a lista, las contraseñas obtenidas para un usuario especifico en getPasswordForUser */
 
     public List<PasswordResponse> getPasswordsListForUserId(int userId) {
-        List<PasswordResponse> passwords = new ArrayList<>();
+        List<PasswordResponse> passwords = null;
         Cursor cursor = null;
 
         try {
+            passwords=new ArrayList<>();
             cursor = getPasswordsForUser(userId);
             int idIndex= cursor.getColumnIndex( "id");
             int nameIndex =cursor.getColumnIndex(PASSWORD_NAME);
