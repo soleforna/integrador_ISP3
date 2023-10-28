@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="70dp"
                     android:text="@string/log_in"
-                    android:textColor="@android:color/darker_gray"
+                    android:textColor="#A1887F"
                     android:textSize="30sp"
                     android:textStyle="italic" />
             </LinearLayout>
@@ -92,7 +92,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="85dp"
                 android:layout_marginTop="8dp"
                 android:hint="@string/correo"
                 android:textColor="@color/greyLigth"
@@ -164,12 +164,13 @@
 
         <TextView
             android:id="@+id/linkRegister"
-            android:layout_width="wrap_content"
+            android:layout_width="174dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
+            android:layout_marginStart="110dp"
             android:layout_marginTop="380dp"
             android:text="No estas registrado?"
             android:textColor="@color/blue"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/materialButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.72"

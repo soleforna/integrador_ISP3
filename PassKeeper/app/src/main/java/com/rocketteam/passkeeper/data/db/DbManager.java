@@ -11,8 +11,12 @@ import android.util.Log;
 
 import com.rocketteam.passkeeper.data.model.request.PasswordCredentials;
 import com.rocketteam.passkeeper.data.model.request.UserCredentials;
+import com.rocketteam.passkeeper.data.model.response.PasswordResponse;
 import com.rocketteam.passkeeper.data.model.response.UserResponse;
 import com.rocketteam.passkeeper.util.HashUtility;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase que gestiona las operaciones de base de datos relacionadas con usuarios y contraseñas.
@@ -28,7 +32,7 @@ public class DbManager {
     public static final String PASSWORD_NAME = "name";
 
     //definicion de la tabla contraseña
-    public static final String CREATE_PASSWORD_TABLE = "CREATE TABLE password( " +
+    public static final String CREATE_PASSWORD_TABLE = "CREATE TABLE IF NOT EXISTS password ( " +
             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
             "username TEXT, " +
             "url TEXT, " +
@@ -175,22 +179,23 @@ public class DbManager {
         if (psw == null) {
             throw new IllegalArgumentException("PasswordCredentials no puede ser null");
         }
-
+            Log.i("TAG", "Llega al passwordRegister: "+psw.getUsername());
         try {
             //Obtengo el Salt para hashear la contraseña
             String salt = getSaltById(psw.getUserId());
             if (salt != null) {
 
                 ContentValues content = new ContentValues();
-                content.put(PASSWORD_USER, psw.getUserId());
-                content.put(PASSWORD_NAME, psw.getName());
-                content.put(PASSWORD_USERNAME, psw.getUser());
+                content.put(PASSWORD_USERNAME, psw.getUsername());
                 content.put(PASSWORD_URL, psw.getUrl());
-                content.put(PASSWORD_DESCRIPTION, psw.getDescription());
-                String hashedPassword = HashUtility.hashPassword(psw.getPassword(), salt);
+                String hashedPassword = HashUtility.hashPassword(psw.getKeyword(), salt);
                 content.put(PASSWORD_KEYWORD, hashedPassword); // Guardar la contraseña hasheada
+                content.put(PASSWORD_DESCRIPTION, psw.getDescription());
+                content.put(PASSWORD_NAME, psw.getName());
+                content.put(PASSWORD_USER, psw.getUserId());
 
-                long newRowId = db.insert(TB_PASSWORD, null, content);
+                long newRowId = db.insertWithOnConflict(TB_PASSWORD, null, content, SQLiteDatabase.CONFLICT_IGNORE);
+                Log.i("TAG", "Se registra PWD: "+newRowId+" de nombre: "+content.getAsString(PASSWORD_NAME));
                 return newRowId != -1;
             } else {
                 // El usuario con el ID especificado no existe
@@ -284,10 +289,8 @@ public class DbManager {
      */
     public Cursor getPasswordsForUser(int userId) {
         try {
-            String[] columns = {PASSWORD_USER, PASSWORD_NAME};
-            String selection = PASSWORD_USER + " = ?";
-            String[] selectionArgs = {String.valueOf(userId)};
-            return db.query(TB_PASSWORD, columns, selection, selectionArgs, null, null, null);
+            String query = "SELECT * FROM password WHERE user_id = ? ORDER BY name";
+            return db.rawQuery(query, new String[]{String.valueOf(userId)});
         }catch (SQLException e){
             Log.e("Error", "Error de SQL: " + e.getMessage());
             throw e;
@@ -341,4 +344,47 @@ public class DbManager {
         editor.putInt("biometric", biometricValue);
         editor.apply();
     }
+
+    public List<PasswordResponse> getPasswordsListForUserId(int userId) {
+        List<PasswordResponse> passwords = null;
+        Cursor cursor = null;
+
+        try {
+            passwords=new ArrayList<>();
+            cursor = getPasswordsForUser(userId);
+            int idIndex= cursor.getColumnIndex( "id");
+            int nameIndex =cursor.getColumnIndex(PASSWORD_NAME);
+            int userIndex =cursor.getColumnIndex(PASSWORD_USERNAME);
+            int keywordIndex =cursor.getColumnIndex(PASSWORD_KEYWORD);
+            int urlIndex =cursor.getColumnIndex(PASSWORD_URL);
+            int descriptionIndex =cursor.getColumnIndex(PASSWORD_DESCRIPTION);
+
+            if (nameIndex != -1) {
+                while (cursor.moveToNext()) {
+                    int id= cursor.getInt(idIndex);
+                    String name = cursor.getString(nameIndex);
+                    String user = cursor.getString(userIndex);
+                    String keyword = cursor.getString(keywordIndex);
+                    String url = cursor.getString(urlIndex);
+                    String description = cursor.getString(descriptionIndex);
+
+                    PasswordResponse passwordResponse = new PasswordResponse(id,name, user,keyword,url,description);
+                    passwords.add(passwordResponse);
+                }
+            }
+        } catch (Exception e) {
+            Log.e("TAG", "Error al crear lista de contraseñas", e);
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+        return passwords;
+    }
+
+
+
+
 }

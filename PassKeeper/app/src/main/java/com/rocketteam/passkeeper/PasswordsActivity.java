@@ -157,16 +157,15 @@ public class PasswordsActivity extends AppCompatActivity {
                         ImageButton iconPen = row.findViewById(R.id.icon_pen);
                         ImageButton iconTrash = row.findViewById(R.id.icon_trash);
                         try {
-                            String columnId = DbManager.PASSWORD_USER;
-                            String columnName = DbManager.PASSWORD_NAME;
-                            int columnIndexName = cursor.getColumnIndex(columnName);
-                            int columnIndexId = cursor.getColumnIndex(columnId);
+                            int columnIndexName = cursor.getColumnIndex(DbManager.PASSWORD_NAME);
+                            int columnIndexId = cursor.getColumnIndex("id");
 
                             // verifica que las columnas de password y name existen en el resultado del cursor
                             if (columnIndexId != -1 && columnIndexName != -1) {
                                 TextView nombreTextView = row.findViewById(R.id.textView);
                                 nombreTextView.setText(cursor.getString(columnIndexName)); //Setea el PASSWORD_NAME AL textView
                                 int getId = cursor.getInt(columnIndexId);
+                                Log.i("TAG", "Password ID: "+getId);
                                 iconEye.setOnClickListener(new View.OnClickListener() {
                                     //onclick para abrir la actividad del ViewPassActivity
                                     @Override
@@ -206,7 +205,7 @@ public class PasswordsActivity extends AppCompatActivity {
                                 });
 
                             } else {
-                                Log.e("PasswordActivity", "Column not found: " + columnName);
+                                Log.e("PasswordActivity", "Column not found: " + dbManager.PASSWORD_NAME);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

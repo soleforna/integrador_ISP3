@@ -21,8 +21,11 @@ import com.rocketteam.passkeeper.data.db.DbManager;
 import com.rocketteam.passkeeper.data.model.request.PasswordCredentials;
 import com.rocketteam.passkeeper.util.HashUtility;
 import com.rocketteam.passkeeper.util.InputTextWatcher;
+import com.rocketteam.passkeeper.util.ShowAlertsUtility;
 
 import java.util.Objects;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class RegisterPasswordActivity extends AppCompatActivity {
 
@@ -109,7 +112,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
         } else if (name.isEmpty()) {
             textInputLayoutPass.setError("Por favor, ingresa un nombre");
             return false;
-        } else if (!url.isEmpty() && !url.matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~|!:,.;]*[-a-zA-Z0-9+&@#/%=~|]")) {
+        } else if (!url.isEmpty() && !url.matches("^[-a-zA-Z0-9+&@#/%?=~|!:,.;]*[-a-zA-Z0-9+&@#/%=~|]")) {
             textInputLayoutUrl.setError("Por favor, ingresa una URL válida");
             return false;
         }
@@ -131,18 +134,31 @@ public class RegisterPasswordActivity extends AppCompatActivity {
             PasswordCredentials password = null;
             if (userId != -1) {
                 password = new PasswordCredentials(
-                        userId,
-                        Objects.requireNonNull(editTextName.getText()).toString(),
-                        Objects.requireNonNull(editTextPassword.getText()).toString(),
                         Objects.requireNonNull(editTextUsuario.getText()).toString(),
                         Objects.requireNonNull(editTextUrl.getText()).toString(),
-                        Objects.requireNonNull(editTextDescripcion.getText()).toString()
+                        Objects.requireNonNull(editTextPassword.getText()).toString(),
+                        Objects.requireNonNull(editTextDescripcion.getText()).toString(),
+                        Objects.requireNonNull(editTextName.getText()).toString(),
+                        userId
                 );
+                Log.i("TAG", "Usuario ingresado: "+ editTextUsuario.getText().toString());
+                Log.i("TAG", "Nombre Ingresado: "+editTextName.getText().toString());
+
+                Log.i("TAG", "Url ingresada: "+ editTextUrl.getText().toString());
+
+                Log.i("TAG", "password tiene de url: "+password.getUrl());
+
             }
 
             if (dbManager.passwordRegister(password)) {
                 // Mostrar un SweetAlertDialog para el registro exitoso de la contraseña
-                mostrarSweetAlert(this, 2, "Registro de contraseña exitoso", "La contraseña ha sido registrada correctamente.", null);
+                ShowAlertsUtility.mostrarSweetAlert(this, 2, "Registro exitoso", "El Password ha sido registrado correctamente", sweetAlertDialog -> {
+                    sweetAlertDialog.dismissWithAnimation();
+                    // Redirigir al usuario a la página de PasswordActivity
+                    Intent intent = new Intent(RegisterPasswordActivity.this, PasswordsActivity.class);
+                    startActivity(intent);
+                    finish();
+                });
             }
         } catch (SQLiteException e) {
             // Mostrar un SweetAlertDialog para errores de base de datos
