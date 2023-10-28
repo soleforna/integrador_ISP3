@@ -352,6 +352,7 @@ public class DbManager {
     public List<PasswordResponse> getPasswordsListForUserId(int userId) {
         List<PasswordResponse> passwords = null;
         Cursor cursor = null;
+        this.open();
 
         try {
             passwords=new ArrayList<>();
