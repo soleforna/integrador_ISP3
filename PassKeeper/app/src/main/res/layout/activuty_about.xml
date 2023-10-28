@@ -97,7 +97,7 @@
         android:id="@+id/textTitle3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="376dp"
+        android:layout_marginTop="400dp"
         android:text="Un desarrollo de Rocket Team"
         android:textColor="@color/grey"
         android:textSize="24sp"
