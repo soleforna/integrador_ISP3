@@ -24,6 +24,7 @@ import java.util.List;
 public class DbManager {
     // Definición de las columnas de la tabla de contraseñas
     public static final String TB_PASSWORD = "password";
+    private static final String PASSWORD_ID = "id";
     public static final String PASSWORD_USERNAME = "username";
     public static final String PASSWORD_URL = "url";
     public static final String PASSWORD_KEYWORD = "keyword";
@@ -62,6 +63,7 @@ public class DbManager {
             "created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
             "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) " +
             ")";
+
 
     //Definicion de variables y constantes globales
     private final DbConnection connection;
@@ -345,30 +347,34 @@ public class DbManager {
         editor.apply();
     }
 
+    // crea una lista de contraseñas, obtenidas en un cursor en getPasswordsForUser
+
     public List<PasswordResponse> getPasswordsListForUserId(int userId) {
         List<PasswordResponse> passwords = null;
         Cursor cursor = null;
+        this.open();
 
         try {
             passwords=new ArrayList<>();
             cursor = getPasswordsForUser(userId);
-            int idIndex= cursor.getColumnIndex( "id");
-            int nameIndex =cursor.getColumnIndex(PASSWORD_NAME);
-            int userIndex =cursor.getColumnIndex(PASSWORD_USERNAME);
-            int keywordIndex =cursor.getColumnIndex(PASSWORD_KEYWORD);
+            int idIndex= cursor.getColumnIndex( PASSWORD_ID);
+            int usernameIndex =cursor.getColumnIndex(PASSWORD_USERNAME);
             int urlIndex =cursor.getColumnIndex(PASSWORD_URL);
+            int keywordIndex =cursor.getColumnIndex(PASSWORD_KEYWORD);
             int descriptionIndex =cursor.getColumnIndex(PASSWORD_DESCRIPTION);
+            int nameIndex =cursor.getColumnIndex(PASSWORD_NAME);
 
-            if (nameIndex != -1) {
+
+            if (idIndex != -1) {
                 while (cursor.moveToNext()) {
                     int id= cursor.getInt(idIndex);
-                    String name = cursor.getString(nameIndex);
-                    String user = cursor.getString(userIndex);
-                    String keyword = cursor.getString(keywordIndex);
+                    String username = cursor.getString(usernameIndex);
                     String url = cursor.getString(urlIndex);
+                    String keyword = cursor.getString(keywordIndex);
                     String description = cursor.getString(descriptionIndex);
+                    String name = cursor.getString(nameIndex);
 
-                    PasswordResponse passwordResponse = new PasswordResponse(id,name, user,keyword,url,description);
+                    PasswordResponse passwordResponse = new PasswordResponse(id,username,url,keyword,description,name);
                     passwords.add(passwordResponse);
                 }
             }
@@ -379,6 +385,7 @@ public class DbManager {
             if (cursor != null) {
                 cursor.close();
             }
+            this.close();
         }
 
         return passwords;
