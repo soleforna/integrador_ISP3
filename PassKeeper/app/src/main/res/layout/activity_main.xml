@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="70dp"
                     android:text="@string/log_in"
-                    android:textColor="#A1887F"
+                    android:textColor="@color/text_accesibility"
                     android:textSize="30sp"
                     android:textStyle="italic" />
             </LinearLayout>
@@ -104,7 +104,7 @@
                 app:hintTextColor="@color/greyLigth"
                 app:startIconContentDescription="Correo icon"
                 app:startIconDrawable="@drawable/correo"
-                app:startIconTint="@color/greyLigth">
+                app:startIconTint="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextUsername"
@@ -133,7 +133,7 @@
                 app:hintTextColor="@color/greyLigth"
                 app:startIconContentDescription="Lock icon"
                 app:startIconDrawable="@drawable/lock_solid"
-                app:startIconTint="@color/greyLigth">
+                app:startIconTint="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editPassword"
@@ -171,6 +171,7 @@
             android:text="No estas registrado?"
             android:textColor="@color/blue"
             android:textSize="16sp"
+            android:contentDescription="Toque aquí para crear una cuenta  si no tiene una"
             app:layout_constraintBottom_toTopOf="@+id/materialButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.72"
@@ -190,6 +191,7 @@
         android:backgroundTint="@color/blue"
         android:text="@string/log_in"
         android:textColor="@color/white"
+        android:contentDescription="Toqui aqui para iniciar sesión"
         app:cardElevation="15dp"
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"

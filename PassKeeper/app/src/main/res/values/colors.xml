@@ -7,4 +7,8 @@
     <color name="transparentColor">#00FFFFFF</color>
     <color name="black">#000000</color>
     <color name="redLigth">#FF6F6F</color>
+    //Color oscuro para la escritura
+    <color name="text_accesibility">#272626</color>
+    // Color rojo oscuro para los carteles e iconos rojos
+    <color name="sign_accessibility">#B74D4D</color>
 </resources>
