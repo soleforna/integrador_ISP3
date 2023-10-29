@@ -269,32 +269,6 @@
                     android:textColor="@color/greyLigth"
                     app:hintTextColor="@color/greyLigth" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/textInputLayoutFechaModificacion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/last_date"
-                    android:textColor="@color/greyLigth"
-                    app:boxCornerRadiusBottomEnd="25dp"
-                    app:boxCornerRadiusBottomStart="25dp"
-                    app:boxCornerRadiusTopEnd="25dp"
-                    app:boxCornerRadiusTopStart="25dp"
-                    app:boxStrokeColor="@color/greyLigth"
-                    app:hintTextColor="@color/greyLigth"
-                    app:startIconContentDescription="IconCalendar"
-                    app:startIconDrawable="@drawable/calendar_days_solid"
-                    app:startIconTint="@color/greyLigth">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editTextFechaModificacion"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:enabled="false"
-                        android:inputType="text"
-                        android:textColor="@color/greyLigth"
-                        app:hintTextColor="@color/greyLigth" />
-                </com.google.android.material.textfield.TextInputLayout>
-
             </com.google.android.material.textfield.TextInputLayout>
 
 
