@@ -59,7 +59,7 @@ public class DbManager {
             "email TEXT UNIQUE, " +
             "password TEXT, " +
             "salt TEXT, " +
-            "biometric INTEGER DEFAULT 0,"+
+            "biometric INTEGER DEFAULT 0," +
             "created_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')), " +
             "updated_at TEXT DEFAULT (strftime('%Y-%m-%d %H:%M:%S', 'now', 'localtime')) " +
             ")";
@@ -106,7 +106,7 @@ public class DbManager {
      */
     public boolean userRegister(UserCredentials user, int bio) throws HashUtility.HashingException, HashUtility.SaltException {
         try {
-            Log.i("TAG", "LLEGA PARAMETRO DE BIO: "+bio);
+            Log.i("TAG", "LLEGA PARAMETRO DE BIO: " + bio);
             // Generar un salt aleatorio
             String salt = HashUtility.generateSalt();
             // Hashear la contraseña con el salt generado
@@ -122,8 +122,8 @@ public class DbManager {
             long newRowId = db.insertWithOnConflict(TB_USER, null, content, SQLiteDatabase.CONFLICT_IGNORE);
 
             //Si se registro el usuario con la biometria activada
-            if(newRowId !=-1 && bio!=0){
-                saveStorage(-1,bio);
+            if (newRowId != -1 && bio != 0) {
+                saveStorage(-1, bio);
             }
 
             // Si newRowId es -1, indica que hubo un conflicto y no se pudo insertar el nuevo usuario
@@ -170,6 +170,7 @@ public class DbManager {
 
         return salt;
     }
+
     /**
      * Registra una nueva contraseña en la base de datos.
      *
@@ -181,7 +182,7 @@ public class DbManager {
         if (psw == null) {
             throw new IllegalArgumentException("PasswordCredentials no puede ser null");
         }
-            Log.i("TAG", "Llega al passwordRegister: "+psw.getUsername());
+        Log.i("TAG", "Llega al passwordRegister: " + psw.getUsername());
         try {
             //Obtengo el Salt para hashear la contraseña
             String salt = getSaltById(psw.getUserId());
@@ -197,7 +198,7 @@ public class DbManager {
                 content.put(PASSWORD_USER, psw.getUserId());
 
                 long newRowId = db.insertWithOnConflict(TB_PASSWORD, null, content, SQLiteDatabase.CONFLICT_IGNORE);
-                Log.i("TAG", "Se registra PWD: "+newRowId+" de nombre: "+content.getAsString(PASSWORD_NAME));
+                Log.i("TAG", "Se registra PWD: " + newRowId + " de nombre: " + content.getAsString(PASSWORD_NAME));
                 return newRowId != -1;
             } else {
                 // El usuario con el ID especificado no existe
@@ -213,7 +214,7 @@ public class DbManager {
         } catch (Exception e) {
             Log.e("Error", "Password registration error: " + e.getMessage());
             throw e;
-        }finally {
+        } finally {
             db.close();
         }
     }
@@ -230,9 +231,9 @@ public class DbManager {
         UserResponse user = this.getUserByEmail(email);
 
         if (user != null && HashUtility.checkPassword(pwd, user.getPassword(), user.getSalt())) {
-            saveStorage(user.getId(),user.getBiometric());
-            Log.i("TAG", "userID guardado en DbManayer: "+sharedPreferences.getInt("userId", -1));
-            Log.i("TAG", "biometric guardado en DbManayer: "+sharedPreferences.getInt("biometric",-1));
+            saveStorage(user.getId(), user.getBiometric());
+            Log.i("TAG", "userID guardado en DbManayer: " + sharedPreferences.getInt("userId", -1));
+            Log.i("TAG", "biometric guardado en DbManayer: " + sharedPreferences.getInt("biometric", -1));
             return true; // Las credenciales son válidas
         }
         return false; // Las credenciales son inválidas
@@ -246,7 +247,7 @@ public class DbManager {
      */
     private UserResponse getUserByEmail(String email) {
         UserResponse user = null;
-        Log.i("TAG", "llega el email: "+email);
+        Log.i("TAG", "llega el email: " + email);
         try {
             // Define la consulta SQL para seleccionar el usuario por email
             String query = "SELECT * FROM user WHERE email = ?";
@@ -293,7 +294,7 @@ public class DbManager {
         try {
             String query = "SELECT * FROM password WHERE user_id = ? ORDER BY name";
             return db.rawQuery(query, new String[]{String.valueOf(userId)});
-        }catch (SQLException e){
+        } catch (SQLException e) {
             Log.e("Error", "Error de SQL: " + e.getMessage());
             throw e;
         }
@@ -306,22 +307,22 @@ public class DbManager {
      * completa el SharedPreference STORAGE con los datos del usuario
      * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
      */
-    public boolean userWhitBiometrics(){
+    public boolean userWhitBiometrics() {
         try {
             this.open();
             String query = "SELECT * FROM user WHERE biometric = 1";
-            Cursor cursor = db.rawQuery(query,null);
+            Cursor cursor = db.rawQuery(query, null);
             int emailIndex = cursor.getColumnIndex("email");
             int idIndex = cursor.getColumnIndex("id");
 
-            if(emailIndex != -1 && cursor.moveToFirst()){
-                Log.i("TAG", "Usuario con biometria: "+cursor.getString(emailIndex));
-                saveStorage(cursor.getInt(idIndex),1);
+            if (emailIndex != -1 && cursor.moveToFirst()) {
+                Log.i("TAG", "Usuario con biometria: " + cursor.getString(emailIndex));
+                saveStorage(cursor.getInt(idIndex), 1);
                 cursor.close();
                 return true;
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             Log.e("Error", "Error de SQL: " + e.getMessage());
             e.printStackTrace();
         } finally {
@@ -333,8 +334,8 @@ public class DbManager {
     /**
      * Guarda los datos de usuario en SharedPreferences.
      *
-     * @param userId          ID del usuario.
-     * @param biometricValue  Valor de la opción biométrica.
+     * @param userId         ID del usuario.
+     * @param biometricValue Valor de la opción biométrica.
      */
     private void saveStorage(int userId, int biometricValue) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -355,26 +356,26 @@ public class DbManager {
         this.open();
 
         try {
-            passwords=new ArrayList<>();
+            passwords = new ArrayList<>();
             cursor = getPasswordsForUser(userId);
-            int idIndex= cursor.getColumnIndex( PASSWORD_ID);
-            int usernameIndex =cursor.getColumnIndex(PASSWORD_USERNAME);
-            int urlIndex =cursor.getColumnIndex(PASSWORD_URL);
-            int keywordIndex =cursor.getColumnIndex(PASSWORD_KEYWORD);
-            int descriptionIndex =cursor.getColumnIndex(PASSWORD_DESCRIPTION);
-            int nameIndex =cursor.getColumnIndex(PASSWORD_NAME);
+            int idIndex = cursor.getColumnIndex(PASSWORD_ID);
+            int usernameIndex = cursor.getColumnIndex(PASSWORD_USERNAME);
+            int urlIndex = cursor.getColumnIndex(PASSWORD_URL);
+            int keywordIndex = cursor.getColumnIndex(PASSWORD_KEYWORD);
+            int descriptionIndex = cursor.getColumnIndex(PASSWORD_DESCRIPTION);
+            int nameIndex = cursor.getColumnIndex(PASSWORD_NAME);
 
 
             if (idIndex != -1) {
                 while (cursor.moveToNext()) {
-                    int id= cursor.getInt(idIndex);
+                    int id = cursor.getInt(idIndex);
                     String username = cursor.getString(usernameIndex);
                     String url = cursor.getString(urlIndex);
                     String keyword = cursor.getString(keywordIndex);
                     String description = cursor.getString(descriptionIndex);
                     String name = cursor.getString(nameIndex);
 
-                    PasswordResponse passwordResponse = new PasswordResponse(id,username,url,keyword,description,name);
+                    PasswordResponse passwordResponse = new PasswordResponse(id, username, url, keyword, description, name);
                     passwords.add(passwordResponse);
                 }
             }
@@ -391,7 +392,19 @@ public class DbManager {
         return passwords;
     }
 
-
-
+    public void deletePassword(int passwordId) {
+        try {
+            // Abre la base de datos
+            this.open();
+            // Elimina la contraseña con el ID especificado
+            db.delete(TB_PASSWORD, PASSWORD_ID + " = ?", new String[]{String.valueOf(passwordId)});
+        } catch (SQLException e) {
+            Log.e("Error", "Error al eliminar la contraseña: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            // Cierra la base de datos
+            this.close();
+        }
+    }
 
 }
