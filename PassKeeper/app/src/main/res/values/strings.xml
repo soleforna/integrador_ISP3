@@ -26,9 +26,9 @@
 
     <!--Editar Contraseña-->
     <string name="edit_password">Editar Contraseña </string>
-    <string name="password_e">**********</string>
-    <string name="url_e">www.facebook.com</string>
-    <string name="description_e">Nombre de mi primer perro</string>
+    <string name="password_e">Contraseña</string>
+    <string name="url_e">URL</string>
+    <string name="description_e">Descripción</string>
 
     <!--Ver Contraseña-->
     <string name="ver_password">Ver Contraseña</string>

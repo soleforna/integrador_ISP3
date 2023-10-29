@@ -5,7 +5,13 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+
 public class HashUtility {
+
+    private static final String ALGORITHM = "AES";
+    private static final String TRANSFORMATION = "AES/ECB/PKCS5Padding";
 
     /**
      * Excepción personalizada para errores durante el proceso de hashing.
@@ -79,6 +85,25 @@ public class HashUtility {
         String inputHash = HashUtility.hashPassword(inputPassword, salt);
         // Compara el hash calculado con el hash almacenado
         return inputHash.equals(storedHash);
+    }
+
+
+
+
+    public static String encrypt(String data, String salt) throws Exception {
+        SecretKeySpec keySpec = new SecretKeySpec(salt.getBytes(), ALGORITHM);
+        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+        cipher.init(Cipher.ENCRYPT_MODE, keySpec);
+        byte[] encryptedBytes = cipher.doFinal(data.getBytes());
+        return Base64.getEncoder().encodeToString(encryptedBytes);
+    }
+
+    public static String decrypt(String encryptedData, String salt) throws Exception {
+        SecretKeySpec keySpec = new SecretKeySpec(salt.getBytes(), ALGORITHM);
+        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+        cipher.init(Cipher.DECRYPT_MODE, keySpec);
+        byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedData));
+        return new String(decryptedBytes);
     }
 
     /**
