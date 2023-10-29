@@ -358,24 +358,24 @@ public class DbManager {
         try {
             passwords = new ArrayList<>();
             cursor = getPasswordsForUser(userId);
-            int idIndex= cursor.getColumnIndex( PASSWORD_ID);
-            int usernameIndex =cursor.getColumnIndex(PASSWORD_USERNAME);
-            int urlIndex =cursor.getColumnIndex(PASSWORD_URL);
-            int keywordIndex =cursor.getColumnIndex(PASSWORD_KEYWORD);
-            int descriptionIndex =cursor.getColumnIndex(PASSWORD_DESCRIPTION);
-            int nameIndex =cursor.getColumnIndex(PASSWORD_NAME);
+            int idIndex = cursor.getColumnIndex(PASSWORD_ID);
+            int usernameIndex = cursor.getColumnIndex(PASSWORD_USERNAME);
+            int urlIndex = cursor.getColumnIndex(PASSWORD_URL);
+            int keywordIndex = cursor.getColumnIndex(PASSWORD_KEYWORD);
+            int descriptionIndex = cursor.getColumnIndex(PASSWORD_DESCRIPTION);
+            int nameIndex = cursor.getColumnIndex(PASSWORD_NAME);
 
 
             if (idIndex != -1) {
                 while (cursor.moveToNext()) {
-                    int id= cursor.getInt(idIndex);
+                    int id = cursor.getInt(idIndex);
                     String username = cursor.getString(usernameIndex);
                     String url = cursor.getString(urlIndex);
                     String keyword = cursor.getString(keywordIndex);
                     String description = cursor.getString(descriptionIndex);
                     String name = cursor.getString(nameIndex);
 
-                    PasswordResponse passwordResponse = new PasswordResponse(id,username,url,keyword,description,name);
+                    PasswordResponse passwordResponse = new PasswordResponse(id, username, url, keyword, description, name);
                     passwords.add(passwordResponse);
                 }
             }
@@ -392,6 +392,20 @@ public class DbManager {
         return passwords;
     }
 
+    public void deletePassword(int passwordId) {
+        try {
+            // Abre la base de datos
+            this.open();
+            // Elimina la contraseña con el ID especificado
+            db.delete(TB_PASSWORD, PASSWORD_ID + " = ?", new String[]{String.valueOf(passwordId)});
+        } catch (SQLException e) {
+            Log.e("Error", "Error al eliminar la contraseña: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            // Cierra la base de datos
+            this.close();
+        }
+    }
 
 
     /**
