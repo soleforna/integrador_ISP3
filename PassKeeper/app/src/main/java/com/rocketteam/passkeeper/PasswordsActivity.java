@@ -1,28 +1,17 @@
 package com.rocketteam.passkeeper;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AlertDialog;
-import android.content.DialogInterface;
-import android.widget.Button;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.content.Intent;
 import android.view.View;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.rocketteam.passkeeper.data.db.DbManager;
-import com.rocketteam.passkeeper.data.model.response.PasswordResponse;
-
 import android.view.ViewTreeObserver;
-import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -30,6 +19,16 @@ import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.rocketteam.passkeeper.data.db.DbManager;
+import com.rocketteam.passkeeper.data.model.response.PasswordResponse;
+import com.rocketteam.passkeeper.util.InputTextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +39,6 @@ public class PasswordsActivity extends AppCompatActivity {
     private ImageView imageView;
     private ImageButton imageButton;
     private DbManager dbManager;
-    private TableLayout tableLayout;
     private ScrollView scrollView;
 
     private ImageButton iconEye;
@@ -48,19 +46,34 @@ public class PasswordsActivity extends AppCompatActivity {
     private ImageButton iconTrash;
     private  List<PasswordResponse> passwords;
     private int userId;
+    private List<PasswordResponse> passwordList; // lista de objetos PasswordResponse
+    private TextInputEditText textSearch;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passwords);
+
         // Inicializa el DbManager y otros elementos de la actividad.
         dbManager = new DbManager(this);
 
-        tableLayout = findViewById(R.id.tableLayout); //busca el id del tablelayout
+        TableLayout tableLayout = findViewById(R.id.tableLayout); //busca el id del tablelayout
+        TextInputLayout textInputLayout = findViewById(R.id.textInputLayout);
+        EditText editTextSearch = findViewById(R.id.editTextSearch);
 
+        // Agrega el TextWatcher al EditText para filtrar contraseñas
+        editTextSearch.addTextChangedListener(new InputTextWatcher(textInputLayout) {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // Llama al método filterPasswords para obtener la lista filtrada
+                String searchText = s.toString().trim();
+                List<PasswordResponse> filteredPasswords = filterPasswords(passwords, searchText);
 
-
+                // Muestra las contraseñas filtradas
+                MostrarPasswords(filteredPasswords, userId);
+            }
+        });
 
         // Nombre del SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("Storage", MODE_PRIVATE);
@@ -151,49 +164,6 @@ public class PasswordsActivity extends AppCompatActivity {
         });
     }
 
-    /*private void MostrarPasswords(int userId) {
-        try {
-
-            TableLayout tableLayout = findViewById(R.id.tableLayout);//Obtenemos el tableLayout
-            TextView noPasswordsText = findViewById(R.id.txtNoPassword);//Obtenemos el textView
-            ImageView circleExclamation = findViewById(R.id.imageView);//Obtenemos el imageView
-
-            //si la lista esta vacia muestra cartel de advertencia
-            if (passwords.isEmpty()) {
-                noPasswordsText.setVisibility(View.VISIBLE); //NO hay contraseñas
-                circleExclamation.setVisibility(View.VISIBLE); //Signo de Admiracion
-                tableLayout.setVisibility(View.GONE);//oculta la tabla
-            } else { //sino completa la tabla de password
-                noPasswordsText.setVisibility(View.GONE);
-                circleExclamation.setVisibility(View.GONE);
-                tableLayout.setVisibility(View.VISIBLE);
-
-                LayoutInflater inflater = LayoutInflater.from(this);
-
-                for (int i = 0; i < passwords.size(); i++) {
-                    PasswordResponse pwd = passwords.get(i);
-
-                    // Esto crea un nuevo tableRow para cada contraseña,el tableRow esta en row_password.xml
-                    TableRow row = (TableRow) inflater.inflate(R.layout.row_password, null);
-
-                    iconEye = row.findViewById(R.id.icon_eye);
-                    iconPen = row.findViewById(R.id.icon_pen);
-                    iconTrash = row.findViewById(R.id.icon_trash);
-
-                    TextView nombreTextView = row.findViewById(R.id.textView);
-                    nombreTextView.setText(pwd.getName()); //Setea el PASSWORD_NAME AL textView
-
-                    asignarBotones(pwd.getId());
-                    // Agrega el TableRow al TableLayout
-                    tableLayout.addView(row);
-                }
-
-            }
-
-    }*/
-
-
-
     private void MostrarPasswords(List<PasswordResponse> passwords, int userId) {
         try {
             TableLayout tableLayout = findViewById(R.id.tableLayout);
@@ -233,7 +203,6 @@ public class PasswordsActivity extends AppCompatActivity {
             Log.e("TAG", "ERROR: " + e.getMessage());
         }
     }
-
 
     protected void onDestroy() {
         super.onDestroy();
@@ -300,7 +269,6 @@ public class PasswordsActivity extends AppCompatActivity {
                         passwords = dbManager.getPasswordsListForUserId(userId);
                         MostrarPasswords(passwords, userId);
 
-
                         dialog.dismiss();
                     }
                 });
@@ -310,12 +278,23 @@ public class PasswordsActivity extends AppCompatActivity {
         });
     }
 
+    public List<PasswordResponse> filterPasswords(List<PasswordResponse> passwords, String word) {
+        List<PasswordResponse> filterpass = new ArrayList<>();
 
-    public List<PasswordResponse> filterPasswords(List<PasswordResponse> passwords) {
-        List<PasswordResponse> filterpass= new ArrayList<>();
+        for (PasswordResponse password : passwords) {
+            // Cambia a minúsculas tanto el nombre de la contraseña como la palabra buscada
+            String passwordName = password.getName().toLowerCase();
+            String searchWord = word.toLowerCase();
 
+            // Verifica si el nombre de la contraseña contiene la palabra buscada
+            if (passwordName.contains(searchWord)) {
+                filterpass.add(password); // Agrega el objeto coincidente a la lista filterpass
+            }
+        }
         return filterpass;
     }
+
+
 }
 
 

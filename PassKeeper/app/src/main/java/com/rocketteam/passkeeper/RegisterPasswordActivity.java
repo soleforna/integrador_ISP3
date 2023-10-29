@@ -25,8 +25,6 @@ import com.rocketteam.passkeeper.util.ShowAlertsUtility;
 
 import java.util.Objects;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
-
 public class RegisterPasswordActivity extends AppCompatActivity {
 
     // Variables de instancia para manejar la base de datos y las vistas
@@ -107,12 +105,12 @@ public class RegisterPasswordActivity extends AppCompatActivity {
         String name = Objects.requireNonNull(editTextName.getText()).toString();
 
         if (pass.isEmpty()) {
-            textInputLayoutName.setError("Por favor, ingresa una contraseña");
+            textInputLayoutPass.setError("Por favor, ingresa una contraseña");
             return false;
         } else if (name.isEmpty()) {
-            textInputLayoutPass.setError("Por favor, ingresa un nombre");
+            textInputLayoutName.setError("Por favor, ingresa un nombre");
             return false;
-        } else if (!url.isEmpty() && !url.matches("^[-a-zA-Z0-9+&@#/%?=~|!:,.;]*[-a-zA-Z0-9+&@#/%=~|]")) {
+        } else if (!url.isEmpty() && !url.matches("((https?://)?(www\\.)?[a-zA-Z0-9-]+(\\.[a-z]{2,})+(/\\S*)?)")) {
             textInputLayoutUrl.setError("Por favor, ingresa una URL válida");
             return false;
         }
@@ -141,13 +139,6 @@ public class RegisterPasswordActivity extends AppCompatActivity {
                         Objects.requireNonNull(editTextName.getText()).toString(),
                         userId
                 );
-                Log.i("TAG", "Usuario ingresado: "+ editTextUsuario.getText().toString());
-                Log.i("TAG", "Nombre Ingresado: "+editTextName.getText().toString());
-
-                Log.i("TAG", "Url ingresada: "+ editTextUrl.getText().toString());
-
-                Log.i("TAG", "password tiene de url: "+password.getUrl());
-
             }
 
             if (dbManager.passwordRegister(password)) {
@@ -175,4 +166,3 @@ public class RegisterPasswordActivity extends AppCompatActivity {
         }
     }
 }
-
