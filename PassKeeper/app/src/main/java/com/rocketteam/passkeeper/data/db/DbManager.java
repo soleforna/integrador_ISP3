@@ -348,8 +348,13 @@ public class DbManager {
         editor.apply();
     }
 
-    // crea una lista de contraseñas, obtenidas en un cursor en getPasswordsForUser
-
+    /**
+     * Obtiene una lista de contraseñas asociadas con el ID de usuario especificado.
+     *
+     * @param userId ID del usuario para el cual se obtienen las contraseñas.
+     * @return Lista de objetos PasswordResponse que contienen la información de las contraseñas.
+     * @throws SQLException Si ocurre un error al interactuar con la base de datos.
+     */
     public List<PasswordResponse> getPasswordsListForUserId(int userId) {
         List<PasswordResponse> passwords = null;
         Cursor cursor = null;
@@ -392,6 +397,12 @@ public class DbManager {
         return passwords;
     }
 
+    /**
+     * Elimina la contraseña con el ID especificado de la base de datos.
+     *
+     * @param passwordId ID de la contraseña que se va a eliminar.
+     * @throws SQLException Si ocurre un error al eliminar la contraseña de la base de datos.
+     */
     public void deletePassword(int passwordId) {
         try {
             // Abre la base de datos
@@ -407,7 +418,6 @@ public class DbManager {
         }
     }
 
-
     /**
      * Recupera los detalles de una contraseña a partir de su ID.
      *
@@ -419,8 +429,7 @@ public class DbManager {
         PasswordResponse passwordResponse = null;
         Cursor cursor = null;
 
-        Log.i("TAG", "llega el id de password: "+passwordId);
-
+        Log.i("TAG", "Obteniendo el password por el ID: "+passwordId);
 
         try {
             // Consulta SQL para seleccionar detalles de contraseña por ID
@@ -506,8 +515,6 @@ public class DbManager {
         } finally {
             this.close();
         }
-
     }
-
 
 }

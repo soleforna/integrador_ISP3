@@ -20,7 +20,7 @@ public class AboutActivity extends AppCompatActivity {
         // Configurar un OnClickListener para el botón
         btn_about.setOnClickListener(view -> {
             // Navegar de vuelta al Passwords
-            Intent intent = new Intent(AboutActivity.this, PasswordsActivity.class);
+            Intent intent = new Intent(AboutActivity.this, ShowPasswordsActivity.class);
             startActivity(intent);
         });
     }

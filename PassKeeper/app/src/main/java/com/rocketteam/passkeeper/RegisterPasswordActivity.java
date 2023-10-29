@@ -78,10 +78,10 @@ public class RegisterPasswordActivity extends AppCompatActivity {
             Toast.makeText(RegisterPasswordActivity.this, "Contraseña generada con éxito", Toast.LENGTH_SHORT).show();
         });
 
-        // Configuración del botón para regresar a la actividad PasswordsActivity
+        // Configuración del botón para regresar a la actividad ShowPasswordsActivity
         btnAtras = findViewById(R.id.boton_atras_guardar);
         btnAtras.setOnClickListener(view -> {
-            Intent intent = new Intent(RegisterPasswordActivity.this, PasswordsActivity.class);
+            Intent intent = new Intent(RegisterPasswordActivity.this, ShowPasswordsActivity.class);
             startActivity(intent);
         });
 
@@ -146,7 +146,7 @@ public class RegisterPasswordActivity extends AppCompatActivity {
                 ShowAlertsUtility.mostrarSweetAlert(this, 2, "Registro exitoso", "El Password ha sido registrado correctamente", sweetAlertDialog -> {
                     sweetAlertDialog.dismissWithAnimation();
                     // Redirigir al usuario a la página de PasswordActivity
-                    Intent intent = new Intent(RegisterPasswordActivity.this, PasswordsActivity.class);
+                    Intent intent = new Intent(RegisterPasswordActivity.this, ShowPasswordsActivity.class);
                     startActivity(intent);
                     finish();
                 });

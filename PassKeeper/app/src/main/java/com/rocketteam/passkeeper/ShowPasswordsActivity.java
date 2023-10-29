@@ -24,7 +24,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.rocketteam.passkeeper.data.db.DbManager;
 import com.rocketteam.passkeeper.data.model.response.PasswordResponse;
@@ -33,22 +32,17 @@ import com.rocketteam.passkeeper.util.InputTextWatcher;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PasswordsActivity extends AppCompatActivity {
+public class ShowPasswordsActivity extends AppCompatActivity {
 
-    FloatingActionButton btnA;
     private ImageView imageView;
-    private ImageButton imageButton;
     private DbManager dbManager;
     private ScrollView scrollView;
-
     private ImageButton iconEye;
     private ImageButton iconPen;
     private ImageButton iconTrash;
+    private ImageButton iconSearch;
     private  List<PasswordResponse> passwords;
     private int userId;
-    private List<PasswordResponse> passwordList; // lista de objetos PasswordResponse
-    private TextInputEditText textSearch;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +53,28 @@ public class PasswordsActivity extends AppCompatActivity {
         dbManager = new DbManager(this);
 
         TableLayout tableLayout = findViewById(R.id.tableLayout); //busca el id del tablelayout
+
+        iconSearch = findViewById(R.id.imageButtonSearch);
         TextInputLayout textInputLayout = findViewById(R.id.textInputLayout);
         EditText editTextSearch = findViewById(R.id.editTextSearch);
+
+        TextView title = findViewById(R.id.textTitlePasswords);
+        iconSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (editTextSearch.getVisibility() == View.VISIBLE) {
+                    // si el campo de búsqueda es visible, lo ocultamos
+                    editTextSearch.setVisibility(View.GONE);
+                    // muestra el texto tus contraseñas
+                    title.setVisibility(View.VISIBLE);
+                } else {
+                    // si el campo de búsqueda no es visible, lo hacemos visible
+                    editTextSearch.setVisibility(View.VISIBLE);
+                    // oculta el texto tus contraseñas
+                    title.setVisibility(View.GONE);
+                }
+            }
+        });
 
         // Agrega el TextWatcher al EditText para filtrar contraseñas
         editTextSearch.addTextChangedListener(new InputTextWatcher(textInputLayout) {
@@ -95,22 +109,19 @@ public class PasswordsActivity extends AppCompatActivity {
 
         } else {
             // La clave "userId" no existe
-            Log.e("PasswordsActivity", "La clave 'userId' no existe");
+            Log.e("ShowPasswordsActivity", "La clave 'userId' no existe");
         }
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) FloatingActionButton fabAgregar = findViewById(R.id.btn_agregar);
 
-        fabAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PasswordsActivity.this, RegisterPasswordActivity.class);
-                startActivity(intent);
-            }
+        fabAgregar.setOnClickListener(view -> {
+            Intent intent = new Intent(ShowPasswordsActivity.this, RegisterPasswordActivity.class);
+            startActivity(intent);
         });
         imageView = findViewById(R.id.menu_view);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PopupMenu popupMenu = new PopupMenu(PasswordsActivity.this, imageView);
+                PopupMenu popupMenu = new PopupMenu(ShowPasswordsActivity.this, imageView);
                 popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -118,12 +129,12 @@ public class PasswordsActivity extends AppCompatActivity {
                         int itemId = item.getItemId();
                         if (itemId == R.id.option_1) {
                             // Abre la actividad AboutActivity
-                            Intent intent1 = new Intent(PasswordsActivity.this, AboutActivity.class);
+                            Intent intent1 = new Intent(ShowPasswordsActivity.this, AboutActivity.class);
                             startActivity(intent1);
                             return true;
                         } else if (itemId == R.id.option_2) {
                             // Abre la actividad MainActivity (
-                            Intent intent2 = new Intent(PasswordsActivity.this, MainActivity.class);
+                            Intent intent2 = new Intent(ShowPasswordsActivity.this, MainActivity.class);
                             startActivity(intent2);
                             return true;
                         } else {
@@ -219,7 +230,7 @@ public class PasswordsActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 // Crea un intent para abrir la actividad ViewPassActivity
-                Intent intent = new Intent(PasswordsActivity.this, ViewPassActivity.class);
+                Intent intent = new Intent(ShowPasswordsActivity.this, ViewPassActivity.class);
                 // Agrega el id como un extra en el intent
                 intent.putExtra("idColumna", id);
                 // Agrega userId como un extra en el intent
@@ -234,7 +245,7 @@ public class PasswordsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Crea un intent para abrir la actividad ViewPassActivity
-                Intent intent = new Intent(PasswordsActivity.this, EditarPassword.class);
+                Intent intent = new Intent(ShowPasswordsActivity.this, EditPasswordActivity.class);
                 // Agrega el id como un extra en el intent
                 intent.putExtra("idColumna", id);
                 // Agrega userId como un extra en el intent
@@ -251,7 +262,7 @@ public class PasswordsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int idToDelete = (int) v.getTag();
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(PasswordsActivity.this);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ShowPasswordsActivity.this);
                 alertDialogBuilder.setTitle("Confirmar Eliminación");
                 alertDialogBuilder.setMessage("¿Estás seguro de que deseas eliminar esta contraseña?");
 

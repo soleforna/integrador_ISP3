@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.rocketteam.passkeeper.util.HashUtility;
 
 public class ViewPassActivity extends AppCompatActivity {
     private ImageView imageViewCopy;
@@ -59,7 +58,7 @@ public class ViewPassActivity extends AppCompatActivity {
             // Regresa a la activity PasswordActivity
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(com.rocketteam.passkeeper.ViewPassActivity.this, PasswordsActivity.class);
+                Intent intent = new Intent(com.rocketteam.passkeeper.ViewPassActivity.this, ShowPasswordsActivity.class);
                 startActivity(intent);
             }
         });
