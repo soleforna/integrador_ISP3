@@ -414,7 +414,6 @@ public class DbManager {
      * @param passwordId El ID de la contraseña que se desea recuperar.
      * @return Un objeto PasswordCredentials que contiene los detalles de la contraseña, o null si no se encuentra.
      */
-
     public PasswordResponse getPasswordDetails(int passwordId, int userId) {
         this.open();
         PasswordResponse passwordResponse = null;
@@ -509,13 +508,6 @@ public class DbManager {
         }
 
     }
-
-
-
-
-
-
-
 
 
 }

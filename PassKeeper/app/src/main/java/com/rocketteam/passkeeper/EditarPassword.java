@@ -1,6 +1,5 @@
 package com.rocketteam.passkeeper;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.rocketteam.passkeeper.data.db.DbManager;
 import com.rocketteam.passkeeper.data.model.request.PasswordCredentials;
 import com.rocketteam.passkeeper.data.model.response.PasswordResponse;
-import com.rocketteam.passkeeper.util.ShowAlertsUtility;
 
 import java.util.Objects;
 
@@ -129,7 +127,6 @@ public class EditarPassword extends AppCompatActivity {
             Intent intent1 = new Intent(EditarPassword.this, PasswordsActivity.class);
             startActivity(intent1);
         });
-
 
     }
 

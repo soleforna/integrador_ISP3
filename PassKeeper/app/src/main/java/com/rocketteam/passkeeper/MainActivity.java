@@ -27,8 +27,6 @@
     import java.util.Objects;
 
     public class MainActivity extends AppCompatActivity {
-        private final String TITLE = "Credenciales inválidas";
-        private final String MSG = "Usuario o contraseña incorrectos";
         private DbManager dbManager;
         private TextInputEditText editTextEmail;
         private TextInputEditText editTextPassword;
@@ -74,10 +72,7 @@
             }
 
             // Si apretan el boton de la huella
-            btnBiometric.setOnClickListener(view -> {
-
-                this.BiometricAuth();
-            });
+            btnBiometric.setOnClickListener(view -> this.BiometricAuth());
 
             /*
               Busca el botón de inicio de sesión en la interfaz de usuario y agrega un escuchador
@@ -151,7 +146,9 @@
                 dbManager.close();
             } else {
                 // Si las credenciales son inválidas, muestra un mensaje de error.
-                mostrarSweetAlert(this,3,TITLE,MSG,null);
+                String TITLE = "Credenciales inválidas";
+                String MSG = "Usuario o contraseña incorrectos";
+                mostrarSweetAlert(this,3, TITLE, MSG,null);
                 // También podría usar Toast para mostrar un mensaje de error alternativo.
                 //Toast.makeText(this, "Credenciales inválidas, por favor intenta nuevamente", Toast.LENGTH_SHORT).show();
                 // Cierra la conexión con la base de datos.

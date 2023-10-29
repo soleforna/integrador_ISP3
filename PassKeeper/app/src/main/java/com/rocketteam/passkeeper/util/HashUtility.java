@@ -1,6 +1,8 @@
 package com.rocketteam.passkeeper.util;
 
 
+import android.annotation.SuppressLint;
+
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -87,20 +89,35 @@ public class HashUtility {
         return inputHash.equals(storedHash);
     }
 
-
-
-
+    /**
+     * Este método cifra la cadena de datos proporcionada utilizando el algoritmo de cifrado especificado
+     * y la clave proporcionada como sal. El resultado se devuelve como una cadena Base64 codificada.
+     *
+     * @param data La cadena de datos que se va a cifrar.
+     * @param salt La clave utilizada como sal para el cifrado.
+     * @return Una cadena cifrada codificada en Base64.
+     * @throws Exception Si ocurre un error durante el proceso de cifrado.
+     */
     public static String encrypt(String data, String salt) throws Exception {
         SecretKeySpec keySpec = new SecretKeySpec(salt.getBytes(), ALGORITHM);
-        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+        @SuppressLint("GetInstance") Cipher cipher = Cipher.getInstance(TRANSFORMATION);
         cipher.init(Cipher.ENCRYPT_MODE, keySpec);
         byte[] encryptedBytes = cipher.doFinal(data.getBytes());
         return Base64.getEncoder().encodeToString(encryptedBytes);
     }
 
+    /**
+     * Este método descifra la cadena cifrada proporcionada utilizando el algoritmo de cifrado especificado
+     * y la clave proporcionada como sal. El resultado se devuelve como una cadena de texto sin cifrar.
+     *
+     * @param encryptedData La cadena cifrada que se va a descifrar.
+     * @param salt La clave utilizada como sal para el cifrado.
+     * @return Una cadena de texto sin cifrar que representa los datos descifrados.
+     * @throws Exception Si ocurre un error durante el proceso de descifrado.
+     */
     public static String decrypt(String encryptedData, String salt) throws Exception {
         SecretKeySpec keySpec = new SecretKeySpec(salt.getBytes(), ALGORITHM);
-        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+        @SuppressLint("GetInstance") Cipher cipher = Cipher.getInstance(TRANSFORMATION);
         cipher.init(Cipher.DECRYPT_MODE, keySpec);
         byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(encryptedData));
         return new String(decryptedBytes);
