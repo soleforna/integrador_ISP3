@@ -84,7 +84,7 @@
                     android:layout_marginStart="15dp"
                     android:gravity="center_horizontal"
                     android:text="@string/ver_password"
-                    android:textColor="#A1887F"
+                    android:textColor="@color/text_accesibility"
                     android:textSize="24sp"
                     android:textStyle="italic" />
             </LinearLayout>
@@ -117,7 +117,7 @@
                 app:hintTextColor="@color/greyLigth"
                 app:startIconContentDescription="nombre icon"
                 app:startIconDrawable="@drawable/globe"
-                app:startIconTint="@color/greyLigth">
+                app:startIconTint="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextName"
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:inputType="text"
-                    android:textColor="@color/greyLigth"
+                    android:textColor="@color/black"
                     app:hintTextColor="@color/greyLigth" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,7 +146,7 @@
                 app:hintTextColor="@color/greyLigth"
                 app:startIconContentDescription="Correo icon"
                 app:startIconDrawable="@drawable/correo"
-                app:startIconTint="@color/greyLigth">
+                app:startIconTint="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextUsuario"
@@ -154,7 +154,7 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:inputType="text"
-                    android:textColor="@color/greyLigth"
+                    android:textColor="@color/black"
                     app:hintTextColor="@color/greyLigth" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -187,7 +187,7 @@
                         app:hintTextColor="@color/greyLigth"
                         app:startIconContentDescription="Clic para generar una contraseña aleatoria"
                         app:startIconDrawable="@drawable/lock_solid"
-                        app:startIconTint="@color/greyLigth">
+                        app:startIconTint="@color/blue">
 
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -196,7 +196,7 @@
                             android:layout_height="wrap_content"
                             android:enabled="false"
                             android:inputType="text"
-                            android:textColor="@color/greyLigth"
+                            android:textColor="@color/black"
                             app:hintTextColor="@color/greyLigth" />
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -209,7 +209,7 @@
                         android:scaleType="fitStart"
                         android:src="@drawable/copy_regular"
                         app:endIconContentDescription="Clic para copiar la contraseña al portapapeles"
-                        app:tint="@color/greyLigth" />
+                        app:tint="@color/blue" />
                 </FrameLayout>
 
             </LinearLayout>
@@ -230,7 +230,7 @@
                 app:hintTextColor="@color/greyLigth"
                 app:startIconContentDescription="url icon"
                 app:startIconDrawable="@drawable/url"
-                app:startIconTint="@color/greyLigth">
+                app:startIconTint="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextUrl"
@@ -238,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:inputType="text"
-                    android:textColor="@color/greyLigth"
+                    android:textColor="@color/black"
                     app:hintTextColor="@color/greyLigth" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -258,7 +258,7 @@
                 app:hintTextColor="@color/greyLigth"
                 app:startIconContentDescription="descripcion icon"
                 app:startIconDrawable="@drawable/descripcion"
-                app:startIconTint="@color/greyLigth">
+                app:startIconTint="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextDescripcion"
@@ -266,7 +266,7 @@
                     android:layout_height="95dp"
                     android:enabled="false"
                     android:inputType="text"
-                    android:textColor="@color/greyLigth"
+                    android:textColor="@color/black"
                     app:hintTextColor="@color/greyLigth" />
 
             </com.google.android.material.textfield.TextInputLayout>
