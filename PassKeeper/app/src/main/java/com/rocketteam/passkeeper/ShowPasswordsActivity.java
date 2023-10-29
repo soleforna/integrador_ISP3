@@ -36,11 +36,10 @@ public class ShowPasswordsActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private DbManager dbManager;
-    private ScrollView scrollView;
+    //private ScrollView scrollView;
     private ImageButton iconEye;
     private ImageButton iconPen;
     private ImageButton iconTrash;
-    private ImageButton iconSearch;
     private  List<PasswordResponse> passwords;
     private int userId;
 
@@ -54,27 +53,8 @@ public class ShowPasswordsActivity extends AppCompatActivity {
 
         TableLayout tableLayout = findViewById(R.id.tableLayout); //busca el id del tablelayout
 
-        iconSearch = findViewById(R.id.imageButtonSearch);
         TextInputLayout textInputLayout = findViewById(R.id.textInputLayout);
         EditText editTextSearch = findViewById(R.id.editTextSearch);
-
-        TextView title = findViewById(R.id.textTitlePasswords);
-        iconSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (editTextSearch.getVisibility() == View.VISIBLE) {
-                    // si el campo de búsqueda es visible, lo ocultamos
-                    editTextSearch.setVisibility(View.GONE);
-                    // muestra el texto tus contraseñas
-                    title.setVisibility(View.VISIBLE);
-                } else {
-                    // si el campo de búsqueda no es visible, lo hacemos visible
-                    editTextSearch.setVisibility(View.VISIBLE);
-                    // oculta el texto tus contraseñas
-                    title.setVisibility(View.GONE);
-                }
-            }
-        });
 
         // Agrega el TextWatcher al EditText para filtrar contraseñas
         editTextSearch.addTextChangedListener(new InputTextWatcher(textInputLayout) {

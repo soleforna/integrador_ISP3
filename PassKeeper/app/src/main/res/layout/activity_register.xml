@@ -24,7 +24,7 @@
         android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="16dp"
         android:autoSizeTextType="uniform"
         android:text="@string/app_name"
         android:textAlignment="center"
@@ -39,19 +39,18 @@
     <!-- Tarjeta blanca contenedora de los inputs-->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewReg"
-        android:layout_width="319dp"
-        android:layout_height="513dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="110dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/white"
         app:cardCornerRadius="30dp"
         app:cardElevation="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498">
+        app:layout_constraintTop_toTopOf="parent">
+
 
         <!--   Input iniciar sesión  -->
 
@@ -81,9 +80,8 @@
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewReg2"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:layout_marginBottom="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:backgroundTint="@color/white"
             app:cardCornerRadius="30dp"
             app:cardElevation="8dp">
@@ -91,7 +89,7 @@
 
             <!-- Inicia configuración del Título del registro-->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="326dp"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical">
 
@@ -274,6 +272,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cardViewReg"
         app:layout_constraintVertical_bias="0.573" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
