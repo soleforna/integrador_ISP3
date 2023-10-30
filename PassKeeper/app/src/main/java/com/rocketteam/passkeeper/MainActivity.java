@@ -1,5 +1,5 @@
     package com.rocketteam.passkeeper;
-    
+
     import static com.rocketteam.passkeeper.util.ShowAlertsUtility.mostrarSweetAlert;
 
     import androidx.annotation.NonNull;
@@ -49,7 +49,7 @@
 
             //asigno el boton de la huella
             Button btnBiometric = findViewById(R.id.fingerprint);
-    
+
             // Agregamos TextWatcher a los EditText
             editTextEmail.addTextChangedListener(new InputTextWatcher(textInputLayoutEmail));
             editTextPassword.addTextChangedListener(new InputTextWatcher(textInputLayoutPwd));
@@ -90,7 +90,7 @@
                     }
                 }
             });
-    
+
             TextView linkRegister = findViewById(R.id.linkRegister);
 
             linkRegister.setOnClickListener(view -> {
@@ -98,11 +98,11 @@
                 startActivity(intent);
             });
         }
-    
+
         private boolean validateInput() {
             String email = Objects.requireNonNull(editTextEmail.getText()).toString().trim();
             String password = Objects.requireNonNull(editTextPassword.getText()).toString().trim();
-    
+
             // Validación del correo electrónico
             if (TextUtils.isEmpty(email)) {
                 textInputLayoutEmail.setError("El email es necesario");
@@ -111,7 +111,7 @@
                 textInputLayoutEmail.setError("Por favor, ingresa un correo electrónico válido");
                 return false;
             }
-    
+
             // Validación de la contraseña
             if (TextUtils.isEmpty(password)) {
                 textInputLayoutPwd.setError("La contraseña es necesaria");
