@@ -1,7 +1,6 @@
 package com.rocketteam.passkeeper;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.SQLException;
@@ -29,9 +28,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.rocketteam.passkeeper.data.db.DbManager;
 import com.rocketteam.passkeeper.data.model.response.PasswordResponse;
 import com.rocketteam.passkeeper.util.InputTextWatcher;
+import com.rocketteam.passkeeper.util.ShowAlertsUtility;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class PasswordsActivity extends AppCompatActivity {
 
@@ -44,11 +46,10 @@ public class PasswordsActivity extends AppCompatActivity {
     private ImageButton iconEye;
     private ImageButton iconPen;
     private ImageButton iconTrash;
-    private  List<PasswordResponse> passwords;
+    private List<PasswordResponse> passwords;
     private int userId;
     private List<PasswordResponse> passwordList; // lista de objetos PasswordResponse
     private TextInputEditText textSearch;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +86,9 @@ public class PasswordsActivity extends AppCompatActivity {
             Log.i("TAG", "Mostrando las contraseñas del usuario Id: " + userId);
             passwords = dbManager.getPasswordsListForUserId(userId);
 
-            if(passwords.size()>0){
-                Log.i("TAG", "La lista tiene: "+passwords.size());
-            }else {
+            if (passwords.size() > 0) {
+                Log.i("TAG", "La lista tiene: " + passwords.size());
+            } else {
                 Log.i("TAG", "La lista llega VACIA");
             }
 
@@ -251,34 +252,40 @@ public class PasswordsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int idToDelete = (int) v.getTag();
 
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(PasswordsActivity.this);
-                alertDialogBuilder.setTitle("Confirmar Eliminación");
-                alertDialogBuilder.setMessage("¿Estás seguro de que deseas eliminar esta contraseña?");
+                // Muestra la alerta para el borrado de la contraseña.
+                SweetAlertDialog alerta = ShowAlertsUtility.mostrarSweetAlertDeletePassword(PasswordsActivity.this, 3, "¿Estás seguro de que deseas eliminar esta contraseña?", "Si borras la contraseña, ya no podrás revertirlo",
+                        sweetAlertDialog -> {
+                            // Acción de confirmación (Aceptar)
+                            try {
+                                dbManager.deletePassword(idToDelete);
+                                passwords = dbManager.getPasswordsListForUserId(userId);
+                                MostrarPasswords(passwords, userId);
 
-                alertDialogBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-                alertDialogBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dbManager.deletePassword(idToDelete);
-
-                        // Actualiza la vista después de eliminar la contraseña
-                        passwords = dbManager.getPasswordsListForUserId(userId);
-                        MostrarPasswords(passwords, userId);
-
-                        dialog.dismiss();
-                    }
-                });
-
-                alertDialogBuilder.create().show();
+                                // Muestra una segunda alerta de confirmación (Tipo 2) después de eliminar la contraseña
+                                ShowAlertsUtility.mostrarSweetAlert(PasswordsActivity.this, 2, "Operación Completada", "La contraseña se ha eliminado correctamente", sweetAlertDialog1 -> {
+                                    sweetAlertDialog1.dismissWithAnimation();
+                                });
+                            } catch (Exception e) {
+                                Log.e("Error al borrar contraseña", e.getMessage());
+                                ShowAlertsUtility.mostrarSweetAlert(PasswordsActivity.this, 1, "Error", "Se ha producido un error", sweetAlertDialog1 -> {
+                                    sweetAlertDialog1.dismissWithAnimation();
+                                });
+                            }
+                        },
+                        sweetAlertDialog -> {
+                            // Acción de cancelación (Cancelar)
+                            ShowAlertsUtility.mostrarSweetAlert(PasswordsActivity.this, 1, "Operación Cancelada", "Se ha cancelado la operación", sweetAlertDialog1 -> {
+                                sweetAlertDialog1.dismissWithAnimation();
+                            });
+                        }
+                );
             }
         });
+
     }
 
-    public List<PasswordResponse> filterPasswords(List<PasswordResponse> passwords, String word) {
+    public List<PasswordResponse> filterPasswords(List<PasswordResponse> passwords, String
+            word) {
         List<PasswordResponse> filterpass = new ArrayList<>();
 
         for (PasswordResponse password : passwords) {
