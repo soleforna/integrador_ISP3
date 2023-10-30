@@ -264,45 +264,44 @@ public class PasswordsActivity extends AppCompatActivity {
                                 // Muestra una segunda alerta de confirmación (Tipo 2) después de eliminar la contraseña
                                 ShowAlertsUtility.mostrarSweetAlert(PasswordsActivity.this, 2, "Operación Completada", "La contraseña se ha eliminado correctamente", sweetAlertDialog1 -> {
                                     sweetAlertDialog1.dismissWithAnimation();
-                                    });
-                                } catch(Exception e){
-                                    Log.e("Error al borrar contraseña", e.getMessage());
-                                    ShowAlertsUtility.mostrarSweetAlert(PasswordsActivity.this, 1, "Error", "Se ha producido un error", sweetAlertDialog1 -> {
-                                        sweetAlertDialog1.dismissWithAnimation();
-                                    });
-                                }
-                            },
-                            sweetAlertDialog -> {
-                                // Acción de cancelación (Cancelar)
-                                ShowAlertsUtility.mostrarSweetAlert(PasswordsActivity.this, 1, "Operación Cancelada", "Se ha cancelado la operación", sweetAlertDialog1 -> {
+                                });
+                            } catch (Exception e) {
+                                Log.e("Error al borrar contraseña", e.getMessage());
+                                ShowAlertsUtility.mostrarSweetAlert(PasswordsActivity.this, 1, "Error", "Se ha producido un error", sweetAlertDialog1 -> {
                                     sweetAlertDialog1.dismissWithAnimation();
                                 });
                             }
-                );
+                        },
+                        sweetAlertDialog -> {
+                            // Acción de cancelación (Cancelar)
+                            ShowAlertsUtility.mostrarSweetAlert(PasswordsActivity.this, 1, "Operación Cancelada", "Se ha cancelado la operación", sweetAlertDialog1 -> {
+                                sweetAlertDialog1.dismissWithAnimation();
+                            });
                         }
-            });
-
-
-        }
-
-        public List<PasswordResponse> filterPasswords (List < PasswordResponse > passwords, String
-        word){
-            List<PasswordResponse> filterpass = new ArrayList<>();
-
-            for (PasswordResponse password : passwords) {
-                // Cambia a minúsculas tanto el nombre de la contraseña como la palabra buscada
-                String passwordName = password.getName().toLowerCase();
-                String searchWord = word.toLowerCase();
-
-                // Verifica si el nombre de la contraseña contiene la palabra buscada
-                if (passwordName.contains(searchWord)) {
-                    filterpass.add(password); // Agrega el objeto coincidente a la lista filterpass
-                }
+                );
             }
-            return filterpass;
-        }
-
+        });
 
     }
+
+    public List<PasswordResponse> filterPasswords(List<PasswordResponse> passwords, String
+            word) {
+        List<PasswordResponse> filterpass = new ArrayList<>();
+
+        for (PasswordResponse password : passwords) {
+            // Cambia a minúsculas tanto el nombre de la contraseña como la palabra buscada
+            String passwordName = password.getName().toLowerCase();
+            String searchWord = word.toLowerCase();
+
+            // Verifica si el nombre de la contraseña contiene la palabra buscada
+            if (passwordName.contains(searchWord)) {
+                filterpass.add(password); // Agrega el objeto coincidente a la lista filterpass
+            }
+        }
+        return filterpass;
+    }
+
+
+}
 
 
