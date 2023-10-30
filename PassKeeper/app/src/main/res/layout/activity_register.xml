@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="40dp"
                     android:text="@string/register"
-                    android:textColor="#A1887F"
+                    android:textColor="@color/text_accesibility"
                     android:textSize="30sp"
                     android:textStyle="italic" />
             </LinearLayout>
@@ -160,14 +160,14 @@
                 app:hintTextColor="@color/greyLigth"
                 app:startIconContentDescription="Correo icon"
                 app:startIconDrawable="@drawable/correo"
-                app:startIconTint="@color/greyLigth">
+                app:startIconTint="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editTextUsernameReg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:textColor="@color/greyLigth" />
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -191,14 +191,14 @@
                 app:hintTextColor="@color/greyLigth"
                 app:startIconContentDescription="Lock icon"
                 app:startIconDrawable="@drawable/lock_solid"
-                app:startIconTint="@color/greyLigth">
+                app:startIconTint="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editPasswordReg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
-                    android:textColor="@color/greyLigth" />
+                    android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -222,14 +222,14 @@
                 app:hintTextColor="@color/greyLigth"
                 app:startIconContentDescription="Lock icon"
                 app:startIconDrawable="@drawable/lock_solid"
-                app:startIconTint="@color/greyLigth">
+                app:startIconTint="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editPasswordReg2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="@color/greyLigth" />
+                    android:textColor="@color/black" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -247,6 +247,7 @@
             android:text="Ya tiene una cuenta?"
             android:textColor="@color/blue"
             android:textSize="16sp"
+            android:contentDescription="Toque aquí para registrarse si ya tiene una cuenta"
             app:layout_constraintBottom_toTopOf="@+id/materialButtonLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.72"
