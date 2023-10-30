@@ -29,12 +29,21 @@ La aplicación proporcionará una interfaz intuitiva y amigable que le permitir�
 
 
 #
-### Tecnologias Utilizadas 
-* Java como lenguaje principal de soporte. 
-* Flask.
-* Python 3.
-* Postgre SQL
+### La aplicación móvil PassKeper fue desarrollada utilizando las siguientes tecnologías:
+* Lenguaje de programación principal de soporte: Java
+* Entorno de desarrollo integrado (IDE): Android Studio
+* Base de datos: SQLite
+
+Hicimos uso de técnicas criptográficas para generar "salt", hashear contraseñas, cifrar y descifrar datos, y generar contraseñas seguras, lo que es esencial en aplicaciones que manejan información sensible como contraseñas y datos privados.
+
+
+
 #
  
+
+
+
+
+
 
 
