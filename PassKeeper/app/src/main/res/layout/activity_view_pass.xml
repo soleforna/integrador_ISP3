@@ -169,6 +169,7 @@
                         app:boxCornerRadiusTopStart="25dp"
                         app:boxStrokeColor="@color/greyLigth"
                         app:endIconContentDescription="Click para mostrar u ocultar la contraseña"
+                        app:endIconTint="@color/grey"
                         app:endIconMode="password_toggle"
                         app:hintTextColor="@color/greyLigth"
                         app:startIconContentDescription="Clic para generar una contraseña aleatoria"
