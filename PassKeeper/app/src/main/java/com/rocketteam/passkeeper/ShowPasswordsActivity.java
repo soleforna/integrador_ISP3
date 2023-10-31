@@ -175,7 +175,13 @@ public class ShowPasswordsActivity extends AppCompatActivity {
                     iconTrash = row.findViewById(R.id.icon_trash);
 
                     TextView nombreTextView = row.findViewById(R.id.textView);
-                    nombreTextView.setText(pwd.getName());
+                    // Si el texto es más largo que 10 caracteres muestra 10 caracteres y 3 puntos al final
+                    if (pwd.getName().length() > 10) {
+                        String shortenedText = pwd.getName().substring(0, 10) + "...";
+                        nombreTextView.setText(shortenedText);
+                    } else {
+                        nombreTextView.setText(pwd.getName());
+                    }
                     assignButtons(pwd.getId(), userId);
 
                     tableLayout.addView(row);

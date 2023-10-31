@@ -35,7 +35,7 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="327dp"
-        android:layout_height="430dp"
+        android:layout_height="490dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:backgroundTint="@color/white"
@@ -127,8 +127,8 @@
                 app:boxCornerRadiusTopEnd="25dp"
                 app:boxCornerRadiusTopStart="25dp"
                 app:boxStrokeColor="@color/greyLigth"
-                app:endIconMode="password_toggle"
                 app:endIconTint="@color/grey"
+                app:endIconMode="password_toggle"
                 app:errorEnabled="true"
                 app:hintTextColor="@color/greyLigth"
                 app:startIconContentDescription="Lock icon"
@@ -154,7 +154,7 @@
                 android:autoText="false"
                 android:backgroundTint="@color/blue"
                 android:drawableTop="@drawable/fingerprint_solid"
-                android:drawableTint="@android:color/darker_gray"
+                android:drawableTint="@android:color/white"
                 android:textAllCaps="false"
                 android:visibility="gone" />
 
@@ -177,7 +177,7 @@
             app:layout_constraintHorizontal_bias="0.72"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/cardView"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"/>
 
     </com.google.android.material.card.MaterialCardView>
 

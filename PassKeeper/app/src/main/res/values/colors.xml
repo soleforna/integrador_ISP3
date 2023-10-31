@@ -11,4 +11,10 @@
     <color name="text_accesibility">#272626</color>
     // Color rojo oscuro para los carteles e iconos rojos
     <color name="sign_accessibility">#B74D4D</color>
+    <color name="my_dark_primary_dark">#096CB5</color>
+    <color name="my_dark_primary">#096CB5</color>
+    <color name="my_dark_secondary">#FF6F6F</color>
+    <color name="my_accent_color">#FF5722</color>
+    //error color
+    <color name="errorColor">#F6A7A1</color>
 </resources>
