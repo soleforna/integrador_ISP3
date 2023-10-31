@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.rocketteam.passkeeper.data.db.DbManager;
 import com.rocketteam.passkeeper.data.model.request.PasswordCredentials;
 import com.rocketteam.passkeeper.data.model.response.PasswordResponse;
@@ -29,6 +30,9 @@ public class EditPasswordActivity extends AppCompatActivity {
     private TextInputEditText editTextUrl;
     private TextInputEditText editTextDescripcion;
     private SharedPreferences sharedPreferences;
+    private TextInputLayout textInputLayoutName;
+    private TextInputLayout textInputLayoutUrl;
+    private TextInputLayout textInputLayoutPass;
     private int columnIndexId; // Almacena el ID de la contraseña que se está editando
 
     /**
@@ -60,7 +64,9 @@ public class EditPasswordActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
         editTextUrl = findViewById(R.id.editTextUrl);
         editTextDescripcion = findViewById(R.id.editTextDescripcion);
-
+        textInputLayoutName = findViewById(R.id.textInputLayout);
+        textInputLayoutUrl = findViewById(R.id.textInputLayout4);
+        textInputLayoutPass = findViewById(R.id.textInputLayout3);
 
         int userId = sharedPreferences.getInt("userId", -1);
         // Obtiene los detalles de la contraseña que se va a editar
@@ -70,7 +76,6 @@ public class EditPasswordActivity extends AppCompatActivity {
                 // Rellena los campos de texto con los detalles de la contraseña a editar
                 editTextName.setText(updatedPasswordDetails.getName());
                 editTextUsuario.setText(updatedPasswordDetails.getUsername());
-
                 editTextPassword.setText(updatedPasswordDetails.getKeyword());
                 editTextUrl.setText(updatedPasswordDetails.getUrl());
                 editTextDescripcion.setText(updatedPasswordDetails.getDescription());
@@ -96,28 +101,28 @@ public class EditPasswordActivity extends AppCompatActivity {
                 String newUrl = Objects.requireNonNull(editTextUrl.getText()).toString();
                 String newDescription = Objects.requireNonNull(editTextDescripcion.getText()).toString();
 
-               try {
-                   int userId = sharedPreferences.getInt("userId", -1);
-                   Log.i("TAG", "El usuario en EditPasswordActivity es: "+userId);
+               if(validateInputNewPass()){
+                   try {
+                       int userId = sharedPreferences.getInt("userId", -1);
+                       Log.i("TAG", "El usuario en EditPasswordActivity es: "+userId);
 
-                   // Obtiene los detalles de la contraseña actual
-                   pwd = new PasswordCredentials(newUser,newUrl,newPassword,newDescription,newName, userId);
+                       // Obtiene los detalles de la contraseña actual
+                       pwd = new PasswordCredentials(newUser,newUrl,newPassword,newDescription,newName, userId);
 
-                   if (dbManager.updatePassword(columnIndexId,pwd, userId)) {
-                       // Añade un mensaje de confirmación
-                       startActivity(new Intent(EditPasswordActivity.this, ShowPasswordsActivity.class));
-                       Toast.makeText(EditPasswordActivity.this, "Modificado con éxito", Toast.LENGTH_SHORT).show();
-                       finish();
-                   } else {
-                       // Mensaje de error si no se encuentra la contraseña
-                       Toast.makeText(EditPasswordActivity.this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show();
+                       if (dbManager.updatePassword(columnIndexId,pwd, userId)) {
+                           // Añade un mensaje de confirmación
+                           startActivity(new Intent(EditPasswordActivity.this, ShowPasswordsActivity.class));
+                           Toast.makeText(EditPasswordActivity.this, "Modificado con éxito", Toast.LENGTH_SHORT).show();
+                           finish();
+                       } else {
+                           // Mensaje de error si no se encuentra la contraseña
+                           Toast.makeText(EditPasswordActivity.this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show();
+                       }
+                   }catch (Exception e){
+                       Log.e("TAG", "ERROR: "+ e.getMessage());
                    }
-               }catch (Exception e){
-                   Log.e("TAG", "ERROR: "+ e.getMessage());
                }
-
             }
-
         });
 
         //-------------------------------- Regresa a la activity PasswordActivity--------------------------------------
@@ -127,7 +132,39 @@ public class EditPasswordActivity extends AppCompatActivity {
             Intent intent1 = new Intent(EditPasswordActivity.this, ShowPasswordsActivity.class);
             startActivity(intent1);
         });
+    }
 
+    /**
+     * Método para validar las entradas del usuario al registrar una nueva contraseña.
+     *
+     * @return true si las entradas son válidas, false si hay errores de validación.
+     */
+    private boolean validateInputNewPass() {
+        String url = Objects.requireNonNull(editTextUrl.getText()).toString();
+        String pass = Objects.requireNonNull(editTextPassword.getText()).toString();
+        String name = Objects.requireNonNull(editTextName.getText()).toString();
+
+        if (pass.isEmpty()) {
+            textInputLayoutPass.setError("Por favor, ingresa una contraseña");
+            textInputLayoutName.setError(null);
+            textInputLayoutUrl.setError(null);
+            return false;
+        } else if (name.isEmpty()) {
+            textInputLayoutName.setError("Por favor, ingresa un nombre");
+            textInputLayoutPass.setError(null);
+            textInputLayoutUrl.setError(null);
+            return false;
+        } else if (!url.isEmpty() && !url.matches("((https?://)?(www\\.)?[a-zA-Z0-9-]+(\\.[a-z]{2,})+(/\\S*)?)")) {
+            textInputLayoutUrl.setError("Por favor, ingresa una URL válida");
+            textInputLayoutName.setError(null);
+            textInputLayoutPass.setError(null);
+            return false;
+        } else {
+            textInputLayoutName.setError(null);
+            textInputLayoutUrl.setError(null);
+            textInputLayoutPass.setError(null);
+            return true;
+        }
     }
 
 }
