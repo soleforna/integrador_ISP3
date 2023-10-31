@@ -139,7 +139,7 @@
             // Valida las credenciales del usuario en la base de datos.
             if (dbManager.validateUser(password, email)) {
                 // Si las credenciales son válidas, se inicia la actividad de contraseñas.
-                Intent intent = new Intent(MainActivity.this, PasswordsActivity.class);
+                Intent intent = new Intent(MainActivity.this, ShowPasswordsActivity.class);
                 startActivity(intent);
 
                 // Cierra la conexión con la base de datos.
@@ -167,7 +167,7 @@
                             Log.i("TAG", "INGRESANDO POR BIOMETRIA");
                             super.onAuthenticationSucceeded(result);
                             // La autenticación biométrica fue exitosa
-                            startActivity(new Intent(MainActivity.this, PasswordsActivity.class));
+                            startActivity(new Intent(MainActivity.this, ShowPasswordsActivity.class));
                             Toast.makeText(MainActivity.this, "Autenticado con éxito", Toast.LENGTH_SHORT).show();
                             finish();
                         }

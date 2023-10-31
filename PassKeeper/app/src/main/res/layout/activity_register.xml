@@ -55,7 +55,7 @@
 
         <!--   Input iniciar sesión  -->
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/switch1"
             android:layout_width="283dp"
             android:layout_height="48dp"
@@ -66,14 +66,14 @@
             android:buttonTint="#6A6B71"
             android:checked="true"
             android:showText="false"
-            android:text="Usa tu Huella"
+            android:text="@string/fingerprint"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#A1887F"
             android:textIsSelectable="false"
-            android:textOff="OFF"
-            android:textOn="ON"
+            android:textOff="@string/off"
+            android:textOn="@string/on"
             android:textStyle="bold|italic"
             android:thumbTint="@color/blue"
             android:visibility="visible"
@@ -246,10 +246,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="110dp"
             android:layout_marginTop="470dp"
-            android:text="Ya tiene una cuenta?"
+            android:contentDescription="@string/link_login"
+            android:text="@string/login"
             android:textColor="@color/blue"
             android:textSize="16sp"
-            android:contentDescription="Toque aquí para registrarse si ya tiene una cuenta"
             app:layout_constraintBottom_toTopOf="@+id/materialButtonLogin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.72"

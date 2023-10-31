@@ -1,10 +1,9 @@
 package com.rocketteam.passkeeper.util;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
-
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ShowAlertsUtility {
 
@@ -56,19 +55,4 @@ public class ShowAlertsUtility {
         }
     }
 
-
-    /*public static void mostrarSweetAlert(Context context, int tipo, String titulo, String mensaje) {
-
-
-        SweetAlertDialog sweetAlertDialog = new SweetAlertDialog(context, tipo);
-        // Establece el título del diálogo.
-        sweetAlertDialog.setTitleText(titulo);
-        // Establece el mensaje del diálogo.
-        sweetAlertDialog.setContentText(mensaje);
-        // Establece el texto del botón de confirmación como "Aceptar".
-        sweetAlertDialog.setConfirmText("Aceptar");
-        // Establece un escuchador para el botón de confirmación.
-        sweetAlertDialog.setConfirmClickListener(SweetAlertDialog::dismissWithAnimation);
-        sweetAlertDialog.show();
-    }*/
 }

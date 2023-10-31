@@ -7,10 +7,10 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,7 +36,8 @@ public class RegisterUserActivity extends AppCompatActivity {
     private TextInputLayout textInputLayoutEmail;
     private TextInputLayout textInputLayoutPwd;
     private TextInputLayout textInputLayoutPwd2;
-    private Switch switchBiometric;
+
+    private SwitchCompat switchBiometric;
     private boolean biometricEnabled;
     private boolean userWhitBiometrics;
 
@@ -47,13 +48,13 @@ public class RegisterUserActivity extends AppCompatActivity {
 
         // Verificar si la autenticación biométrica está habilitada en este dispositivo
         biometricEnabled = BiometricUtils.isBiometricPromptEnabled(this);
-        Log.i("TAG", "la biometria esta: "+biometricEnabled);
+        Log.i("TAG", "la biometria esta: " + biometricEnabled);
         switchBiometric = findViewById(R.id.switch1);
 
         // Inicialización de las variables
         dbManager = new DbManager(getApplicationContext());
         userWhitBiometrics = dbManager.userWhitBiometrics();
-        Log.i("TAG", "Existe usuario con biometria habilitada: "+userWhitBiometrics);
+        Log.i("TAG", "Existe usuario con biometria habilitada: " + userWhitBiometrics);
         editTextEmail = findViewById(R.id.editTextUsernameReg);
         editTextPassword = findViewById(R.id.editPasswordReg);
         editTextPassword2 = findViewById(R.id.editPasswordReg2);
@@ -87,13 +88,14 @@ public class RegisterUserActivity extends AppCompatActivity {
         Button btnRegistrar = findViewById(R.id.btnRegistrar);
         btnRegistrar.setOnClickListener(v -> {
             if (validateInput()) {
-                registrarUsuario();
+                registerUser();
             }
         });
     }
 
     /**
      * Método para validar las entradas del usuario.
+     *
      * @return true si las entradas son válidas, false si hay errores de validación.
      */
     private boolean validateInput() {
@@ -102,7 +104,7 @@ public class RegisterUserActivity extends AppCompatActivity {
         String password2 = Objects.requireNonNull(editTextPassword2.getText()).toString();
 
         //si no hay biometria ó hay un usuario ya utilizando la biometria pone el switch en false
-        if(!biometricEnabled || userWhitBiometrics){
+        if (!biometricEnabled || userWhitBiometrics) {
             switchBiometric.setChecked(false);
         }
         // Validación del correo electrónico
@@ -136,37 +138,37 @@ public class RegisterUserActivity extends AppCompatActivity {
     /**
      * Método para registrar al usuario en la base de datos.
      */
-    private void registrarUsuario() {
+    private void registerUser() {
         String MSGERROR = "Error al registrar el usuario";
         try {
             dbManager.open();
             UserCredentials user = new UserCredentials(Objects.requireNonNull(editTextEmail.getText()).toString(), Objects.requireNonNull(editTextPassword.getText()).toString());
 
-            if (dbManager.userRegister(user,switchBiometric.isChecked() ? 1:0)){
+            if (dbManager.userRegister(user, switchBiometric.isChecked() ? 1 : 0)) {
                 ShowAlertsUtility.mostrarSweetAlert(this, 2, "Registro exitoso", "El usuario ha sido registrado correctamente", sweetAlertDialog -> {
                     sweetAlertDialog.dismissWithAnimation();
                     // Redirigir al usuario a la página de inicio de sesión
                     Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
                     startActivity(intent);
                 });
-            }else {
+            } else {
                 // Mostrar un SweetAlertDialog para el error de registro
                 ShowAlertsUtility.mostrarSweetAlert(this, 1, "Error en el registro", "El email " + user.getEmail() + " ya se encuentra registrado", null);
             }
         } catch (SQLiteException e) {
             // Mostrar un SweetAlertDialog para errores de base de datos
-            ShowAlertsUtility.mostrarSweetAlert(this, 1, MSGERROR, "No se pudo registrar el usuario en la base de datos.", null );
+            ShowAlertsUtility.mostrarSweetAlert(this, 1, MSGERROR, "No se pudo registrar el usuario en la base de datos.", null);
             e.printStackTrace();
         } catch (HashUtility.SaltException e) {
             // Mostrar un SweetAlertDialog para errores de generación de salt
-            ShowAlertsUtility.mostrarSweetAlert(this, 1, MSGERROR, "Error al generar el salt para la contraseña.", null );
+            ShowAlertsUtility.mostrarSweetAlert(this, 1, MSGERROR, "Error al generar el salt para la contraseña.", null);
         } catch (HashUtility.HashingException e) {
             // Mostrar un SweetAlertDialog para errores de hash
-            ShowAlertsUtility.mostrarSweetAlert(this, 1, MSGERROR, "Error al hashear la contraseña.", null );
+            ShowAlertsUtility.mostrarSweetAlert(this, 1, MSGERROR, "Error al hashear la contraseña.", null);
         } catch (Exception e) {
             // Mostrar un SweetAlertDialog para errores inesperados
             e.printStackTrace();
-            ShowAlertsUtility.mostrarSweetAlert(this, 1, "Error", "Ocurrió un error inesperado.", null );
+            ShowAlertsUtility.mostrarSweetAlert(this, 1, "Error", "Ocurrió un error inesperado.", null);
         } finally {
             dbManager.close();
         }

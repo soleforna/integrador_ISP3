@@ -17,7 +17,7 @@ import com.rocketteam.passkeeper.data.model.response.PasswordResponse;
 
 import java.util.Objects;
 
-public class EditarPassword extends AppCompatActivity {
+public class EditPasswordActivity extends AppCompatActivity {
 
     Button btnPrev;
     Button btnGuardar;
@@ -52,7 +52,7 @@ public class EditarPassword extends AppCompatActivity {
         Log.i("TAG", "Valor de columnIndexId: " + columnIndexId);
 
         //Se instancia dbmanager para acceder a su lógica
-        dbManager = new DbManager(EditarPassword.this);
+        dbManager = new DbManager(EditPasswordActivity.this);
 
         //inicializo las variables
         editTextName = findViewById(R.id.editTextName);
@@ -76,7 +76,7 @@ public class EditarPassword extends AppCompatActivity {
                 editTextDescripcion.setText(updatedPasswordDetails.getDescription());
             } else {
                 // Muestra un mensaje de error si la actualización falla
-                Toast.makeText(EditarPassword.this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditPasswordActivity.this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show();
             }
         }catch (Exception e){
             Log.e("TAG", "ERROR: "+e.getMessage());
@@ -98,19 +98,19 @@ public class EditarPassword extends AppCompatActivity {
 
                try {
                    int userId = sharedPreferences.getInt("userId", -1);
-                   Log.i("TAG", "El usuario en EditarPassword es: "+userId);
+                   Log.i("TAG", "El usuario en EditPasswordActivity es: "+userId);
 
                    // Obtiene los detalles de la contraseña actual
                    pwd = new PasswordCredentials(newUser,newUrl,newPassword,newDescription,newName, userId);
 
                    if (dbManager.updatePassword(columnIndexId,pwd, userId)) {
                        // Añade un mensaje de confirmación
-                       startActivity(new Intent(EditarPassword.this, PasswordsActivity.class));
-                       Toast.makeText(EditarPassword.this, "Modificado con éxito", Toast.LENGTH_SHORT).show();
+                       startActivity(new Intent(EditPasswordActivity.this, ShowPasswordsActivity.class));
+                       Toast.makeText(EditPasswordActivity.this, "Modificado con éxito", Toast.LENGTH_SHORT).show();
                        finish();
                    } else {
                        // Mensaje de error si no se encuentra la contraseña
-                       Toast.makeText(EditarPassword.this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(EditPasswordActivity.this, "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show();
                    }
                }catch (Exception e){
                    Log.e("TAG", "ERROR: "+ e.getMessage());
@@ -123,8 +123,8 @@ public class EditarPassword extends AppCompatActivity {
         //-------------------------------- Regresa a la activity PasswordActivity--------------------------------------
         btnPrev = findViewById(R.id.boton_atras);
         btnPrev.setOnClickListener(view -> {
-            // Cierra la base de datos y vuelve a la actividad PasswordsActivity
-            Intent intent1 = new Intent(EditarPassword.this, PasswordsActivity.class);
+            // Cierra la base de datos y vuelve a la actividad ShowPasswordsActivity
+            Intent intent1 = new Intent(EditPasswordActivity.this, ShowPasswordsActivity.class);
             startActivity(intent1);
         });
 

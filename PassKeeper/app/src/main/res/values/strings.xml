@@ -2,18 +2,22 @@
     <string name="app_name">PassKeeper</string>
     <string name="log_in">Iniciar Sesión</string>
     <string name="button">Iniciar Sesión</string>
+    <string name="atras">Volver</string>
     <string name="register">Registrarse</string>
     <string name="correo">Correo</string>
     <string name="password">Contraseña</string>
     <string name="password2">Repetir Contraseña</string>
 
     <!--Guardar Contraseña-->
-    <string name="guardar_password">Guardar Contraseña</string>
+    <string name="guardar_password">Nueva Contraseña</string>
     <string name="nombre">Nombre</string>
     <string name="usuario">Usuario</string>
-    <string name="url">Url</string>
+    <string name="fingerprint">Usa tu Huella</string>
+    <string name="url">URL</string>
     <string name="descripcion">Descripción</string>
     <string name="boton_guardar">Guardar</string>
+    <string name="login">¿Ya tiene una cuenta?</string>
+    <string name="link_login">Toque aquí para registrarse si ya tiene una cuenta</string>
 
 
     <!-- Usados exclusivamente en el registro -->
@@ -35,18 +39,19 @@
     <string name="nombre_sitio">Sitio Web</string>
     <string name="usuario_nombre">Usuario</string>
     <string name="password_sitio">Contraseña</string>
-    <string name="url_sitio">www.misitio.com</string>
+    <string name="url_sitio">URL</string>
     <string name="descripcion_pass">Descripción</string>
     <!--<string name="last_date"> 28/09/2023</string>-->
   
-       <!--Menu Popup-->
+    <!--Menu Popup-->
     <string name="op1">About</string>
     <string name="op2">Cerrar Sesión</string>
 
     <!--Splash-->
     <string name="autenticación">Autenticación</string>
-
-
+    <string name="regresar_a_la_pantalla_anterior">Regresar a la pantalla anterior</string>
+    <string name="off">OFF</string>
+    <string name="on">ON</string>
 
 
 </resources>
