@@ -52,6 +52,15 @@
     <string name="regresar_a_la_pantalla_anterior">Regresar a la pantalla anterior</string>
     <string name="off">OFF</string>
     <string name="on">ON</string>
+    <string name="buscar">Buscar</string>
+    <string name="signo_de_exclamaci_n_que_indica_que_no_tiene_nunguna_contrasela_generada">Signo de exclamación que indica que no tiene nunguna contrasela generada</string>
+    <string name="acceder_a_submen_con_opciones_de_cerrar_sesi_n_e_ir_a_about_us">Acceder a submenú con opciones de cerrar sesión e ir a About us</string>
+    <string name="agregar_nueva_contrase_a">Agregar nueva contraseña</string>
+    <string name="desplazamiento_vertical_de_contrase_as">Desplazamiento vertical de contraseñas</string>
+    <string name="buscar_por_nombre">Buscar por nombre</string>
+    <string name="toqui_aqui_para_agregar_una_nueva_contrase_a">Toqui aqui para agregar una nueva contraseña</string>
+    <string name="agregar">+ Agregar</string>
+    <string name="todo">Scroll</string>
 
 
 </resources>
