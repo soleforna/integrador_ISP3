@@ -35,7 +35,7 @@ public class InputTextWatcher implements TextWatcher {
         // Realiza acciones según el texto cambiado
         String input = s.toString().trim();
         if (input.isEmpty()) {
-            textInputLayout.setError("Campo obligatorio");
+            textInputLayout.setError("Ingrese una opción válida.");
         } else {
             textInputLayout.setError(null); // Borra el mensaje de error si el campo no está vacío
         }
