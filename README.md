@@ -24,22 +24,29 @@
 
 #
 
-El sistema PassKeeper será una herramienta orientada a la creación, almacenamiento y gestión de contraseñas seguras. 
-La aplicación proporcionará una interfaz intuitiva y amigable que le permitirá a los usuarios almacenar, organizar y acceder a sus credenciales de inicio de sesión de manera conveniente. 
+# Descripción del Sistema
+
+El sistema PassKeeper es una herramienta diseñada para la creación, almacenamiento y gestión de contraseñas seguras. Esta aplicación proporciona a los usuarios una interfaz intuitiva y amigable que les permite almacenar, organizar y acceder de manera conveniente a sus credenciales de inicio de sesión.
+
+# Tecnologías Utilizadas
+
+La aplicación móvil PassKeeper se desarrolló utilizando las siguientes tecnologías:
+
+- Lenguaje de programación principal: Java
+- Entorno de desarrollo integrado (IDE): Android Studio
+- Base de datos: SQLite
+
+Además, hemos implementado técnicas criptográficas para generar "salt," hashear contraseñas, cifrar y descifrar datos, y generar contraseñas seguras. Estas medidas son esenciales en aplicaciones que manejan información sensible, como contraseñas y datos privados. También hemos incorporado la opción de inicio de sesión mediante biometría de huella digital en dispositivos que admiten esta funcionalidad.
 
 
-#
-### La aplicación móvil PassKeper fue desarrollada utilizando las siguientes tecnologías:
-* Lenguaje de programación principal de soporte: Java
-* Entorno de desarrollo integrado (IDE): Android Studio
-* Base de datos: SQLite
+<p align="center">
+  <img src="https://github.com/soleforna/integrador_ISP3/assets/85143329/4bfbeb8c-d269-45f5-9508-65e377cae729" style="width: 100">
+  <img src="https://github.com/soleforna/integrador_ISP3/assets/85143329/78bbda29-e4ea-4049-a935-deef5c27b772" style="width: 150">
+</p>
 
-Hicimos uso de técnicas criptográficas para generar "salt", hashear contraseñas, cifrar y descifrar datos, y generar contraseñas seguras, lo que es esencial en aplicaciones que manejan información sensible como contraseñas y datos privados.
+---
 
-
-
-#
- 
+Este README proporciona una visión general del sistema PassKeeper y las tecnologías utilizadas en su desarrollo. Si desea obtener más detalles sobre cómo utilizar la aplicación o contribuir al proyecto, consulte la documentación correspondiente en el repositorio.
 
 
 
