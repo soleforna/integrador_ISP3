@@ -17,4 +17,6 @@
     <color name="my_accent_color">#FF5722</color>
     //error color
     <color name="errorColor">#F6A7A1</color>
+    //Color verde boton agregar
+    <color name="green_accessibility">#578200</color>
 </resources>
