@@ -1,6 +1,5 @@
 package com.rocketteam.passkeeper;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.SQLException;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -96,7 +96,7 @@ public class ShowPasswordsActivity extends AppCompatActivity {
             // La clave "userId" no existe
             Log.e("ShowPasswordsActivity", "La clave 'userId' no existe");
         }
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) FloatingActionButton fabAgregar = findViewById(R.id.btn_agregar);
+        MaterialButton fabAgregar = findViewById(R.id.btn_agregar);
 
         fabAgregar.setOnClickListener(view -> {
             Intent intent = new Intent(ShowPasswordsActivity.this, RegisterPasswordActivity.class);
