@@ -20,6 +20,7 @@
 * [Leonel Ezequiel Casi](https://github.com/leocas1)
 * [Valeriya Lysikova](https://github.com/vlysi)
 * [Adrian Edgardo Camus](https://github.com/acamus79)
+* [Lautaro Palacio](https://github.com/Pala797)
 
 
 #
