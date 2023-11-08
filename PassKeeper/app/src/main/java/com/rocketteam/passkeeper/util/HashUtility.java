@@ -138,7 +138,6 @@ public class HashUtility {
             int randomIndex = random.nextInt(charset.length());
             password.append(charset.charAt(randomIndex));
         }
-
         return password.toString();
     }
 }

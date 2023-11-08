@@ -150,6 +150,7 @@ public class RegisterUserActivity extends AppCompatActivity {
                     // Redirigir al usuario a la página de inicio de sesión
                     Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 });
             } else {
                 // Mostrar un SweetAlertDialog para el error de registro
@@ -172,6 +173,21 @@ public class RegisterUserActivity extends AppCompatActivity {
         } finally {
             dbManager.close();
         }
+    }
+
+    /**
+     * Método llamado cuando se presiona el botón de retroceso del dispositivo.
+     * Este método reemplaza el comportamiento predeterminado del botón de retroceso,
+     * redirigiendo al usuario desde la actividad actual ({@code RegisterUserActivity})
+     * a la actividad principal ({@code MainActivity}) de la aplicación.
+     * Una vez que la redirección se ha completado, la actividad actual es finalizada
+     * y eliminada de la pila de actividades para mantener una estructura de navegación coherente.
+     */
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }

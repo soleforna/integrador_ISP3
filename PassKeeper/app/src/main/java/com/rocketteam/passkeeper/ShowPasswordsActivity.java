@@ -83,7 +83,6 @@ public class ShowPasswordsActivity extends AppCompatActivity {
             int userId = sharedPreferences.getInt("userId", -1);
             Log.i("TAG", "Mostrando las contraseñas del usuario Id: " + userId);
             passwords = dbManager.getPasswordsListForUserId(userId);
-
             if (passwords.size() > 0) {
                 Log.i("TAG", "La lista tiene: " + passwords.size());
             } else {
@@ -101,6 +100,7 @@ public class ShowPasswordsActivity extends AppCompatActivity {
         fabAgregar.setOnClickListener(view -> {
             Intent intent = new Intent(ShowPasswordsActivity.this, RegisterPasswordActivity.class);
             startActivity(intent);
+            finish();
         });
         imageView = findViewById(R.id.menu_view);
         imageView.setOnClickListener(view -> {
@@ -114,9 +114,7 @@ public class ShowPasswordsActivity extends AppCompatActivity {
                     startActivity(intent1);
                     return true;
                 } else if (itemId == R.id.option_2) {
-                    // Abre la actividad MainActivity (
-                    Intent intent2 = new Intent(ShowPasswordsActivity.this, MainActivity.class);
-                    startActivity(intent2);
+                    this.onBackPressed();
                     return true;
                 } else {
                     return false;
@@ -197,6 +195,7 @@ public class ShowPasswordsActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dbManager.close(); // Cierra la base de datos al destruir la actividad.
+        finish();
     }
 
     private void assignButtons(int id, int userId) {
@@ -213,6 +212,7 @@ public class ShowPasswordsActivity extends AppCompatActivity {
             intent.putExtra("userId", userId);
             // Inicia la actividad ViewPassActivity
             startActivity(intent);
+            finish();
         });
 
         // onclick del el editar
@@ -225,7 +225,7 @@ public class ShowPasswordsActivity extends AppCompatActivity {
             intent.putExtra("userId", userId);
             // Inicia la actividad ViewPassActivity
             startActivity(intent);
-
+            finish();
         });
 
         // Onclick Borrar
@@ -272,6 +272,21 @@ public class ShowPasswordsActivity extends AppCompatActivity {
             }
         }
         return filterpass;
+    }
+
+    /**
+     * Método llamado cuando se presiona el botón de retroceso del dispositivo.
+     * Este método reemplaza el comportamiento predeterminado del botón de retroceso,
+     * redirigiendo al usuario desde la actividad actual ({@code ShowPasswordsActivity})
+     * a la actividad principal ({@code MainActivity}) de la aplicación.
+     * Una vez que la redirección se ha completado, la actividad actual es finalizada
+     * y eliminada de la pila de actividades para mantener una estructura de navegación coherente.
+     */
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ShowPasswordsActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
