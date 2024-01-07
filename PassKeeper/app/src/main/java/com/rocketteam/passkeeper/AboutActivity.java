@@ -22,6 +22,7 @@ public class AboutActivity extends AppCompatActivity {
             // Navegar de vuelta al Passwords
             Intent intent = new Intent(AboutActivity.this, ShowPasswordsActivity.class);
             startActivity(intent);
+            finish();
         });
     }
 

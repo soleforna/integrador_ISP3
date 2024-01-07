@@ -96,9 +96,16 @@
             linkRegister.setOnClickListener(view -> {
                 Intent intent = new Intent(MainActivity.this, RegisterUserActivity.class);
                 startActivity(intent);
+                finish();
             });
         }
-    
+
+        /**
+         * Método privado que valida la entrada del usuario en los campos de correo electrónico y contraseña.
+         * Realiza la validación de formato y presencia para el correo electrónico y la contraseña ingresados.
+         *
+         * @return {@code true} si la entrada del usuario es válida, {@code false} si hay errores de validación.
+         */
         private boolean validateInput() {
             String email = Objects.requireNonNull(editTextEmail.getText()).toString().trim();
             String password = Objects.requireNonNull(editTextPassword.getText()).toString().trim();
@@ -117,9 +124,7 @@
                 textInputLayoutPwd.setError("La contraseña es necesaria");
                 return false;
             }
-
             return !email.isEmpty() && email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
-
         }
 
         /**
@@ -141,9 +146,9 @@
                 // Si las credenciales son válidas, se inicia la actividad de contraseñas.
                 Intent intent = new Intent(MainActivity.this, ShowPasswordsActivity.class);
                 startActivity(intent);
-
                 // Cierra la conexión con la base de datos.
                 dbManager.close();
+                finish();
             } else {
                 // Si las credenciales son inválidas, muestra un mensaje de error.
                 String TITLE = "Credenciales inválidas";
@@ -157,6 +162,13 @@
 
         }
 
+        /**
+         * Método privado que muestra un diálogo de autenticación biométrica utilizando la clase {@link BiometricUtils}.
+         * Si la autenticación biométrica tiene éxito y el usuario tiene configuradas credenciales biométricas,
+         * redirige al usuario desde la actividad actual ({@code MainActivity}) a la actividad de mostrar contraseñas
+         * ({@code ShowPasswordsActivity}). La actividad actual se finaliza después de la redirección para mantener
+         * una estructura de navegación coherente en la aplicación.
+         */
         private void BiometricAuth() {
             BiometricUtils.showBiometricPrompt(MainActivity.this, new BiometricPrompt.AuthenticationCallback() {
                 @Override
@@ -177,6 +189,5 @@
                 }
             });
         }
-
 
     }

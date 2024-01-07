@@ -102,4 +102,19 @@ public class ViewPassActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Método llamado cuando se presiona el botón de retroceso del dispositivo.
+     * Este método reemplaza el comportamiento predeterminado del botón de retroceso,
+     * redirigiendo al usuario desde la actividad actual ({@code ViewPassActivity})
+     * a la actividad ({@code ShowPasswordsActivity}) de la aplicación.
+     * Una vez que la redirección se ha completado, la actividad actual es finalizada
+     * y eliminada de la pila de actividades para mantener una estructura de navegación coherente.
+     */
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ViewPassActivity.this, ShowPasswordsActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

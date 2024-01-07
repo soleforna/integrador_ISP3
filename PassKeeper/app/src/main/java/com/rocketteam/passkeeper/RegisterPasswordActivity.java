@@ -165,4 +165,19 @@ public class RegisterPasswordActivity extends AppCompatActivity {
             dbManager.close();
         }
     }
+
+    /**
+     * Método llamado cuando se presiona el botón de retroceso del dispositivo.
+     * Este método reemplaza el comportamiento predeterminado del botón de retroceso,
+     * redirigiendo al usuario desde la actividad actual ({@code RegisterPasswordActivity})
+     * a la actividad principal ({@code ShowPasswordsActivity}) de la aplicación.
+     * Una vez que la redirección se ha completado, la actividad actual es finalizada
+     * y eliminada de la pila de actividades para mantener una estructura de navegación coherente.
+     */
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RegisterPasswordActivity.this, ShowPasswordsActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
