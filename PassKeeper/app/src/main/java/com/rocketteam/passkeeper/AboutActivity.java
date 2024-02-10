@@ -12,7 +12,7 @@ public class AboutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activuty_about);
+        setContentView(R.layout.activity_about);
 //-------------------------------- Regresa la activity PasswordActivity--------------------------------------
         // Configuración del boton que vuelve a home.
         MaterialButton btn_about = findViewById(R.id.btn_about);
